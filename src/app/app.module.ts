@@ -3,10 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { Login } from '../pages/login/login';
+import { Register } from '../pages/register/register';
+import { NewEvent } from '../pages/new-event/new-event';
+import { ListView } from '../pages/list-view/list-view';
+import { MapView } from '../pages/map-view/map-view';
+import { Profile } from '../pages/profile/profile';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,10 +17,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    TabsPage,
+    Login,
+    Register,
+    NewEvent,
+    ListView,
+    MapView,
+    Profile
   ],
   imports: [
     BrowserModule,
@@ -26,10 +32,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    TabsPage,
+    Login,
+    Register,
+    NewEvent,
+    ListView,
+    MapView,
+    Profile
   ],
   providers: [
     StatusBar,

@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
 
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
+import { NewEvent } from '../new-event/new-event';
+import { ListView } from '../list-view/list-view';
+import { MapView } from '../map-view/map-view';
+import { Profile } from '../profile/profile';
+import { Login } from '../login/login';
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  newEvent = NewEvent;
+  listView = ListView;
+  mapView = MapView;
+  profile = Profile;
+  login = Login;
 
   constructor() {
 
