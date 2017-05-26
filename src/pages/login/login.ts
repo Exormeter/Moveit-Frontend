@@ -29,26 +29,55 @@ export class Login {
   posts: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
-        this.data = {};
-        this.data.username = 'admin';
-        this.data.password = '123456';
-        this.data.response = '';
-        this.http = http;
+    this.data = {};
+    this.data.username = 'admin';
+    this.data.password = '123456';
+    this.data.response = '';
+    this.http = http;
   }
 
   login() {
-        var link = 'https://moveit-backend.herokuapp.com/login';
-        var data = JSON.stringify({username: this.data.username, password: this.data.password});
-        
-        this.http.post(link, data)
-        .subscribe(data => {
-        this.data.response = data["_body"];
-        }, error => {
-            console.log("Oooops!");
-        });
+    var link = 'https://moveit-backend.herokuapp.com/login';
+    var data = { username: this.loginVars.username, password: this.loginVars.password };
 
-    //this.navCtrl.setRoot(TabsPage);
+    this.http.post(link, data)
+      .subscribe(data => {
+        this.data.response = data["_body"];
+      }, error => {
+        console.log("Oooops!");
+      });
+
+    if (this.data.response.indexOf('erfolgreich') >= 0) {
+      this.navCtrl.setRoot(TabsPage);
+    } else if (this.data.response.indexOf('fehlgeschlagen') >= 0) {
+
+    }
+
   }
+
+  /*
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+          this.data = {};
+          this.data.username = 'admin';
+          this.data.password = '123456';
+          this.data.response = '';
+          this.http = http;
+    }
+  
+    login() {
+          var link = 'https://moveit-backend.herokuapp.com/login';
+          var data = JSON.stringify({username: this.data.username, password: this.data.password});
+          
+          this.http.post(link, data)
+          .subscribe(data => {
+          this.data.response = data["_body"];
+          }, error => {
+              console.log("Oooops!");
+          });
+  
+      //this.navCtrl.setRoot(TabsPage);
+    }
+    */
 
   register() {
     this.navCtrl.push(Register);
