@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Http } from '@angular/http';
+import { Page } from 'ionic/ionic';
 
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
@@ -17,16 +19,35 @@ import { Register } from '../register/register';
 })
 export class Login {
 
+  data: any;
+
   loginVars = {
     username: '',
     password: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  posts: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+        this.data = {};
+        this.data.username = 'admin';
+        this.data.password = '123456';
+        this.data.response = '';
+        this.http = http;
   }
 
   login() {
-    this.navCtrl.setRoot(TabsPage);
+        var link = 'https://moveit-backend.herokuapp.com/login';
+        var data = JSON.stringify({username: this.data.username, password: this.data.password});
+        
+        this.http.post(link, data)
+        .subscribe(data => {
+        this.data.response = data["_body"];
+        }, error => {
+            console.log("Oooops!");
+        });
+
+    //this.navCtrl.setRoot(TabsPage);
   }
 
   register() {
