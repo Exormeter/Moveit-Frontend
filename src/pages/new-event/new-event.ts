@@ -14,6 +14,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NewEvent {
 
+  newEventVars = {
+    title: '',
+    place: '',
+    time: '',
+    event: '0'
+    // event -> Indikator über den Status für den richtigen Screen
+    // event = '0'; kein Event Teilnehmer = sieht Screen einen Move zu erstellen
+    // event = '1'; hat einen erstellt und sieht die Informationen dazu und kann löschen
+    // event = '2'; nimmt teil und sieht Informationen dazu (ggf. abmelden?)
+  };
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -21,4 +32,17 @@ export class NewEvent {
     console.log('ionViewDidLoad NewEvent');
   }
 
+  selectStartOnMap() {
+
+  }
+
+  createMove() {
+
+  }
+
+  resetInputs() {
+    this.newEventVars.title = '';
+    this.newEventVars.place = '';
+    this.newEventVars.time = '';
+  }
 }

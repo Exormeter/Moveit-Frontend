@@ -1,18 +1,94 @@
 <ion-header>
+
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Neuer Move!</ion-title>
   </ion-navbar>
+
+  <ion-item>
+      <ion-label>Move Name: </ion-label>
+    <ion-input type="text" [(ngModel)]="newEventVars.title" placeholder="Titel eingeben..."></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
+
+  <ion-item>
+      <ion-label>Startet in (minuten): </ion-label>
+    <ion-input type="number" [(ngModel)]="newEventVars.time" placeholder="Minuten eingeben..."></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
+  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
+
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
-  <ion-icon name="logo-playstation"></ion-icon>
 </ion-content>
+
+<!--
+<ion-header ng-if="newEventVars.pMove = 0" >
+  <ion-navbar>
+    <ion-title>Neuer Move!</ion-title>
+  </ion-navbar>
+
+  <ion-item>
+      <ion-label>Move Name: </ion-label>
+    <ion-input type="text" [(ngModel)]="newEventVars.title" placeholder="Titel eingeben..."></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
+
+  <ion-item>
+      <ion-label>Startet in (minuten): </ion-label>
+    <ion-input type="number" [(ngModel)]="newEventVars.time" placeholder="Minuten eingeben..."></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
+  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
+
+</ion-header>
+
+<ion-header ng-if="newEventVars.pMove = 1" >
+  <ion-navbar>
+    <ion-title>newEventVars.title</ion-title>
+  </ion-navbar>
+
+  <ion-item>
+      <ion-label>Move Name: newEventVars.title</ion-label>
+  </ion-item>
+
+  <ion-item>
+      <ion-label>Startpunkt: newEventVars.place</ion-label>
+  </ion-item>
+
+  <ion-item>
+      <ion-label>Startet in (minuten): </ion-label>
+  </ion-item>
+
+  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
+
+</ion-header>
+
+<ion-header ng-if="newEventVars.pMove = 2" >
+  <ion-navbar>
+    <ion-title>Neuer Move!</ion-title>
+  </ion-navbar>
+
+  <ion-item>
+      <ion-label>Move Name: </ion-label>
+    <ion-input type="text" [(ngModel)]="newEventVars.title" placeholder="Titel eingeben..."></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
+
+  <ion-item>
+      <ion-label>Startet in (minuten): </ion-label>
+    <ion-input type="number" [(ngModel)]="newEventVars.time" placeholder="Minuten eingeben..."></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
+  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
+
+</ion-header>
+<ion-content padding>
+</ion-content>
+-->
