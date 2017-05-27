@@ -54,7 +54,7 @@ export class Login {
     });
     */
 
-    this.http.post(link, {username: this.loginVars.username, password: this.loginVars.password})
+    this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
       .map(response => response.json())
       .subscribe(response => {
         if (response.message === 'Login erfolgreich') {
