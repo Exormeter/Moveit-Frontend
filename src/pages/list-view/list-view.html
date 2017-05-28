@@ -14,5 +14,16 @@
 
 
 <ion-content padding>
-
+<ion-label>Meine Events</ion-label>
+<ion-list>
+  <button ion-item *ngFor="let item of items1" (click)="itemSelected(item)">
+    {{ item }}
+  </button>  
+</ion-list>
+<ion-label>Events Teilnahme</ion-label>
+<ion-list>
+  <button ion-item *ngFor="let item of items2" (click)="itemSelected(item)">
+    {{ item }}
+  </button>  
+</ion-list>
 </ion-content>
