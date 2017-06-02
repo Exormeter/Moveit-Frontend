@@ -59,8 +59,9 @@ export class NewEvent {
     //var data = { username: this.loginVars.username, password: this.loginVars.password };
 
     this.http.get(link, { withCredentials: true })
-      .subscribe(data => {
-        this.data.response = data["_body"];
+      .map(response => response.json())
+      .subscribe(response => {
+        console.log(response);
       }, error => {
         console.log("Oooops!");
       });
