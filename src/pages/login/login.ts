@@ -37,10 +37,11 @@ export class Login {
     this.http = http;
   }
 
-  presentAlert() {
+  presentAlert(message) {
     let alert = this.alertCtrl.create({
       title: 'Login fehlgeschlagen',
-      subTitle: 'Ungültiger Username oder Passwort.',
+      // subTitle: 'Ungültiger Username oder Passwort.',
+      subTitle: message,
       buttons: ['Okay']
     });
     alert.present();
@@ -52,10 +53,10 @@ export class Login {
     this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
       .map(response => response.json())
       .subscribe(response => {
-        if (response.message === 'Login erfolgreich') {
+        if (response.message === 'User Login succesful') {
           this.navCtrl.setRoot(TabsPage);
-        } else if (response.message === 'Login fehlgeschlagen') {
-          this.presentAlert();
+        } else {
+          this.presentAlert(response.message);
         }
       }, error => {
         console.log("Oooops!");
