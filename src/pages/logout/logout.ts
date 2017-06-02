@@ -27,10 +27,14 @@ export class Logout {
     this.http.get('https://moveit-backend.herokuapp.com/logout', { withCredentials: true })
       .map(response => response.json())
       .subscribe(response => {
-        this.message = response;
+        //this.message = response;
+        if (response.message === 'Logout erfolgreich') {
+          this.appCtrl.getRootNav().setRoot(Login);
+        }
       }, error => {
         console.log("Oooops!");
       });
-    // this.appCtrl.getRootNav().setRoot(Login);
+
+    this.appCtrl.getRootNav().setRoot(Login);
   }
 }

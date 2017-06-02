@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Page } from 'ionic/ionic';
+import { AlertController } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
@@ -23,17 +24,27 @@ export class Login {
 
   loginVars = {
     username: '',
-    password: ''
+    password: '',
+    messsage: ''
   };
 
   posts: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public http: Http) {
     this.data = {};
     this.data.username = 'admin';
     this.data.password = '123456';
     this.data.response = '';
     this.http = http;
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Login fehlgeschlagen',
+      subTitle: 'Ungültiger Username oder Passwort.',
+      buttons: ['Okay']
+    });
+    alert.present();
   }
 
   login() {
@@ -59,15 +70,12 @@ export class Login {
       .subscribe(response => {
         if (response.message === 'Login erfolgreich') {
           this.navCtrl.setRoot(TabsPage);
-        } else {
-
+        } else if (response.message === 'Login fehlgeschlagen') {
+          this.presentAlert();
         }
       }, error => {
         console.log("Oooops!");
       });
-
-
-
   }
 
   /*
@@ -101,5 +109,4 @@ export class Login {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Login');
   }
-
 }
