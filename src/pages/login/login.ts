@@ -24,8 +24,7 @@ export class Login {
 
   loginVars = {
     username: '',
-    password: '',
-    messsage: ''
+    password: ''
   };
 
   posts: any;
@@ -50,21 +49,6 @@ export class Login {
   login() {
     var link = 'https://moveit-backend.herokuapp.com/login';
 
-    /*
-    var data = { username: this.loginVars.username, password: this.loginVars.password };
-
-    let headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-    let options = new RequestOptions({
-      headers: headers
-    });
-    let body = JSON.stringify({
-      username: this.loginVars.username,
-      password: this.loginVars.password
-    });
-    */
-
     this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
       .map(response => response.json())
       .subscribe(response => {
@@ -77,30 +61,6 @@ export class Login {
         console.log("Oooops!");
       });
   }
-
-  /*
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
-          this.data = {};
-          this.data.username = 'admin';
-          this.data.password = '123456';
-          this.data.response = '';
-          this.http = http;
-    }
-  
-    login() {
-          var link = 'https://moveit-backend.herokuapp.com/login';
-          var data = JSON.stringify({username: this.data.username, password: this.data.password});
-          
-          this.http.post(link, data)
-          .subscribe(data => {
-          this.data.response = data["_body"];
-          }, error => {
-              console.log("Oooops!");
-          });
-  
-      //this.navCtrl.setRoot(TabsPage);
-    }
-    */
 
   register() {
     this.navCtrl.push(Register);

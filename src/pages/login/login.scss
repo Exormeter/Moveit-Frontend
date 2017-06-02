@@ -1,18 +1,16 @@
 page-login {
+  ion-label {
+    text-align: center;
+    color: blue;
+  }
 
-}
-
-ion-label {
-  text-align: center;
-  color: blue;
-}
-
-img {
+  img {
     display: block;
     margin: 0 auto;
-}
+  }
 
-div {
-  text-align: center;
-  margin: auto;
+  div {
+    text-align: center;
+    margin: auto;
+  }
 }
