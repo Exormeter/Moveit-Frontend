@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Page } from 'ionic/ionic';
+import {EventCreateMap} from '../event-map-create/event-map-create';
+import {MapView} from '../map-view/map-view';
 import 'rxjs/add/operator/map';
 
 /**
@@ -44,7 +46,7 @@ export class NewEvent {
     }
   */
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public modelCrtl: ModalController) {
     this.data = {};
     this.data.username = 'admin';
     this.data.password = '123456';
@@ -69,7 +71,11 @@ export class NewEvent {
 
 
   selectStartOnMap() {
-
+    let mapView = this.modelCrtl.create(EventCreateMap);    
+    mapView.present();
+    mapView.onDidDismiss(function(data){
+      console.log(data);
+    });
   }
 
   createMove() {

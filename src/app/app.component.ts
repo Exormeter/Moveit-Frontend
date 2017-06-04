@@ -11,8 +11,8 @@ import { Profile } from '../pages/profile/profile';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  //public rootPage: any = TabsPage;
-  public rootPage: any = Login;
+  public rootPage: any = TabsPage;
+  //public rootPage: any = Login;
   //public rootPage: any = Profile;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
