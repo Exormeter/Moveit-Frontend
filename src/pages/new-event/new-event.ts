@@ -69,7 +69,6 @@ export class NewEvent {
       });
   }
 
-
   selectStartOnMap() {
     let mapView = this.modelCrtl.create(EventCreateMap);    
     mapView.present();

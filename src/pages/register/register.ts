@@ -14,6 +14,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Register {
 
+  registerVars = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    birthdate: '',
+    sex: '',
+    picture: '',  // noch unbenutzt, Bild wird nicht direkt bei Anmeldung gesetzt
+    username: '',
+    password: '',
+    passwordCheck: ''
+  };
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -21,4 +33,18 @@ export class Register {
     console.log('ionViewDidLoad Register');
   }
 
+  createAccount() {
+
+  }
+
+  resetInputs() {
+    this.registerVars.firstname = '',
+    this.registerVars.lastname = '',
+    this.registerVars.email = '',
+    this.registerVars.birthdate = '',
+    this.registerVars.sex = '',
+    this.registerVars.username = '',
+    this.registerVars.password = '',
+    this.registerVars.passwordCheck = ''
+  }
 }
