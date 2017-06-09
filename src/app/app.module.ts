@@ -12,6 +12,7 @@ import { ListView } from '../pages/list-view/list-view';
 import { MapView } from '../pages/map-view/map-view';
 import { Profile } from '../pages/profile/profile';
 import { Logout } from '../pages/logout/logout';
+import { EventCreateMap } from '../pages/event-map-create/event-map-create'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +27,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListView,
     MapView,
     Profile,
-    Logout
+    Logout, 
+    EventCreateMap
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListView,
     MapView,
     Profile,
-    Logout
+    Logout,
+    EventCreateMap
   ],
   providers: [
     StatusBar,
