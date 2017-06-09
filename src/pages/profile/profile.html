@@ -4,21 +4,20 @@
 <ion-content padding>
   <ion-navbar>
     <ion-title>
-      Profile
+      Profilübersicht
     </ion-title>
   </ion-navbar>
 
-  <br><br> 
+  <br><br>
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Profilbild hier<br> 
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Profilbild hier<br> 
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Profilbild hier<br> 
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Profilbild hier<br>
   <br><br>
 
-  <ion-item>
-    <ion-label (click)="changePicture()">Profilbild ändern</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
+  <img [(ngModel)]="profileVars.picture" />
+
+  <button ion-button (click)="changePicture()">Profilbild ändern</button>
 
   <ion-item>
     <ion-label>Username: </ion-label>
@@ -45,8 +44,6 @@
     <ion-input [(ngModel)]="profileVars.gender" clearInput="true"></ion-input>
   </ion-item>
 
-  <hr>
-
   <p class="header">E-Mail Adresse ändern:</p>
   <ion-item>
     <ion-label>Neue E-Mail Adresse</ion-label>
@@ -72,6 +69,6 @@
 
   <hr>
   <p class="header">Profil löschen</p>
-  <button ion-button (click)="deleteAccount()">Profil löschen</button>
+  <button ion-button color="danger" (click)="deleteAccount()">Profil löschen</button>
 
 </ion-content>

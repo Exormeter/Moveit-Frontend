@@ -16,18 +16,16 @@ export class Profile {
 
   profileVars = {
     picture: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Jumpman_logo.svg/1024px-Jumpman_logo.svg.png',
-    username: 'plainTextPlaceholder',
-    firstname: 'plainTextPlaceholder',
-    surname: 'plainTextPlaceholder',
-    email: 'plainTextPlaceholder',
-    age: 'plainTextPlaceholder',
-    gender: 'plainTextPlaceholder',
-    // emailfirst und emailsecond sind Variablen für die Abfrage der Email Änderung
-    emailfirst: '',
-    emailsecond: '',
-    // passwordfirst und passwordsecond sind Variablen für die Abfrage der Email Änderung
-    passwordfirst: '',
-    passwordseocond: ''
+    username: '',
+    firstname: '',
+    surname: '',
+    email: '',
+    age: '',
+    gender: '',
+    newEmail: '',
+    newEmailCheck: '',
+    newPassword: '',
+    newPasswordCheck: ''
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

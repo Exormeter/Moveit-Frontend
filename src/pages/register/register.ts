@@ -17,18 +17,18 @@ export class Register {
     firstname: '',
     lastname: '',
     email: '',
-    birthdate: '',
-    sex: '',
+    birthdate: '1990-01-01',
+    sex: 'male',
     picture: '',  // noch unbenutzt, Bild wird nicht direkt bei Anmeldung gesetzt
     username: '',
     password: '',
     passwordCheck: ''
   };
 
-  constructor(private alertCtrl: AlertController, 
-              public navCtrl: NavController, 
-              public navParams: NavParams, 
-              public http: Http) {
+  constructor(private alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public http: Http) {
   }
 
   ionViewDidLoad() {
@@ -56,6 +56,8 @@ export class Register {
           this.presentAlert('Fehlgeschlagen', 'Benutzername oder Passwort fehlt');
         } else if (response.message === 'User Already Exists') {
           this.presentAlert('Fehlgeschlagen', 'Benutzername bereits vergeben.');
+        } else {
+          this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
         }
       }, error => {
         console.log("Oooops!");
