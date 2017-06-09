@@ -48,21 +48,28 @@ export class Login {
   }
 
   login() {
-    var link = 'https://moveit-backend.herokuapp.com/login';
+    // Lokale Überprüfung der Eingaben bevor POST 
+    if (this.loginVars.username == '' || this.loginVars.password == '') {
+      this.presentAlert('Login fehlgeschlagen', 'Nicht alle Felder ausgefüllt');
+    } else {
 
-    this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
-      .map(response => response.json())
-      .subscribe(response => {
-        if (response.message === 'User Login succesful') {
-          this.navCtrl.setRoot(TabsPage);
-        } else if (response.message === 'User Not found') {
-          this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort.');
-        } else {
-          this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
-        }
-      }, error => {
-        console.log("Oooops!");
+      // POST ab hier
+      var link = 'https://moveit-backend.herokuapp.com/login';
+
+      this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
+        .map(response => response.json())
+        .subscribe(response => {
+          if (response.message === 'User Login succesful') {
+            this.navCtrl.setRoot(TabsPage);
+          } else if (response.message === 'User Not found') {
+            this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');
+          } else {
+            this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+          }
+        }, error => {
+          console.log("Oooops!");
       });
+    }
   }
 
   register() {
