@@ -22,27 +22,27 @@
 
   <ion-item>
     <ion-label>Username: </ion-label>
-    <ion-input [(ngModel)]="profileVars.username"></ion-input>
+    <ion-input [(ngModel)]="profileVars.username" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Vorname: </ion-label>
-    <ion-input [(ngModel)]="profileVars.firstname"></ion-input>
+    <ion-input [(ngModel)]="profileVars.firstname" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Nachname: </ion-label>
-    <ion-input [(ngModel)]="profileVars.surname"></ion-input>
+    <ion-input [(ngModel)]="profileVars.surname" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>E-Mail: </ion-label>
-    <ion-input [(ngModel)]="profileVars.email"></ion-input>
+    <ion-input [(ngModel)]="profileVars.email" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Alter: </ion-label>
-    <ion-input [(ngModel)]="profileVars.age"></ion-input>
+    <ion-input [(ngModel)]="profileVars.age" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Geschlecht: </ion-label>
-    <ion-input [(ngModel)]="profileVars.gender"></ion-input>
+    <ion-input [(ngModel)]="profileVars.gender" clearInput="true"></ion-input>
   </ion-item>
 
   <hr>
@@ -50,11 +50,11 @@
   <p class="header">E-Mail Adresse ändern:</p>
   <ion-item>
     <ion-label>Neue E-Mail Adresse</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.emailfirst" name="emailFirst"></ion-input>
+    <ion-input type="text" [(ngModel)]="profileVars.emailfirst" name="emailFirst" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>E-Mail bestätigen:</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.emailsecond" name="emailCheck"></ion-input>
+    <ion-input type="text" [(ngModel)]="profileVars.emailsecond" name="emailCheck" clearInput="true"></ion-input>
   </ion-item>
   <button ion-button (click)="changeEmail()">E-Mail ändern</button>
 
@@ -62,11 +62,11 @@
   <p class="header">Passwort ändern</p>
   <ion-item>
     <ion-label>Neues Passwort:</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.passwordfirst" name="passwordfirst"></ion-input>
+    <ion-input type="text" [(ngModel)]="profileVars.passwordfirst" name="passwordfirst" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Passwort bestätigen:</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.passwordsecond" name="passwordsecond"></ion-input>
+    <ion-input type="text" [(ngModel)]="profileVars.passwordsecond" name="passwordsecond" clearInput="true"></ion-input>
   </ion-item>
   <button ion-button (click)="changePassword()">Passwort ändern</button>
 

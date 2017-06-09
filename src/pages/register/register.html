@@ -18,32 +18,32 @@
   <p class="header">Registrieren</p>
 
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.firstname" placeholder="Vorname"></ion-input>
+    <ion-input type="text" [(ngModel)]="registerVars.firstname" placeholder="Vorname" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.lastname" placeholder="Nachname"></ion-input>
+    <ion-input type="text" [(ngModel)]="registerVars.lastname" placeholder="Nachname" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.email" placeholder="E-Mail Adresse"></ion-input>
+    <ion-input type="email" [(ngModel)]="registerVars.email" placeholder="E-Mail Adresse" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.birthdate" placeholder="Geburtstag"></ion-input>
+    <ion-input type="text" [(ngModel)]="registerVars.birthdate" placeholder="Geburtstag" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.sex" placeholder="Geschlecht"></ion-input>
+    <ion-input type="text" [(ngModel)]="registerVars.sex" placeholder="Geschlecht" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.username" placeholder="Username"></ion-input>
+    <ion-input type="text" [(ngModel)]="registerVars.username" placeholder="Username" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.password" placeholder="Passwort"></ion-input>
+    <ion-input type="password" [(ngModel)]="registerVars.password" placeholder="Passwort" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="text" [(ngModel)]="registerVars.passwordCheck" placeholder="Passwort wiederholen"></ion-input>
+    <ion-input type="password" [(ngModel)]="registerVars.passwordCheck" placeholder="Passwort wiederholen" clearInput="true"></ion-input>
   </ion-item>
 
   <button ion-button (click)="createAccount()">Erstellen!</button>
-  
+
   <ion-item>
     <ion-label (click)="resetInputs()">Eingaben zurücksetzen</ion-label>
   </ion-item>
