@@ -63,7 +63,7 @@ export class NewEvent {
     this.http.get(link, { withCredentials: true })
       .map(response => response.json())
       .subscribe(response => {
-        console.log(response);
+        //console.log(response);
       }, error => {
         console.log("Oooops!");
       });

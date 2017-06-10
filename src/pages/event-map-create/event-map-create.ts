@@ -31,6 +31,7 @@ export class EventCreateMap{
         let element: HTMLElement = document.getElementById('createMap');
 
         this.map = this.googleMaps.create(element);
+        this.map.clear();
  
         this.addDraggableMarker();
 
