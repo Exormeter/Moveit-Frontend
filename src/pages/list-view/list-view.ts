@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestService } from "../../services/restService";
 
 /**
  * Generated class for the ListView page.
@@ -18,13 +18,12 @@ export class ListView {
   items1: any;
   items2: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListView');
-    this.http.get('https://moveit-backend.herokuapp.com/myEvents', { withCredentials: true })
-      .map(response => response.json())
+    this.restService.getMyEvents()
       .subscribe(response => {
         var stringList = [];
         response.forEach(element => {
@@ -35,8 +34,7 @@ export class ListView {
         console.log("Oooops!");
       });
 
-    this.http.get('https://moveit-backend.herokuapp.com/myEventsSubscriber', { withCredentials: true })
-      .map(response => response.json())
+      this.restService.getMyEventSubscriber()
       .subscribe(response => {
         var stringList = [];
         response.forEach(element => {

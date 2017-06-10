@@ -1,3 +1,7 @@
+import { Injectable } from '@angular/core';
+
+
+@Injectable()
 export class MyEvent{
 
     private _id: string;

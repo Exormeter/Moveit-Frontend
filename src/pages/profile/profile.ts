@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Http } from '@angular/http';
+import { RestService } from '../../services/restService'
+
 
 /**
  * Generated class for the Profile page.
@@ -31,15 +32,14 @@ export class Profile {
     newPasswordCheck: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Profile');
 
-    var link = 'https://moveit-backend.herokuapp.com/user';
-
-    this.http.get(link).map(res => res.json()).subscribe(data => {
+    this.restService.getUser()
+    .subscribe(data => {
       this.posts = data.data.children;
     });
   }

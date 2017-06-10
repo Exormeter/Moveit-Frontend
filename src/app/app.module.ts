@@ -16,6 +16,7 @@ import { EventCreateMap } from '../pages/event-map-create/event-map-create'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { RestService } from "../services/restService";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    RestService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

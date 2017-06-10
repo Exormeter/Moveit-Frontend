@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Platform, NavParams, ViewController } from 'ionic-angular';
-import { Http } from '@angular/http';
+import { IonicPage, NavController, Platform, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { GoogleMap, GoogleMapsEvent, LatLng, MarkerOptions, Marker, CameraPosition, GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { MyEvent } from '../../models/event';
+import { RestService} from '../../services/restService';
 
 IonicPage()
 @Component({
@@ -16,12 +16,12 @@ export class MapView {
     geolocation: Geolocation = new Geolocation();
     googleMaps: GoogleMaps = new GoogleMaps();
     currentPos: LatLng;
-    restURL: string = 'https://moveit-backend.herokuapp.com/allEventsCircle';
     eventList: MyEvent[] = new Array();
     perimeter: number = 100;
     
     
-    constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public viewCtrl: ViewController, public http: Http) {
+    constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public viewCtrl: ViewController, 
+                public modalCtrl: ModalController, public restService: RestService) {
         console.log("Constructed");
     }
     
@@ -55,9 +55,7 @@ export class MapView {
 
     loadEvents(pos: LatLng){
       let mapView: MapView = this;
-      console.log('Events laden ' + this.restURL+'?lon='+pos.lng+'&lat='+pos.lat+'&dis='+this.perimeter);
-        this.http.get(this.restURL+'?lon='+pos.lng+'&lat='+pos.lat+'&dis='+this.perimeter, { withCredentials: true })
-      .map(response => response.json())
+      this.restService.getEventsInCircle(pos.lng, pos.lat, 100)
       .subscribe(response => {
         response.forEach(element => { 
           mapView.eventList.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
@@ -71,13 +69,11 @@ export class MapView {
                  title: element.title,
                  animation: element._id,
                  markerClick: function(marker: Marker){
-                    
+                    this.modalCtrl.create();
                  }
           };
 
           mapView.map.addMarker(markerOptions);
-          console.log(markerOptions.animation);
-          
         });
       }, error => {
         console.log("Oooops!");
