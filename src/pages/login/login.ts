@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Page } from 'ionic/ionic';
-import { AlertController } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
@@ -20,47 +19,57 @@ import { Register } from '../register/register';
 })
 export class Login {
 
-  data: any;
+  //data: any;
 
   loginVars = {
     username: '',
     password: ''
   };
 
-  posts: any;
+  //posts: any;
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public http: Http) {
-    this.data = {};
+    /*
+      this.data = {};
     this.data.username = 'admin';
-    this.data.password = '123456';
-    this.data.response = '';
-    this.http = http;
+     this.data.password = '123456';
+      this.data.response = '';
+      this.http = http;
+  */
   }
 
-  presentAlert(message) {
+  presentAlert(title, subTitle) {
     let alert = this.alertCtrl.create({
-      title: 'Login fehlgeschlagen',
-      // subTitle: 'Ungültiger Username oder Passwort.',
-      subTitle: message,
+      title: title,
+      subTitle: subTitle,
       buttons: ['Okay']
     });
     alert.present();
   }
 
   login() {
-    var link = 'https://moveit-backend.herokuapp.com/login';
+    // Lokale Überprüfung der Eingaben bevor POST 
+    if (this.loginVars.username == '' || this.loginVars.password == '') {
+      this.presentAlert('Login fehlgeschlagen', 'Nicht alle Felder ausgefüllt');
+    } else {
 
-    this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
-      .map(response => response.json())
-      .subscribe(response => {
-        if (response.message === 'User Login succesful') {
-          this.navCtrl.setRoot(TabsPage);
-        } else {
-          this.presentAlert(response.message);
-        }
-      }, error => {
-        console.log("Oooops!");
+      // POST ab hier
+      var link = 'https://moveit-backend.herokuapp.com/login';
+
+      this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
+        .map(response => response.json())
+        .subscribe(response => {
+          if (response.message === 'User Login succesful') {
+            this.navCtrl.setRoot(TabsPage);
+          } else if (response.message === 'User Not found') {
+            this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');
+          } else {
+            this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+          }
+        }, error => {
+          console.log("Oooops!");
       });
+    }
   }
 
   register() {

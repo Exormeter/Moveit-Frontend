@@ -8,9 +8,14 @@ page-register {
   p.info {
     padding-left: 30px;
   }
-  ion-label {
-    text-align: center;
-    color: blue;
+  ion-item {
+    float: left;
+  }
+  .item-select select
+  {
+    right: auto;
+    padding: 13px 45px 15px 0px;
+    direction: ltr;
   }
   img {
     display: block;

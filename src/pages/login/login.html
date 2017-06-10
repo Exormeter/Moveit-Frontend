@@ -1,11 +1,7 @@
-<!--
-  Generated template for the Login page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
+</ion-header>
 
+<ion-content padding>
   <ion-navbar>
     <ion-title>move it!</ion-title>
   </ion-navbar>
@@ -14,10 +10,10 @@
   />
 
   <ion-item>
-    <ion-input type="text" [(ngModel)]="loginVars.username" placeholder="Username"></ion-input>
+    <ion-input type="text" [(ngModel)]="loginVars.username" placeholder="Username" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="password" [(ngModel)]="loginVars.password" placeholder="Passwort"></ion-input>
+    <ion-input type="password" [(ngModel)]="loginVars.password" placeholder="Passwort" clearInput="true"></ion-input>
   </ion-item>
 
   <div>
@@ -27,6 +23,4 @@
     <button ion-button (click)="register()">Registrieren</button>
   </div>
 
-</ion-header>
-<ion-content padding>
 </ion-content>

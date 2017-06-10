@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Http } from '@angular/http';
 
 /**
  * Generated class for the Profile page.
@@ -14,27 +15,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Profile {
 
+  posts: any;
+
   profileVars = {
     picture: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Jumpman_logo.svg/1024px-Jumpman_logo.svg.png',
-    username: 'plainTextPlaceholder',
-    firstname: 'plainTextPlaceholder',
-    surname: 'plainTextPlaceholder',
-    email: 'plainTextPlaceholder',
-    age: 'plainTextPlaceholder',
-    gender: 'plainTextPlaceholder',
-    // emailfirst und emailsecond sind Variablen für die Abfrage der Email Änderung
-    emailfirst: '',
-    emailsecond: '',
-    // passwordfirst und passwordsecond sind Variablen für die Abfrage der Email Änderung
-    passwordfirst: '',
-    passwordseocond: ''
+    username: '',
+    firstname: '',
+    surname: '',
+    email: '',
+    age: '',
+    gender: '',
+    newEmail: '',
+    newEmailCheck: '',
+    newPassword: '',
+    newPasswordCheck: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Profile');
+
+    var link = 'https://moveit-backend.herokuapp.com/user';
+
+    this.http.get(link).map(res => res.json()).subscribe(data => {
+      this.posts = data.data.children;
+    });
+  }
+
+  presentAlert(title, subTitle) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['Okay']
+    });
+    alert.present();
   }
 
   changePicture() {
