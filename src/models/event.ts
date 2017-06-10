@@ -1,7 +1,3 @@
-import { Injectable } from '@angular/core';
-
-
-@Injectable()
 export class MyEvent{
 
     private _id: string;
@@ -17,8 +13,8 @@ export class MyEvent{
 
 
 
-	constructor(id: string, $createdAt: string, $creator: string, $title: string, $longitude: number,
-	$latitude: number, $start: string, _v: number, $subscriber: string[], $keywords: string[]) {
+	constructor(id: string = '', $createdAt: string = '', $creator: string = '', $title: string = '' , $longitude: number = 0,
+	$latitude: number = 0, $start: string = '', _v: number = 0, $subscriber: string[] = [], $keywords: string[] = []) {
 		this._id = id;
 		this.createdAt = $createdAt;
 		this.creator = $creator;
@@ -85,11 +81,11 @@ export class MyEvent{
 	}
 
 
-	public get id(): string {
+	public get $id(): string {
 		return this._id;
 	}
 
-	public set id(value: string) {
+	public set $id(value: string) {
 		this._id = value;
 	}
 

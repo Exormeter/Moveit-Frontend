@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {ViewController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
 import { MyEvent } from '../../models/event';
 
 /**
@@ -12,22 +11,31 @@ import { MyEvent } from '../../models/event';
 @IonicPage()
 @Component({
   selector: 'page-event-view',
-  templateUrl: 'event-view.html',
-  providers: [MyEvent]
+  templateUrl: 'event-view.html'
 })
 
 
 export class EventView {
 
-    event: MyEvent;
+    event: MyEvent = new MyEvent();
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
 
     }
 
-    ionViewDidLoad(){
-        
+    ionViewWillEnter(){
+        this.event = this.navParams.get('event');
     }
+
+    join(){
+
+    }
+
+    cancel(){
+      this.viewCtrl.dismiss();
+    }
+
+
 
 
 

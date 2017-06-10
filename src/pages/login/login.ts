@@ -23,8 +23,8 @@ export class Login {
   //data: any;
 
   loginVars = {
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123456'
   };
 
   //posts: any;

@@ -17,6 +17,7 @@ import { EventCreateMap } from '../pages/event-map-create/event-map-create'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestService } from "../services/restService";
+import { EventView } from "../pages/event-view/event-view";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RestService } from "../services/restService";
     MapView,
     Profile,
     Logout, 
-    EventCreateMap
+    EventCreateMap,
+    EventView
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { RestService } from "../services/restService";
     MapView,
     Profile,
     Logout,
-    EventCreateMap
+    EventCreateMap,
+    EventView
   ],
   providers: [
     StatusBar,

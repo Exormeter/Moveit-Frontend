@@ -4,6 +4,8 @@ import { GoogleMap, GoogleMapsEvent, LatLng, MarkerOptions, Marker, CameraPositi
 import { Geolocation } from '@ionic-native/geolocation';
 import { MyEvent } from '../../models/event';
 import { RestService} from '../../services/restService';
+import { EventView } from "../event-view/event-view";
+
 
 IonicPage()
 @Component({
@@ -17,7 +19,6 @@ export class MapView {
     googleMaps: GoogleMaps = new GoogleMaps();
     currentPos: LatLng;
     eventList: MyEvent[] = new Array();
-    perimeter: number = 100;
     
     
     constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public viewCtrl: ViewController, 
@@ -60,24 +61,34 @@ export class MapView {
         response.forEach(element => { 
           mapView.eventList.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
           element.latitude, element.start, element.__v, element.subscriber, element.keywords));
-
           //Nutze Animation Feld zum Speichern der Event ID, da sonst die MarkerOptions keine
           //zusätzlichen costum Felder zulassen
           let eventPosition: LatLng = new LatLng(element.latitude, element.longitude);
           let markerOptions: MarkerOptions = {
                  position: eventPosition,
                  title: element.title,
-                 animation: element._id,
-                 markerClick: function(marker: Marker){
-                    this.modalCtrl.create();
-                 }
+                 snippet: element._id
           };
 
-          mapView.map.addMarker(markerOptions);
+          mapView.map.addMarker(markerOptions).then( function(marker: Marker){
+            marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe( ()=>{
+              let eventViewer = mapView.modalCtrl.create(EventView, {event: mapView.findEvent(marker.getSnippet(), mapView.eventList)})
+              eventViewer.present();
+            });
+          })
         });
       }, error => {
         console.log("Oooops!");
       });
+    }
+
+    findEvent(id: string, eventList: MyEvent[]): MyEvent{
+      for(var event of eventList){
+        if(event.$id == id){
+          return event;
+        }
+      } 
+      return null;
     }
     
 
