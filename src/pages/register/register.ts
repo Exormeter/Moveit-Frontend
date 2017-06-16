@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Http, Headers, RequestOptions } from '@angular/http';
 import { Page } from 'ionic/ionic';
 
 import { Login } from '../login/login';
+import { RestService } from "../../services/restService";
 
 @IonicPage()
 @Component({
@@ -25,7 +25,7 @@ export class Register {
     passwordCheck: ''
   };
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService) {
   }
 
   ionViewDidLoad() {
@@ -50,19 +50,22 @@ export class Register {
 
       // POST ab hier
 
-      var link = 'https://moveit-backend.herokuapp.com/signup';
-
-      this.http.post(link, {
-        firstName: this.registerVars.firstname,
-        lastName: this.registerVars.lastname,
-        email: this.registerVars.email,
-        birthdate: this.registerVars.birthdate,
-        sex: this.registerVars.sex,
-        username: this.registerVars.username,
-        password: this.registerVars.password,
-        passwordCheck: this.registerVars.passwordCheck
-      })
-        .map(response => response.json())
+      /*
+            var link = 'https://moveit-backend.herokuapp.com/signup';
+      
+            this.http.post(link, {
+              firstName: this.registerVars.firstname,
+              lastName: this.registerVars.lastname,
+              email: this.registerVars.email,
+              birthdate: this.registerVars.birthdate,
+              sex: this.registerVars.sex,
+              username: this.registerVars.username,
+              password: this.registerVars.password,
+              passwordCheck: this.registerVars.passwordCheck
+            })
+              .map(response => response.json())
+      */
+      this.restService.register(this.registerVars)
         .subscribe(response => {
           if (response.message === 'Missing credentials') {
             this.presentAlert('Fehlgeschlagen', 'Benutzername oder Passwort fehlt');

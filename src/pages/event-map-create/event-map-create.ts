@@ -31,6 +31,7 @@ export class EventCreateMap{
         let element: HTMLElement = document.getElementById('createMap');
 
         this.map = this.googleMaps.create(element);
+        this.map.clear();
  
         this.addDraggableMarker();
 
@@ -83,7 +84,7 @@ export class EventCreateMap{
     //alle Änderungen an der Karte auch im regulären MapView angezeigt würden
     confirmLocation(){
         this.map.clear();
-        document.getElementsByClassName("app-root")[1].setAttribute("style", "opacity:1s");
+        document.getElementsByClassName("app-root")[1].setAttribute("style", "opacity:1");
         this.viewCtrl.dismiss({
             latitude: this.latLng.lat,
             longitude: this.latLng.lng

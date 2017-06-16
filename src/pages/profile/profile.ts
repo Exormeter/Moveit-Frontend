@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+<<<<<<< HEAD
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Page } from 'ionic/ionic';
+=======
+import { RestService } from '../../services/restService'
+
+>>>>>>> cc39ca8bf1cd677ae15ad75d841e0139b91e2d89
 
 /**
  * Generated class for the Profile page.
@@ -32,32 +37,38 @@ export class Profile {
     newPasswordCheck: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Profile');
 
-    var link = 'https://moveit-backend.herokuapp.com/user';
-    var link2 = 'https://www.reddit.com/r/gifs/new/.json?limit=10';
-
-    this.http.get(link, { withCredentials: true }).map(res => res.json()).subscribe(
-      data => {
-        console.log("Succes!");
-        this.profileVars.username = data.username;
-        this.profileVars.firstname = data.firstName;
-        this.profileVars.lastname = data.lastName;
-        this.profileVars.email = data.email;
-        this.profileVars.age = data.birthdate;
-
-        if(data.sex == 'male') this.profileVars.gender = 'Männlich';
-        else if(data.sex == 'female') this.profileVars.gender = 'Weiblich';
-        else this.profileVars.gender = 'N/A';
-      },
-      err => {
-        console.log("Oops!");
-      }
-    );
+    /*
+        var link = 'https://moveit-backend.herokuapp.com/user';
+        var link2 = 'https://www.reddit.com/r/gifs/new/.json?limit=10';
+    
+        this.http.get(link, { withCredentials: true }).map(res => res.json()).subscribe(
+          data => {
+            console.log("Succes!");
+            this.profileVars.username = data.username;
+            this.profileVars.firstname = data.firstName;
+            this.profileVars.lastname = data.lastName;
+            this.profileVars.email = data.email;
+            this.profileVars.age = data.birthdate;
+    
+            if(data.sex == 'male') this.profileVars.gender = 'Männlich';
+            else if(data.sex == 'female') this.profileVars.gender = 'Weiblich';
+            else this.profileVars.gender = 'N/A';
+          },
+          err => {
+            console.log("Oops!");
+          }
+        );
+    */
+    this.restService.getUser()
+      .subscribe(data => {
+        this.posts = data.data.children;
+      });
   }
 
   presentAlert(title, subTitle) {

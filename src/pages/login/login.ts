@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Page } from 'ionic/ionic';
+import { RestService } from '../../services/restService';
 
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
@@ -22,13 +23,13 @@ export class Login {
   //data: any;
 
   loginVars = {
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123456'
   };
 
   //posts: any;
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService) {
     /*
       this.data = {};
     this.data.username = 'admin';
@@ -54,10 +55,7 @@ export class Login {
     } else {
 
       // POST ab hier
-      var link = 'https://moveit-backend.herokuapp.com/login';
-
-      this.http.post(link, { username: this.loginVars.username, password: this.loginVars.password }, { withCredentials: true })
-        .map(response => response.json())
+        this.restService.login(this.loginVars.username, this.loginVars.password)
         .subscribe(response => {
           if (response.message === 'User Login succesful') {
             this.navCtrl.setRoot(TabsPage);
