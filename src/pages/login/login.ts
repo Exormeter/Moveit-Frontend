@@ -16,7 +16,7 @@ import { Register } from '../register/register';
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: './login.html',
 })
 export class Login {
 
