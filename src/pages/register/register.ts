@@ -53,8 +53,8 @@ export class Register {
       var link = 'https://moveit-backend.herokuapp.com/signup';
 
       this.http.post(link, {
-        firstname: this.registerVars.firstname,
-        lastname: this.registerVars.lastname,
+        firstName: this.registerVars.firstname,
+        lastName: this.registerVars.lastname,
         email: this.registerVars.email,
         birthdate: this.registerVars.birthdate,
         sex: this.registerVars.sex,

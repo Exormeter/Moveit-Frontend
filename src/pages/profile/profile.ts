@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Page } from 'ionic/ionic';
 
 /**
  * Generated class for the Profile page.
@@ -18,10 +19,10 @@ export class Profile {
   posts: any;
 
   profileVars = {
-    picture: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Jumpman_logo.svg/1024px-Jumpman_logo.svg.png',
+    picture: '',
     username: '',
     firstname: '',
-    surname: '',
+    lastname: '',
     email: '',
     age: '',
     gender: '',
@@ -38,10 +39,25 @@ export class Profile {
     console.log('ionViewDidLoad Profile');
 
     var link = 'https://moveit-backend.herokuapp.com/user';
+    var link2 = 'https://www.reddit.com/r/gifs/new/.json?limit=10';
 
-    this.http.get(link).map(res => res.json()).subscribe(data => {
-      this.posts = data.data.children;
-    });
+    this.http.get(link, { withCredentials: true }).map(res => res.json()).subscribe(
+      data => {
+        console.log("Succes!");
+        this.profileVars.username = data.username;
+        this.profileVars.firstname = data.firstName;
+        this.profileVars.lastname = data.lastName;
+        this.profileVars.email = data.email;
+        this.profileVars.age = data.birthdate;
+
+        if(data.sex == 'male') this.profileVars.gender = 'Männlich';
+        else if(data.sex == 'female') this.profileVars.gender = 'Weiblich';
+        else this.profileVars.gender = 'N/A';
+      },
+      err => {
+        console.log("Oops!");
+      }
+    );
   }
 
   presentAlert(title, subTitle) {

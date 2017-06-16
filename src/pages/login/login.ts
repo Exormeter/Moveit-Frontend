@@ -63,6 +63,8 @@ export class Login {
             this.navCtrl.setRoot(TabsPage);
           } else if (response.message === 'User Not found') {
             this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');
+          } else if (response.message === 'Invalid Password') {
+            this.presentAlert('Login fehlgeschlagen', 'Falsches Passwort');
           } else {
             this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
           }
