@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-<<<<<<< HEAD
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Page } from 'ionic/ionic';
-=======
-import { RestService } from '../../services/restService'
-
->>>>>>> cc39ca8bf1cd677ae15ad75d841e0139b91e2d89
+import { RestService } from '../../services/restService';
 
 /**
  * Generated class for the Profile page.

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Response, Http} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { User } from "../models/user";
 
 
 @Injectable()
@@ -20,18 +21,18 @@ export class RestService{
         return response;
     }
 
-    register(registerVars): Observable<any>{
+    register(user: User): Observable<any>{
         var url = 'https://moveit-backend.herokuapp.com/signup';
 
         let response: Observable<any> =  this.http.post(url, {
-            firstname: registerVars.firstname,
-            lastname: registerVars.lastname,
-            email: registerVars.email,
-            birthdate: registerVars.birthdate,
-            sex: registerVars.sex,
-            username: registerVars.username,
-            password: registerVars.password,
-            passwordCheck: registerVars.passwordCheck
+            firstname: user.$firstname,
+            lastname: user.$lastname,
+            email: user.$email,
+            birthdate: user.$birthday,
+            sex: user.$gender,
+            username: user.$username,
+            password: user.$password,
+            passwordCheck: user.$passwordCheck
         })
         .map(response => response.json());
 

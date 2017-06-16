@@ -4,6 +4,7 @@ import { Page } from 'ionic/ionic';
 
 import { Login } from '../login/login';
 import { RestService } from "../../services/restService";
+import { User} from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -13,17 +14,7 @@ import { RestService } from "../../services/restService";
 
 export class Register {
 
-  registerVars = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    birthdate: '1990-01-01',
-    sex: 'male',
-    picture: '',  // noch unbenutzt, Bild wird nicht direkt bei Anmeldung gesetzt
-    username: '',
-    password: '',
-    passwordCheck: ''
-  };
+  user: User = new User();
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService) {
   }
@@ -35,16 +26,16 @@ export class Register {
   createAccount() {
 
     // Lokale Überprüfung der Eingaben bevor POST 
-    if (this.registerVars.firstname == '' ||
-      this.registerVars.lastname == '' ||
-      this.registerVars.email == '' ||
-      this.registerVars.username == '' ||
-      this.registerVars.password == '' ||
-      this.registerVars.passwordCheck == '' ||
-      this.registerVars.sex == '' ||
-      this.registerVars.birthdate == '') {
+    if (this.user.$firstname == '' ||
+      this.user.$lastname == '' ||
+      this.user.$email == '' ||
+      this.user.$username == '' ||
+      this.user.$password == '' ||
+      this.user.$passwordCheck == '' ||
+      this.user.$gender == '' ||
+      this.user.$birthday == '') {
       this.presentAlert('Login fehlgeschlagen', 'Nicht alle Felder ausgefüllt');
-    } else if (this.registerVars.password != this.registerVars.passwordCheck) {
+    } else if (this.user.$password != this.user.$passwordCheck) {
       this.presentAlert('Login fehlgeschlagen', 'Passwörter stimmen nicht überein');
     } else {
 
@@ -65,7 +56,7 @@ export class Register {
             })
               .map(response => response.json())
       */
-      this.restService.register(this.registerVars)
+      this.restService.register(this.user)
         .subscribe(response => {
           if (response.message === 'Missing credentials') {
             this.presentAlert('Fehlgeschlagen', 'Benutzername oder Passwort fehlt');
@@ -83,14 +74,14 @@ export class Register {
   }
 
   resetInputs() {
-    this.registerVars.firstname = '',
-      this.registerVars.lastname = '',
-      this.registerVars.email = '',
-      this.registerVars.birthdate = '',
-      this.registerVars.sex = '',
-      this.registerVars.username = '',
-      this.registerVars.password = '',
-      this.registerVars.passwordCheck = ''
+    this.user.$firstname = '',
+      this.user.$lastname = '',
+      this.user.$email = '',
+      this.user.$birthday = '',
+      this.user.$gender = '',
+      this.user.$username = '',
+      this.user.$password = '',
+      this.user.$passwordCheck = ''
   }
 
   presentAlert(title, subTitle) {

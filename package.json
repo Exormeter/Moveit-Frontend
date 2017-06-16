@@ -39,6 +39,8 @@
         "ionic-angular": "3.1.1",
         "ionic-plugin-keyboard": "~2.2.1",
         "ionicons": "3.0.0",
+        "phonegap-plugin-push": "^1.10.5",
+        "run": "^1.4.0",
         "rxjs": "5.1.1",
         "sw-toolbox": "3.4.0",
         "zone.js": "^0.8.5"
@@ -73,6 +75,9 @@
             "ionic-plugin-keyboard": {},
             "cordova-plugin-geolocation": {
                 "GEOLOCATION_USAGE_DESCRIPTION": " "
+            },
+            "phonegap-plugin-push": {
+                "SENDER_ID": "797854692003"
             }
         },
         "platforms": [
