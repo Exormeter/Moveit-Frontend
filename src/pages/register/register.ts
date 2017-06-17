@@ -14,9 +14,7 @@ import { User} from '../../models/user';
 
 export class Register {
 
-  user: User = new User();
-
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User) {
   }
 
   ionViewDidLoad() {

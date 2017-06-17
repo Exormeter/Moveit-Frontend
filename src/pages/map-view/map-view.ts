@@ -56,7 +56,7 @@ export class MapView {
 
     loadEvents(pos: LatLng){
       let mapView: MapView = this;
-      this.restService.getEventsInCircle(pos.lng, pos.lat, 100)
+      this.restService.getEventsInCircle(pos.lng, pos.lat, 10000)
       .subscribe(response => {
         response.forEach(element => { 
           mapView.eventList.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
@@ -69,7 +69,7 @@ export class MapView {
                  title: element.title,
                  snippet: element._id
           };
-
+          console.log(markerOptions);
           mapView.map.addMarker(markerOptions).then( function(marker: Marker){
             marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe( ()=>{
               let eventViewer = mapView.modalCtrl.create(EventView, {event: mapView.findEvent(marker.getSnippet(), mapView.eventList)})

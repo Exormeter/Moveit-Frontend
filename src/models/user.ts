@@ -1,6 +1,8 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from "@angular/core";
 
-@Injectable()
+
+
+Injectable()
 export class User{
 
     private username: string;
@@ -15,17 +17,8 @@ export class User{
     private pushToken: string;
 
 
-	constructor($username: string = '', $picture: string = '', $gender: string = '', $birthday: string = '', $firstname: string = '', $lastname: string = '', $email: string = '', $password: string = '', $passwordCheck: string = '', $pushToken: string = '') {
-		this.username = $username;
-		this.picture = $picture;
-		this.gender = $gender;
-		this.birthday = $birthday;
-		this.firstname = $firstname;
-		this.lastname = $lastname;
-		this.email = $email;
-		this.password = $password;
-        this.passwordCheck = $passwordCheck;
-        this.pushToken = $pushToken;
+	constructor() {
+		
 	}
     
 
@@ -110,5 +103,12 @@ export class User{
 
 	public set $pushToken(value: string) {
 		this.pushToken = value;
+	}
+
+	public get $age(): number{
+		let birthdate: Date = new Date(this.$birthday);
+		var ageDifMs = Date.now() - birthdate.getTime();
+		var ageDate = new Date(ageDifMs);
+		return Math.abs(ageDate.getUTCFullYear() - 1970);
 	}
 }

@@ -21,37 +21,37 @@
 
   <ion-item>
     <ion-label>Username: </ion-label>
-    <ion-input [(ngModel)]="profileVars.username" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="user.$username" readonly="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Vorname: </ion-label>
-    <ion-input [(ngModel)]="profileVars.firstname" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="user.$firstname" readonly="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Nachname: </ion-label>
-    <ion-input [(ngModel)]="profileVars.lastname" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="user.$lastname" readonly="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>E-Mail: </ion-label>
-    <ion-input [(ngModel)]="profileVars.email" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="user.$email" readonly="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Alter: </ion-label>
-    <ion-input [(ngModel)]="profileVars.age" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="user.$age" readonly="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Geschlecht: </ion-label>
-    <ion-input [(ngModel)]="profileVars.gender" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="user.$gender" readonly="true"></ion-input>
   </ion-item>
 
   <p class="header">E-Mail Adresse ändern:</p>
   <ion-item>
     <ion-label>Neue E-Mail Adresse</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.emailfirst" name="emailFirst" clearInput="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="changeableVars.emailfirst" name="emailFirst" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>E-Mail bestätigen:</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.emailsecond" name="emailCheck" clearInput="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="changeableVars.emailsecond" name="emailCheck" clearInput="true"></ion-input>
   </ion-item>
   <button ion-button (click)="changeEmail()">E-Mail ändern</button>
 
@@ -59,11 +59,11 @@
   <p class="header">Passwort ändern</p>
   <ion-item>
     <ion-label>Neues Passwort:</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.passwordfirst" name="passwordfirst" clearInput="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="changeableVars.passwordfirst" name="passwordfirst" clearInput="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Passwort bestätigen:</ion-label>
-    <ion-input type="text" [(ngModel)]="profileVars.passwordsecond" name="passwordsecond" clearInput="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="changeableVars.passwordsecond" name="passwordsecond" clearInput="true"></ion-input>
   </ion-item>
   <button ion-button (click)="changePassword()">Passwort ändern</button>
 
