@@ -6,7 +6,8 @@ import { RestService } from '../../services/restService';
 
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
-import { User } from "../../models/user";
+import { User } from '../../models/user';
+import { Push, PushToken} from '@ionic/cloud-angular';
 
 /**
  * Generated class for the Login page.
@@ -26,7 +27,7 @@ export class Login {
     password: '123456'
   };
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
    
   }
 
@@ -57,7 +58,12 @@ export class Login {
               this.user.$picture = userResponse.picture;
               this.user.$gender = userResponse.sex;
               this.user.$username = userResponse.username;
-            })
+            });
+            this.push.register().then((t: PushToken) => {
+              return this.push.saveToken(t);
+            }).then((t: PushToken) => {
+              console.log('Token saved:', t.token);
+            });
             this.navCtrl.setRoot(TabsPage);
           } else if (response.message === 'User Not found') {
             this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');

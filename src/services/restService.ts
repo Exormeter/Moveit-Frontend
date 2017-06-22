@@ -8,8 +8,8 @@ import { User } from "../models/user";
 @Injectable()
 export class RestService{
 
-    baseurl: string = 'http://localhost:8080';
-    //baseurl: string = 'https://moveit-backend.herokuapp.com';
+    //baseurl: string = 'http://localhost:8080';
+    baseurl: string = 'https://moveit-backend.herokuapp.com';
     constructor(public http: Http){
 
     }
