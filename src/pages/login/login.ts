@@ -6,6 +6,8 @@ import { RestService } from '../../services/restService';
 
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
+import { User } from '../../models/user';
+import { Push, PushToken} from '@ionic/cloud-angular';
 
 /**
  * Generated class for the Login page.
@@ -16,27 +18,17 @@ import { Register } from '../register/register';
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: './login.html',
 })
 export class Login {
-
-  //data: any;
 
   loginVars = {
     username: 'admin',
     password: '123456'
   };
 
-  //posts: any;
-
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService) {
-    /*
-      this.data = {};
-    this.data.username = 'admin';
-     this.data.password = '123456';
-      this.data.response = '';
-      this.http = http;
-  */
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
+   
   }
 
   presentAlert(title, subTitle) {
@@ -58,6 +50,20 @@ export class Login {
         this.restService.login(this.loginVars.username, this.loginVars.password)
         .subscribe(response => {
           if (response.message === 'User Login succesful') {
+            this.restService.getUser().subscribe(userResponse =>{
+              this.user.$firstname = userResponse.firstName;
+              this.user.$lastname = userResponse.lastName;
+              this.user.$email = userResponse.email;
+              this.user.$birthday = userResponse.birthdate;
+              this.user.$picture = userResponse.picture;
+              this.user.$gender = userResponse.sex;
+              this.user.$username = userResponse.username;
+            });
+            this.push.register().then((t: PushToken) => {
+              return this.push.saveToken(t);
+            }).then((t: PushToken) => {
+              console.log('Token saved:', t.token);
+            });
             this.navCtrl.setRoot(TabsPage);
           } else if (response.message === 'User Not found') {
             this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');

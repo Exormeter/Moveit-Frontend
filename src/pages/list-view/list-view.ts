@@ -1,8 +1,10 @@
+
 import {EventView} from '../event-view/event-view';
 import { Component } from '@angular/core';
 import {ModalController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
 import { RestService } from "../../services/restService";
 import { MyEvent } from "../../models/event";
+import { User } from "../../models/user";
 
 /**
  * Generated class for the ListView page.

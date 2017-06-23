@@ -18,6 +18,26 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestService } from "../services/restService";
 import { EventView } from "../pages/event-view/event-view";
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { User } from "../models/user";
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': 'efbb80ad'
+  },
+  'push': {
+    'sender_id': 'SENDER_ID',
+    'pluginConfig': {
+      'ios': {
+        'badge': true,
+        'sound': true
+      },
+      'android': {
+        'iconColor': '#343434'
+      }
+    }
+  }
+};
 
 @NgModule({
   declarations: [
@@ -36,6 +56,7 @@ import { EventView } from "../pages/event-view/event-view";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    CloudModule.forRoot(cloudSettings),
     HttpModule
   ],
   bootstrap: [IonicApp],
@@ -56,6 +77,7 @@ import { EventView } from "../pages/event-view/event-view";
     StatusBar,
     SplashScreen,
     RestService,
+    User,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

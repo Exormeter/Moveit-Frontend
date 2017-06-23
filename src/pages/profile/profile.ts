@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-
 import { RestService } from '../../services/restService';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Page } from 'ionic/ionic';
+import { User } from "../../models/user";
 
 /**
  * Generated class for the Profile page.
@@ -18,21 +20,15 @@ export class Profile {
 
   posts: any;
 
-  profileVars = {
+  changeableVars = {
     picture: '',
-    username: '',
-    firstname: '',
-    lastname: '',
-    email: '',
-    age: '',
-    gender: '',
     newEmail: '',
     newEmailCheck: '',
     newPassword: '',
     newPasswordCheck: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, private alertCtrl: AlertController, public user: User) {
   }
 
   ionViewDidLoad() {
@@ -60,10 +56,7 @@ export class Profile {
           }
         );
     */
-    this.restService.getUser()
-      .subscribe(data => {
-        this.posts = data.data.children;
-      });
+    
   }
 
   presentAlert(title, subTitle) {
