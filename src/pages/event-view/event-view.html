@@ -1,27 +1,68 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Event</ion-title>
+    <ion-title>{{event.$title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-    <ion-item>
-        <ion-label>Event Titel</ion-label>
-        <ion-input [(ngModel)]="event.$title"></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label>Ersteller</ion-label>
-        <ion-input [(ngModel)]="event.$creator"></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label>Start</ion-label>
-        <ion-input [(ngModel)]="event.$start"></ion-input>
-    </ion-item>
+<ion-content >
+        <ion-card>
+            <ion-card-header>
+                Ersteller
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item>
+                   <ion-avatar item-left>
+                        <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png">
+                   </ion-avatar>
+                    <h2 item-left>{{event.$creator}}</h2>        
+                 </ion-item>        
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                Startzeit
+            </ion-card-header>
+            <ion-card-content>
+                {{event.$start}}
+            </ion-card-content>
+        </ion-card>
+         <ion-card>
+            <ion-card-header>
+                Teilnehmer
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item *ngFor="let item of subscriber">
+                        <ion-avatar item-left>
+                            <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png">
+                        </ion-avatar>
+                        <h2 item-left>{{item}}</h2>
+                    </ion-item>
+                </ion-list>
+               
+            </ion-card-content>
+        </ion-card>
+         <ion-card>
+             <ion-card-header>
+                Standort
+            </ion-card-header>            
+            <ion-card-content>
+                 <img src="https://i.stack.imgur.com/yEshb.gif"/>
+            </ion-card-content>
+        </ion-card>
+         <ion-card>
+             <ion-card-header>
+                Keys
+            </ion-card-header>            
+            <ion-card-content>
+                 <ion-list>
+                    <p *ngFor="let item of keywords">#{{item}}</p>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
 </ion-content>
 
-<ion-footer>
-    <button ion-button (click)=join()>Teilnehmen</button>
-    <button ion-button (click)=cancel()>Abbrechen</button>
+<ion-footer>    
+    <button ion-button full color="secondary" (click)=join()>Teilnehmen</button>
+    <button ion-button full color="danger" (click)=cancel()>Zurück</button>
 </ion-footer>
