@@ -49,7 +49,7 @@ const cloudSettings: CloudSettings = {
     ListView,
     MapView,
     Profile,
-    Logout, 
+    Logout,
     EventCreateMap,
     EventView
   ],
@@ -78,7 +78,7 @@ const cloudSettings: CloudSettings = {
     SplashScreen,
     RestService,
     User,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
