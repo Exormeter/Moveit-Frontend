@@ -20,6 +20,7 @@ import { RestService } from "../services/restService";
 import { EventView } from "../pages/event-view/event-view";
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { User } from "../models/user";
+import { MyEvent } from "../models/event";
 
 const cloudSettings: CloudSettings = {
   'core': {

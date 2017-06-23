@@ -11,8 +11,6 @@ export class MyEvent{
     private subscriber: string[];
     private keywords: string[];
 
-
-
 	constructor(id: string = '', $createdAt: string = '', $creator: string = '', $title: string = '' , $longitude: number = 0,
 	$latitude: number = 0, $start: string = '', _v: number = 0, $subscriber: string[] = [], $keywords: string[] = []) {
 		this._id = id;
@@ -27,10 +25,6 @@ export class MyEvent{
 		this.keywords = $keywords;
 	}
 	
-    
-    
-
-
 	public get $title(): string {
 		return this.title;
 	}
@@ -116,14 +110,4 @@ export class MyEvent{
 	public getit(): string{
 		return "test";
 	}
-	
-    
-    
-    
-
-	
-    
-
-
-
 }
