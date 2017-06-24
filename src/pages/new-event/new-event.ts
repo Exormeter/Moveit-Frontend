@@ -36,11 +36,7 @@ export class NewEvent {
 
   event: MyEvent = new MyEvent();
 
-<<<<<<< HEAD
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
-=======
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController) {
->>>>>>> d2b3133dc5ebeab9762e6a2a66d5323c2a05ce64
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
     this.data = {};
     this.data.username = 'admin';
     this.data.password = '123456';
