@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { Page } from 'ionic/ionic';
-import {EventCreateMap} from '../event-map-create/event-map-create';
-import {MapView} from '../map-view/map-view';
+import { EventCreateMap } from '../event-map-create/event-map-create';
+import { MapView } from '../map-view/map-view';
 import { RestService } from "../../services/restService";
+<<<<<<< HEAD
 import { Push } from "@ionic/cloud-angular";
 
+=======
+import { MyEvent } from '../../models/event';
+>>>>>>> d2b3133dc5ebeab9762e6a2a66d5323c2a05ce64
 
 /**
  * Generated class for the NewEvent page.
@@ -34,20 +38,13 @@ export class NewEvent {
     // event = '2'; nimmt teil und sieht Informationen dazu (ggf. abmelden?)
   };
 
-  /*
-    constructor(public navCtrl: NavController, public http: Http) {
-    }
-  
-    ionViewDidLoad() {
-      console.log('ionViewDidLoad NewEvent');
-  
-      this.http.get('https://moveit-backend.herokuapp.com/login').map(res => res.json()).subscribe(data => {
-        this.posts = data.data.children;
-      });
-    }
-  */
+  event: MyEvent = new MyEvent();
 
+<<<<<<< HEAD
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
+=======
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController) {
+>>>>>>> d2b3133dc5ebeab9762e6a2a66d5323c2a05ce64
     this.data = {};
     this.data.username = 'admin';
     this.data.password = '123456';
@@ -61,7 +58,7 @@ export class NewEvent {
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
 
-      this.restService.getMyEvents()
+    this.restService.getMyEvents()
       .subscribe(response => {
         //console.log(response);
       }, error => {
@@ -70,20 +67,44 @@ export class NewEvent {
   }
 
   selectStartOnMap() {
-    let mapView = this.modelCrtl.create(EventCreateMap);    
+    let mapView = this.modelCrtl.create(EventCreateMap);
     mapView.present();
-    mapView.onDidDismiss(function(data){
+    mapView.onDidDismiss(function (data) {
       console.log(data);
+
+      this.event.$longitude = data.longitude;
+      this.event.$latitude = data.latitude;
     });
   }
 
   createMove() {
 
+
+
+    this.restService.newEvent(this.event)
+      .subscribe(response => {
+        if (response.message === 'Event erstellt') {
+          this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
+        } else {
+          this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+        }
+      }, error => {
+        console.log("Oooops!");
+      });
   }
 
   resetInputs() {
     this.newEventVars.title = '';
     this.newEventVars.place = '';
     this.newEventVars.time = '';
+  }
+
+  presentAlert(title, subTitle) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['Okay']
+    });
+    alert.present();
   }
 }
