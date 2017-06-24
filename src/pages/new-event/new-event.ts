@@ -4,12 +4,8 @@ import { Page } from 'ionic/ionic';
 import { EventCreateMap } from '../event-map-create/event-map-create';
 import { MapView } from '../map-view/map-view';
 import { RestService } from "../../services/restService";
-<<<<<<< HEAD
 import { Push } from "@ionic/cloud-angular";
-
-=======
 import { MyEvent } from '../../models/event';
->>>>>>> d2b3133dc5ebeab9762e6a2a66d5323c2a05ce64
 
 /**
  * Generated class for the NewEvent page.
