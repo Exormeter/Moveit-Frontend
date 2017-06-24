@@ -26,7 +26,7 @@ const cloudSettings: CloudSettings = {
     'app_id': 'efbb80ad'
   },
   'push': {
-    'sender_id': 'SENDER_ID',
+    'sender_id': '945206221819',
     'pluginConfig': {
       'ios': {
         'badge': true,
