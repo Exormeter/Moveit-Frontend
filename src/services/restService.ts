@@ -33,7 +33,7 @@ export class RestService {
             latitude: event.$latitude,
             start: event.$start,
             subscriber: event.$subscriber
-        })
+        }, { withCredentials: true })
             .map(response => response.json());
 
         return response;
