@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Page } from 'ionic/ionic';
 import { RestService } from '../../services/restService';
 
@@ -28,7 +28,10 @@ export class Login {
   };
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
-   
+    this.push.rx.notification()
+    .subscribe((msg) => {
+      alert(msg.title + ': ' + msg.text);
+    });
   }
 
   presentAlert(title, subTitle) {
@@ -60,11 +63,13 @@ export class Login {
               this.user.$gender = userResponse.sex;
               this.user.$username = userResponse.username;
             });
+            /*
             this.push.register().then((t: PushToken) => {
               return this.push.saveToken(t);
             }).then((t: PushToken) => {
-              console.log('Token saved:', t.token);
+              console.log('Token saved:' +  t.token);
             });
+            */
             this.navCtrl.setRoot(TabsPage);
           } else if (response.message === 'User Not found') {
             this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');

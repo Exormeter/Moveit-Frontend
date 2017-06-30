@@ -20,13 +20,14 @@ import { RestService } from "../services/restService";
 import { EventView } from "../pages/event-view/event-view";
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { User } from "../models/user";
+import { MyEvent } from "../models/event";
 
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'efbb80ad'
   },
   'push': {
-    'sender_id': 'SENDER_ID',
+    'sender_id': '945206221819',
     'pluginConfig': {
       'ios': {
         'badge': true,
@@ -49,7 +50,7 @@ const cloudSettings: CloudSettings = {
     ListView,
     MapView,
     Profile,
-    Logout, 
+    Logout,
     EventCreateMap,
     EventView
   ],
@@ -78,7 +79,7 @@ const cloudSettings: CloudSettings = {
     SplashScreen,
     RestService,
     User,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
