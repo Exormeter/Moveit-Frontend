@@ -91,4 +91,28 @@ export class RestService {
 
         return response;
     }
+
+    changeEmail(user: User): Observable<any> {
+        var url = this.baseurl + '/userEmail';
+
+        let response: Observable<any> = this.http.post(url, {
+            email1: user.$email,
+            email2: user.$email
+        }, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
+
+    changePassword(user: User): Observable<any> {
+        var url = this.baseurl + '/userPassword';
+
+        let response: Observable<any> = this.http.post(url, {
+            password1: user.$password,
+            password2: user.$password
+        }, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
 }

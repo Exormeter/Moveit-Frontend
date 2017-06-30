@@ -1,9 +1,15 @@
 <ion-header>
+</ion-header>
 
+<ion-content padding>
+
+  <!--
   <ion-navbar>
     <ion-title>Neuer Move!</ion-title>
   </ion-navbar>
+-->
 
+  <p class="header">Neuen move erstellen</p>
   <ion-item>
     <ion-label>Move: </ion-label>
     <ion-input type="text" [(ngModel)]="event.$title" placeholder="eingeben..." clearInput="true"></ion-input>
@@ -22,9 +28,35 @@
   </ion-item>
 
   <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
+
+  <hr>
+  <p class="header">Anstehende Moves</p>
+  <ion-item>
+    <ion-label>Move: </ion-label>
+    <ion-input readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Startzeit: </ion-label>
+    <ion-input readonly="true"></ion-input>
+  </ion-item>
+
+  <hr>
+  <p class="header">Zuletzt erstellter Move</p>
+
+  <ion-item>
+    <ion-label>Move: </ion-label>
+    <ion-input [(ngModel)]="eventCreated.$title" readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Startzeit: </ion-label>
+    <ion-input [(ngModel)]="eventCreated.$start" readonly="true"></ion-input>
+  </ion-item>
+
   <!--
   <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
   -->
+  <!--
+    
   <br /><br /> debug:
 
   <ion-item>
@@ -47,7 +79,6 @@
     <ion-label>keywords: </ion-label>
     <ion-input type="text" [(ngModel)]="this.event.keywords" placeholder="-" readonly="true"></ion-input>
   </ion-item>
+-->
 
-</ion-header>
-<ion-content padding>
 </ion-content>

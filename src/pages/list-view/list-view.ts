@@ -1,7 +1,7 @@
 
-import {EventView} from '../event-view/event-view';
+import { EventView } from '../event-view/event-view';
 import { Component } from '@angular/core';
-import {ModalController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
+import { ModalController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestService } from "../../services/restService";
 import { MyEvent } from "../../models/event";
 import { User } from "../../models/user";
@@ -22,36 +22,38 @@ export class ListView {
   myEvents: MyEvent[] = new Array();
   myEventsSub: MyEvent[] = new Array();
 
+  myEventsLength: number;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modalCtrl: ModalController) {
   }
 
 
-  itemSelected(event: MyEvent){
-    let eventViewer = this.modalCtrl.create(EventView,{event: event})
+  itemSelected(event: MyEvent) {
+    let eventViewer = this.modalCtrl.create(EventView, { event: event })
     eventViewer.present();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListView');
     this.restService.getMyEvents()
-    .subscribe(response => {
-      response.forEach(element => { 
-        this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-        element.latitude, element.start, element.__v, element.subscriber, element.keywords));
-      }, error => {
-        console.log("Oooops!");
-      });
-    });
-
-      this.restService.getMyEventSubscriber()
       .subscribe(response => {
-      response.forEach(element => { 
-        this.myEventsSub.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-        element.latitude, element.start, element.__v, element.subscriber, element.keywords));
-      }, error => {
-        console.log("Oooops!");
+        response.forEach(element => {
+          this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+            element.latitude, element.start, element.__v, element.subscriber, element.keywords));
+        }, error => {
+          console.log("Oooops!");
+        });
       });
-    });
-  }
 
+    this.restService.getMyEventSubscriber()
+      .subscribe(response => {
+        response.forEach(element => {
+          this.myEventsSub.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+            element.latitude, element.start, element.__v, element.subscriber, element.keywords));
+        }, error => {
+          console.log("Oooops!");
+        });
+        this.myEventsLength = this.myEvents.length;
+      });
+  }
 }

@@ -32,6 +32,7 @@ export class NewEvent {
   };
 
   event: MyEvent = new MyEvent();
+  eventCreated: MyEvent = new MyEvent();
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
     this.data = {};
@@ -47,9 +48,14 @@ export class NewEvent {
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
 
+    //beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
     this.restService.getMyEvents()
       .subscribe(response => {
-        //console.log(response);
+        console.log(response);
+        console.log(response.length);
+        var eventLength = response.length;
+        this.eventCreated.$title = response[eventLength-1].title;
+        this.eventCreated.$start = response[eventLength-1].starttimepoint;
       }, error => {
         console.log("Oooops!");
       });
@@ -67,9 +73,6 @@ export class NewEvent {
   }
 
   createMove() {
-
-    
-
     this.restService.newEvent(this.event)
       .subscribe(response => {
         if (response.message === 'Event erstellt') {

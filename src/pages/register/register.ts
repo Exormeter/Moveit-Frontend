@@ -4,7 +4,7 @@ import { Page } from 'ionic/ionic';
 
 import { Login } from '../login/login';
 import { RestService } from "../../services/restService";
-import { User} from '../../models/user';
+import { User } from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -34,7 +34,6 @@ export class Register {
     } else if (this.user.$password != this.user.$passwordCheck) {
       this.presentAlert('Login fehlgeschlagen', 'Passwörter stimmen nicht überein');
     } else {
-
       this.restService.register(this.user)
         .subscribe(response => {
           if (response.message === 'Missing credentials') {
