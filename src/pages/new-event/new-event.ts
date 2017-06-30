@@ -4,6 +4,7 @@ import { Page } from 'ionic/ionic';
 import { EventCreateMap } from '../event-map-create/event-map-create';
 import { MapView } from '../map-view/map-view';
 import { RestService } from "../../services/restService";
+import { Push } from "@ionic/cloud-angular";
 import { MyEvent } from '../../models/event';
 
 /**
@@ -32,11 +33,15 @@ export class NewEvent {
 
   event: MyEvent = new MyEvent();
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
     this.data = {};
     this.data.username = 'admin';
     this.data.password = '123456';
     this.data.response = '';
+    this.push.rx.notification()
+    .subscribe((msg) => {
+      alert(msg.title + ': ' + msg.text);
+    });
   }
 
   ionViewDidLoad() {
