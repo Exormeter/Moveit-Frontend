@@ -49,6 +49,7 @@ export class Login {
       this.presentAlert('Login fehlgeschlagen', 'Nicht alle Felder ausgefüllt');
     } else {
 
+      console.log("test");
       // POST ab hier
         this.restService.login(this.loginVars.username, this.loginVars.password)
         .subscribe(response => {
