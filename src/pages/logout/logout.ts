@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { App, IonicPage, ViewController, NavParams } from 'ionic-angular';
 
 import { Login } from '../login/login';
