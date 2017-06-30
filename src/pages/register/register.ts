@@ -22,8 +22,6 @@ export class Register {
   }
 
   createAccount() {
-
-    // Lokale Überprüfung der Eingaben bevor POST 
     if (this.user.$firstname == '' ||
       this.user.$lastname == '' ||
       this.user.$email == '' ||
@@ -37,23 +35,6 @@ export class Register {
       this.presentAlert('Login fehlgeschlagen', 'Passwörter stimmen nicht überein');
     } else {
 
-      // POST ab hier
-
-      /*
-            var link = 'https://moveit-backend.herokuapp.com/signup';
-      
-            this.http.post(link, {
-              firstName: this.registerVars.firstname,
-              lastName: this.registerVars.lastname,
-              email: this.registerVars.email,
-              birthdate: this.registerVars.birthdate,
-              sex: this.registerVars.sex,
-              username: this.registerVars.username,
-              password: this.registerVars.password,
-              passwordCheck: this.registerVars.passwordCheck
-            })
-              .map(response => response.json())
-      */
       this.restService.register(this.user)
         .subscribe(response => {
           if (response.message === 'Missing credentials') {

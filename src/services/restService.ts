@@ -11,7 +11,7 @@ export class RestService {
 
     //baseurl: string = 'http://localhost:8080';
     baseurl: string = 'https://moveit-backend.herokuapp.com';
-    constructor(public http: Http) {
+    constructor(public http: Http, public user: User) {
 
     }
 
@@ -26,14 +26,17 @@ export class RestService {
     newEvent(event: MyEvent): Observable<any> {
         var url = this.baseurl + '/newEvent';
 
+        console.log(event);
+        console.log(this.user);
+
         let response: Observable<any> = this.http.post(url, {
             title: event.$title,
             keywords: event.$keywords,
             longitude: event.$longitude,
             latitude: event.$latitude,
-            start: event.$start,
+            starttimepoint: Date.now(),
             subscriber: event.$subscriber
-        })
+        }, { withCredentials: true })
             .map(response => response.json());
 
         return response;
