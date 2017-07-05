@@ -88,4 +88,12 @@ export class RestService {
 
         return response;
     }
+
+    getAllUsers(): Observable<any> {
+        let url: string = this.baseurl + '/allUsers';
+        let response: Observable<any> = this.http.get(url, { withCredentials: true }).map(res => res.json())
+
+        return response;
+    }
+
 }

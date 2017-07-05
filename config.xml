@@ -85,9 +85,11 @@
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-googlemaps" spec="^1.4.0">
+    <plugin name="cordova-plugin-googlemaps" spec="^1.4.1">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCHLAyYfmawNapiHmA5uE5AJORoTsor0pY" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyDK-f4AWDiuycOFfe4x_hN3JpfBir8faAk" />
+        <variable name="NSLOCATIONWHENINUSEUSAGEDESCRIPTION" value="Show your location on the map" />
+        <variable name="NSLOCATIONALWAYSUSAGEDESCRIPTION" value="Trace your location on the map" />
     </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.1" />

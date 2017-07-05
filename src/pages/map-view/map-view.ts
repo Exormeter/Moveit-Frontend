@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, Platform, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { GoogleMap, GoogleMapsEvent, LatLng, MarkerOptions, Marker, CameraPosition, GoogleMaps } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { MyEvent } from '../../models/event';
 import { RestService} from '../../services/restService';
 import { EventView } from "../event-view/event-view";
@@ -19,6 +19,12 @@ export class MapView {
     googleMaps: GoogleMaps = new GoogleMaps();
     currentPos: LatLng;
     eventList: MyEvent[] = new Array();
+
+     geoOptions: GeolocationOptions = {
+        enableHighAccuracy: true,
+        timeout: 500000,
+        maximumAge: 10,
+      };
     
     
     constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public viewCtrl: ViewController, 
@@ -37,7 +43,7 @@ export class MapView {
         let element: HTMLElement = document.getElementById('map');
         this.map = this.googleMaps.create(element);
 
-        this.geolocation.getCurrentPosition().then((resp) => {
+        this.geolocation.getCurrentPosition(this.geoOptions).then((resp) => {
              let myPosLatLong: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
              let position: CameraPosition = {
                 target: myPosLatLong,

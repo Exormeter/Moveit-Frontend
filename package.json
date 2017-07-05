@@ -35,7 +35,8 @@
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-geolocation": "^2.4.3",
-        "cordova-plugin-googlemaps": "^1.4.0",
+        "cordova-plugin-googlemaps": "^1.4.1",
+        "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.1",
         "cordova-plugin-whitelist": "^1.3.1",
@@ -77,10 +78,6 @@
     "description": "moveit-frontend: An Ionic project",
     "cordova": {
         "plugins": {
-            "cordova-plugin-googlemaps": {
-                "API_KEY_FOR_ANDROID": "AIzaSyCHLAyYfmawNapiHmA5uE5AJORoTsor0pY",
-                "API_KEY_FOR_IOS": "AIzaSyDK-f4AWDiuycOFfe4x_hN3JpfBir8faAk"
-            },
             "cordova-plugin-console": {},
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
@@ -92,6 +89,12 @@
             },
             "phonegap-plugin-push": {
                 "SENDER_ID": "797854692003"
+            },
+            "cordova-plugin-googlemaps": {
+                "API_KEY_FOR_ANDROID": "AIzaSyCHLAyYfmawNapiHmA5uE5AJORoTsor0pY",
+                "API_KEY_FOR_IOS": "AIzaSyDK-f4AWDiuycOFfe4x_hN3JpfBir8faAk",
+                "NSLOCATIONWHENINUSEUSAGEDESCRIPTION": "Show your location on the map",
+                "NSLOCATIONALWAYSUSAGEDESCRIPTION": "Trace your location on the map"
             }
         },
         "platforms": [

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {ViewController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
 import { MyEvent } from '../../models/event';
 import { ToastController } from 'ionic-angular';
+import { PushService } from "../../services/pushService";
+import { User } from "../../models/user";
+import { RestService } from "../../services/restService";
 /**
  * Generated class for the EventView Modal.
  *
@@ -21,7 +24,7 @@ export class EventView {
     subscriber: String[] = new Array<String>();
     keywords: String[] = new Array<String>();
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public toastCtrl: ToastController) {
+    constructor(public restService: RestService, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public toastCtrl: ToastController, public pushService: PushService, public user: User) {
       
     }
 
@@ -40,6 +43,7 @@ export class EventView {
         position: 'middle'
       });
       toast.present();
+      this.sendPush();
     }
 
     cancel(){
@@ -51,6 +55,19 @@ export class EventView {
       
       console.log("hi");  
       
+    }
+
+    sendPush(){
+      let pushRecipient: string = this.event.$creator;
+
+      this.restService.getAllUsers()
+      .subscribe(response => {
+        response.forEach(userPushtoken => {
+          if(userPushtoken[0] == pushRecipient){
+            this.pushService.sendPush(pushRecipient[1], this.user.$username);
+          }
+        });
+      })
     }
 
 

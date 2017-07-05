@@ -35,6 +35,8 @@ export class NewEvent {
   };
 
   event: MyEvent = new MyEvent();
+  lat: number;
+  lng: number;
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
     this.data = {};
@@ -61,28 +63,23 @@ export class NewEvent {
   selectStartOnMap() {
     let mapView = this.modelCrtl.create(EventCreateMap);
     mapView.present();
-    mapView.onDidDismiss(function (data) {
-      console.log(data);
-
-      this.event.$longitude = data.longitude;
-      this.event.$latitude = data.latitude;
+    mapView.onDidDismiss(data=> {
+          this.event.$latitude = data.latitude;
     });
   }
 
   createMove() {
-
-
-
-    this.restService.newEvent(this.event)
-      .subscribe(response => {
-        if (response.message === 'Event erstellt') {
-          this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
-        } else {
-          this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
-        }
-      }, error => {
-        console.log("Oooops!");
-      });
+    console.log(this.event);
+    // this.restService.newEvent(this.event)
+    //   .subscribe(response => {
+    //     if (response.message === 'Event erstellt') {
+    //       this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
+    //     } else {
+    //       this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+    //     }
+    //   }, error => {
+    //     console.log("Oooops!");
+    //   });
   }
 
   resetInputs() {

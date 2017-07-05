@@ -36,6 +36,7 @@ export class ListView {
     this.restService.getMyEvents()
     .subscribe(response => {
       response.forEach(element => { 
+        console.log(response);
         this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
         element.latitude, element.start, element.__v, element.subscriber, element.keywords));
       }, error => {
