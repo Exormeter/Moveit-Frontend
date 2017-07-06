@@ -23,20 +23,18 @@ export class NewEvent {
   data: any;
   posts: any;
 
-  newEventVars = {
+  debugVar = {
+    start: '',
     title: '',
-    place: '',
-    time: '',
-    event: '0'
-    // event -> Indikator über den Status für den richtigen Screen
-    // event = '0'; kein Event Teilnehmer = sieht Screen einen Move zu erstellen
-    // event = '1'; hat einen erstellt und sieht die Informationen dazu und kann löschen
-    // event = '2'; nimmt teil und sieht Informationen dazu (ggf. abmelden?)
+    longitude: '',
+    latitude: '',
+    keywords: ''
   };
 
   event: MyEvent = new MyEvent();
   lat: number;
   lng: number;
+  eventCreated: MyEvent = new MyEvent();
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
     this.data = {};
@@ -52,9 +50,14 @@ export class NewEvent {
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
 
+    //beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
     this.restService.getMyEvents()
       .subscribe(response => {
-        //console.log(response);
+        console.log(response);
+        console.log(response.length);
+        var eventLength = response.length;
+        this.eventCreated.$title = response[eventLength-1].title;
+        this.eventCreated.$start = response[eventLength-1].starttimepoint;
       }, error => {
         console.log("Oooops!");
       });
@@ -65,28 +68,32 @@ export class NewEvent {
     mapView.present();
     mapView.onDidDismiss(data=> {
           this.event.$latitude = data.latitude;
+          this.event.$longitude = data.longitude;
     });
   }
 
   createMove() {
-    console.log(this.event);
-    // this.restService.newEvent(this.event)
-    //   .subscribe(response => {
-    //     if (response.message === 'Event erstellt') {
-    //       this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
-    //     } else {
-    //       this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
-    //     }
-    //   }, error => {
-    //     console.log("Oooops!");
-    //   });
+    this.restService.newEvent(this.event)
+      .subscribe(response => {
+        if (response.message === 'Event erstellt') {
+          this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
+        } else {
+          this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+        }
+      }, error => {
+        console.log("Oooops!");
+      });
   }
 
+  /*
   resetInputs() {
-    this.newEventVars.title = '';
-    this.newEventVars.place = '';
-    this.newEventVars.time = '';
+    this.event.$title = '';
+    this.event.$longitude = '';
+    this.event.$latitude = '';
+    this.event.$keywords = "";
+    this.event.$start = '';
   }
+  */
 
   presentAlert(title, subTitle) {
     let alert = this.alertCtrl.create({

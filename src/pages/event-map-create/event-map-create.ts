@@ -13,7 +13,6 @@ IonicPage()
 export class EventCreateMap{
 
     map: GoogleMap;
-    //geolocation: Geolocation = new Geolocation();
     googleMaps: GoogleMaps = new GoogleMaps();
     latLng: LatLng;
 
@@ -60,6 +59,7 @@ export class EventCreateMap{
             let lat: number = resp.coords.latitude;
              let long: number = resp.coords.longitude;
              let myPosLatLong: LatLng = new LatLng(lat, long);
+             this.latLng = myPosLatLong;
              let position: CameraPosition = {
                 target: myPosLatLong,
                 zoom: 18,
@@ -93,15 +93,14 @@ export class EventCreateMap{
     //entfert den Marker, da die Map als Singelton geladen wird und somit
     //alle Änderungen an der Karte auch im regulären MapView angezeigt würden
     confirmLocation(){
-        this.map.clear();
-        document.getElementsByClassName("app-root")[1].setAttribute("style", "opacity:1");
         this.viewCtrl.dismiss({
             latitude: this.latLng.lat,
             longitude: this.latLng.lng
         });
-
     }
 
-        
-        
+    ionViewDidLeave(){
+        this.map.clear();
+        document.getElementsByClassName("app-root")[1].setAttribute("style", "opacity:1");
+    }    
 }

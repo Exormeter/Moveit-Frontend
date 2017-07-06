@@ -36,18 +36,19 @@ export class EventView {
     }
 
     join(){
-
-      let toast = this.toastCtrl.create({
-        message: 'Erfolgreich teilgenommen',
-        duration: 3000,
-        position: 'middle'
-      });
-      toast.present();
+      console.log("Joined fired");
+      // let toast = this.toastCtrl.create({
+      //   message: 'Erfolgreich teilgenommen',
+      //   duration: 3000,
+      //   position: 'middle'
+      // });
+      // toast.present();
       this.sendPush();
     }
 
     cancel(){
-      this.viewCtrl.dismiss();
+      //this.viewCtrl.dismiss();
+      this.sendPush();
     }
 
     fillSubscriberList()
@@ -64,7 +65,10 @@ export class EventView {
       .subscribe(response => {
         response.forEach(userPushtoken => {
           if(userPushtoken[0] == pushRecipient){
-            this.pushService.sendPush(pushRecipient[1], this.user.$username);
+            this.pushService.sendPush(userPushtoken[1], this.user.$username).
+            subscribe(response =>{
+              console.log(response);
+            })
           }
         });
       })

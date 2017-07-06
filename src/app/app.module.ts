@@ -22,6 +22,7 @@ import { EventView } from "../pages/event-view/event-view";
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { User } from "../models/user";
 import { MyEvent } from "../models/event";
+import { PushService } from "../services/pushService";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -81,6 +82,7 @@ const cloudSettings: CloudSettings = {
     RestService,
     User,
     Geolocation,
+    PushService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

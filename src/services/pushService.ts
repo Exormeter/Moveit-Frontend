@@ -17,16 +17,14 @@ export class PushService{
     headers: Headers;
 
     constructor(private http: Http){
-        this.headers = new Headers({
-            'Authorization': 'Bearer ' + this.apikey,
-            'Content-Type': 'application/json'
-        });
+        this.headers = new Headers();
+        this.headers.append('Authorization', 'Bearer ' + this.apikey);
+        this.headers.append('Content-Type', 'application/json');
     }
 
 
     sendPush(token: string, userName: string): Observable<any>{
         let url: string = this.baseurl + '/push/notifications';
-
         var payload =  {
             tokens: [token],
             profile: 'moveit',
@@ -34,7 +32,7 @@ export class PushService{
                 message: userName + ' nimmt an deinem Move teil!'
             }
         }
-        let response: Observable<any> = this.http.post(url, this.headers, payload)
+        let response: Observable<any> = this.http.post(url, JSON.stringify(payload), {headers: this.headers})
         .map(response => response.json());
         return response;
     }

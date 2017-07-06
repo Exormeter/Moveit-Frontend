@@ -62,11 +62,12 @@ export class MapView {
 
     loadEvents(pos: LatLng){
       let mapView: MapView = this;
-      this.restService.getEventsInCircle(pos.lng, pos.lat, 10000)
+      this.restService.getEventsInCircle(pos.lat, pos.lng, 10000)
       .subscribe(response => {
         response.forEach(element => { 
           mapView.eventList.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
           element.latitude, element.start, element.__v, element.subscriber, element.keywords));
+          console.log(element);
           //Nutze Animation Feld zum Speichern der Event ID, da sonst die MarkerOptions keine
           //zusätzlichen costum Felder zulassen
           let eventPosition: LatLng = new LatLng(element.latitude, element.longitude);
@@ -75,9 +76,9 @@ export class MapView {
                  title: element.title,
                  snippet: element._id
           };
-          console.log(markerOptions);
           mapView.map.addMarker(markerOptions).then( function(marker: Marker){
             marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe( ()=>{
+              console.log(marker.getSnippet());
               let eventViewer = mapView.modalCtrl.create(EventView, {event: mapView.findEvent(marker.getSnippet(), mapView.eventList)})
               eventViewer.present();
             });

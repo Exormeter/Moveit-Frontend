@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Page } from 'ionic/ionic';
 import { RestService } from '../../services/restService';
 
@@ -23,8 +23,8 @@ import { Push, PushToken} from '@ionic/cloud-angular';
 export class Login {
 
   loginVars = {
-    username: 'admin',
-    password: '123456'
+    username: 'Essometer',
+    password: '12nils34'
   };
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {

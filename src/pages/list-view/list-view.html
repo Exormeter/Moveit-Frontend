@@ -14,16 +14,33 @@
 
 
 <ion-content padding>
-<ion-label>Meine Events</ion-label>
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 <ion-list>
-  <button ion-item *ngFor="let item of myEvents" (click)="itemSelected(item)">
-    {{ item.$title }}
-  </button>  
+   <ion-list-header>
+      Meine Events
+  </ion-list-header>  
+  <!--<ion-label >- Keine Events gefunden -</ion-label>-->
+  <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
+    <ion-avatar item-left>
+        <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
+    </ion-avatar>
+    <h2>{{ item.$title}}</h2>
+    <p>{{ item.$start}}14.55 Uhr</p>
+    <ion-note item-right> 5</ion-note>
+  </ion-item> 
 </ion-list>
-<ion-label>Events Teilnahme</ion-label>
 <ion-list>
-  <button ion-item *ngFor="let item of myEventsSub" (click)="itemSelected(item)">
-    {{ item.$title }}
-  </button>  
+  <ion-list-header>
+      Meine Teilnahmen
+  </ion-list-header>  
+  <!--<ion-label >- Keine Events gefunden -</ion-label>-->
+  <ion-item *ngFor="let item of myEventsSub" (click)="itemSelected(item)">
+    <ion-avatar item-left>
+        <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
+    </ion-avatar>
+    <h2>{{ item.$title}}</h2>
+    <p>{{ item.$start}}14.55 Uhr</p>
+    <ion-note item-right> 5 KM</ion-note>
+  </ion-item> 
 </ion-list>
 </ion-content>

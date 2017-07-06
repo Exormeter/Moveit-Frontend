@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 
-
-
 Injectable()
 export class User{
 
@@ -16,11 +14,9 @@ export class User{
     private passwordCheck: string;
     private pushToken: string;
 
-
 	constructor() {
 		
-	}
-    
+	}    
 
 	public get $username(): string {
 		return this.username;
@@ -87,7 +83,6 @@ export class User{
 		this.password = value;
 	}
 
-
 	public get $passwordCheck(): string {
 		return this.passwordCheck;
 	}
@@ -95,7 +90,6 @@ export class User{
 	public set $passwordCheck(value: string) {
 		this.passwordCheck = value;
 	}
-
 
 	public get $pushToken(): string {
 		return this.pushToken;
