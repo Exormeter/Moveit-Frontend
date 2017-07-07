@@ -13,7 +13,7 @@ import { MyEvent } from "../../models/event";
 @IonicPage()
 @Component({
   selector: 'page-list-view',
-  templateUrl: 'list-view.html',
+  templateUrl: './list-view.html',
 })
 export class ListView {
 

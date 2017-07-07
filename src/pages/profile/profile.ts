@@ -13,7 +13,7 @@ import { RestService } from '../../services/restService';
 @IonicPage()
 @Component({
   selector: 'page-profile',
-  templateUrl: 'profile.html',
+  templateUrl: './profile.html',
 })
 export class Profile {
 

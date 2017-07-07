@@ -8,7 +8,7 @@ import { RestService } from "../../services/restService";
 @IonicPage()
 @Component({
   selector: 'page-register',
-  templateUrl: 'register.html',
+  templateUrl: './register.html',
 })
 
 export class Register {

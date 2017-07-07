@@ -15,7 +15,7 @@ import { RestService } from "../../services/restService";
 @IonicPage()
 @Component({
   selector: 'page-new-event',
-  templateUrl: 'new-event.html',
+  templateUrl: './new-event.html',
 })
 export class NewEvent {
 

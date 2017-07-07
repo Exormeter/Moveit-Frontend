@@ -11,7 +11,7 @@ import { MyEvent } from '../../models/event';
 @IonicPage()
 @Component({
   selector: 'page-event-view',
-  templateUrl: 'event-view.html'
+  templateUrl: './event-view.html'
 })
 
 
