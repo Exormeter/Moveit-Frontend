@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, ViewController, NavController, NavParams, Platform } from 'ionic-angular';
 import { GoogleMap, GoogleMaps, GoogleMapsEvent, LatLng, MarkerOptions, Marker, CameraPosition } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 
 
 
@@ -13,11 +13,16 @@ IonicPage()
 export class EventCreateMap{
 
     map: GoogleMap;
-    geolocation: Geolocation = new Geolocation();
     googleMaps: GoogleMaps = new GoogleMaps();
     latLng: LatLng;
 
-    constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public viewCtrl: ViewController, ) {
+    geoOptions: GeolocationOptions = {
+        enableHighAccuracy: true,
+        timeout: 500000,
+        maximumAge: 10,
+      };
+
+    constructor(public geolocation: Geolocation, public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public viewCtrl: ViewController, ) {
         console.log("Constructed");
     }
 
@@ -32,7 +37,9 @@ export class EventCreateMap{
 
         this.map = this.googleMaps.create(element);
         this.map.clear();
- 
+        this.geolocation.getCurrentPosition().then(resp => {
+             console.log(resp);
+        });
         this.addDraggableMarker();
 
         //Setz die Elemnte über der Karte unsichtbar, da die Karte sonst nicht angezeigt wird
@@ -42,14 +49,17 @@ export class EventCreateMap{
 
     //added einen Marker an der akutellen Postion
     addDraggableMarker(){
-
+        console.log("Draggable Marker added");
+        
         //Wird für das Promise beim MarkerDragEvent gebraucht
         let eventCreateMap: EventCreateMap = this;
 
-         this.geolocation.getCurrentPosition().then((resp) => {
+         this.geolocation.getCurrentPosition(this.geoOptions).then((resp) => {
+             console.log(resp);
             let lat: number = resp.coords.latitude;
              let long: number = resp.coords.longitude;
              let myPosLatLong: LatLng = new LatLng(lat, long);
+             this.latLng = myPosLatLong;
              let position: CameraPosition = {
                 target: myPosLatLong,
                 zoom: 18,
@@ -83,15 +93,14 @@ export class EventCreateMap{
     //entfert den Marker, da die Map als Singelton geladen wird und somit
     //alle Änderungen an der Karte auch im regulären MapView angezeigt würden
     confirmLocation(){
-        this.map.clear();
-        document.getElementsByClassName("app-root")[1].setAttribute("style", "opacity:1");
         this.viewCtrl.dismiss({
             latitude: this.latLng.lat,
             longitude: this.latLng.lng
         });
-
     }
 
-        
-        
+    ionViewDidLeave(){
+        this.map.clear();
+        document.getElementsByClassName("app-root")[1].setAttribute("style", "opacity:1");
+    }    
 }

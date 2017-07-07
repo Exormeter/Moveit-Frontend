@@ -15,27 +15,27 @@
 
   <ion-item>
     <ion-label floating>Username:</ion-label>
-    <ion-input type="text" [(ngModel)]="registerVars.username" clearInput="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="user.$username" clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Vorname:</ion-label>
-    <ion-input type="text" [(ngModel)]="registerVars.firstname" clearInput="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="user.$firstname" clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Nachname:</ion-label>
-    <ion-input type="text" [(ngModel)]="registerVars.lastname" clearInput="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="user.$lastname" clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>E-Mail Adresse:</ion-label>
-    <ion-input type="email" [(ngModel)]="registerVars.email" clearInput="true"></ion-input>
+    <ion-input type="email" [(ngModel)]="user.$email" clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Geschlecht:</ion-label>
-    <ion-select [(ngModel)]="registerVars.sex">
+    <ion-select [(ngModel)]="user.$gender">
       <ion-option value="male">Männlich</ion-option>
       <ion-option value="female">Weiblich</ion-option>
     </ion-select>
@@ -48,17 +48,17 @@
 
   <ion-item>
     <ion-label floating>Geburtstag</ion-label>
-    <ion-input type="date" [(ngModel)]="registerVars.birthdate" max="1999-06-09"></ion-input>
+    <ion-input type="date" [(ngModel)]="user.$birthday" max="1999-06-09"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Passwort:</ion-label>
-    <ion-input type="password" [(ngModel)]="registerVars.password" clearInput="true"></ion-input>
+    <ion-input type="password" [(ngModel)]="user.$password" clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Passwort wiederholen:</ion-label>
-    <ion-input type="password" [(ngModel)]="registerVars.passwordCheck" clearInput="true"></ion-input>
+    <ion-input type="password" [(ngModel)]="user.$passwordCheck" clearInput="true"></ion-input>
   </ion-item>
 
   <button ion-button (click)="createAccount()">Erstellen!</button>

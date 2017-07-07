@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, Platform, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { GoogleMap, GoogleMapsEvent, LatLng, MarkerOptions, Marker, CameraPosition, GoogleMaps } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { MyEvent } from '../../models/event';
 import { RestService} from '../../services/restService';
 import { EventView } from "../event-view/event-view";
@@ -19,6 +19,12 @@ export class MapView {
     googleMaps: GoogleMaps = new GoogleMaps();
     currentPos: LatLng;
     eventList: MyEvent[] = new Array();
+
+     geoOptions: GeolocationOptions = {
+        enableHighAccuracy: true,
+        timeout: 500000,
+        maximumAge: 10,
+      };
     
     
     constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public viewCtrl: ViewController, 
@@ -37,7 +43,7 @@ export class MapView {
         let element: HTMLElement = document.getElementById('map');
         this.map = this.googleMaps.create(element);
 
-        this.geolocation.getCurrentPosition().then((resp) => {
+        this.geolocation.getCurrentPosition(this.geoOptions).then((resp) => {
              let myPosLatLong: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
              let position: CameraPosition = {
                 target: myPosLatLong,
@@ -56,11 +62,12 @@ export class MapView {
 
     loadEvents(pos: LatLng){
       let mapView: MapView = this;
-      this.restService.getEventsInCircle(pos.lng, pos.lat, 100)
+      this.restService.getEventsInCircle(pos.lat, pos.lng, 10000)
       .subscribe(response => {
         response.forEach(element => { 
           mapView.eventList.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
           element.latitude, element.start, element.__v, element.subscriber, element.keywords));
+          console.log(element);
           //Nutze Animation Feld zum Speichern der Event ID, da sonst die MarkerOptions keine
           //zusätzlichen costum Felder zulassen
           let eventPosition: LatLng = new LatLng(element.latitude, element.longitude);
@@ -69,9 +76,9 @@ export class MapView {
                  title: element.title,
                  snippet: element._id
           };
-
           mapView.map.addMarker(markerOptions).then( function(marker: Marker){
             marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe( ()=>{
+              console.log(marker.getSnippet());
               let eventViewer = mapView.modalCtrl.create(EventView, {event: mapView.findEvent(marker.getSnippet(), mapView.eventList)})
               eventViewer.present();
             });

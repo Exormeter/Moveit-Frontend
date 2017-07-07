@@ -1,94 +1,84 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Neuer Move!</ion-title>
-  </ion-navbar>
-
-  <ion-item>
-      <ion-label>Move Name: </ion-label>
-    <ion-input type="text" [(ngModel)]="newEventVars.title" placeholder="Titel eingeben..." clearInput="true"></ion-input>
-  </ion-item>
-
-  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
-
-  <ion-item>
-      <ion-label>Startet in (minuten): </ion-label>
-    <ion-input type="number" [(ngModel)]="newEventVars.time" placeholder="Minuten eingeben..." clearInput="true"></ion-input>
-  </ion-item>
-
-  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
-  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
-
 </ion-header>
 
 <ion-content padding>
-</ion-content>
 
-<!--
-<ion-header ng-if="newEventVars.pMove = 0" >
+  <!--
   <ion-navbar>
     <ion-title>Neuer Move!</ion-title>
   </ion-navbar>
-
-  <ion-item>
-      <ion-label>Move Name: </ion-label>
-    <ion-input type="text" [(ngModel)]="newEventVars.title" placeholder="Titel eingeben..."></ion-input>
-  </ion-item>
-
-  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
-
-  <ion-item>
-      <ion-label>Startet in (minuten): </ion-label>
-    <ion-input type="number" [(ngModel)]="newEventVars.time" placeholder="Minuten eingeben..."></ion-input>
-  </ion-item>
-
-  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
-  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
-
-</ion-header>
-
-<ion-header ng-if="newEventVars.pMove = 1" >
-  <ion-navbar>
-    <ion-title>newEventVars.title</ion-title>
-  </ion-navbar>
-
-  <ion-item>
-      <ion-label>Move Name: newEventVars.title</ion-label>
-  </ion-item>
-
-  <ion-item>
-      <ion-label>Startpunkt: newEventVars.place</ion-label>
-  </ion-item>
-
-  <ion-item>
-      <ion-label>Startet in (minuten): </ion-label>
-  </ion-item>
-
-  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
-
-</ion-header>
-
-<ion-header ng-if="newEventVars.pMove = 2" >
-  <ion-navbar>
-    <ion-title>Neuer Move!</ion-title>
-  </ion-navbar>
-
-  <ion-item>
-      <ion-label>Move Name: </ion-label>
-    <ion-input type="text" [(ngModel)]="newEventVars.title" placeholder="Titel eingeben..."></ion-input>
-  </ion-item>
-
-  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
-
-  <ion-item>
-      <ion-label>Startet in (minuten): </ion-label>
-    <ion-input type="number" [(ngModel)]="newEventVars.time" placeholder="Minuten eingeben..."></ion-input>
-  </ion-item>
-
-  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
-  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
-
-</ion-header>
-<ion-content padding>
-</ion-content>
 -->
+
+  <p class="header">Neuen move erstellen</p>
+  <ion-item>
+    <ion-label>Move: </ion-label>
+    <ion-input type="text" [(ngModel)]="event.$title" placeholder="eingeben..." clearInput="true"></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
+
+  <ion-item>
+    <ion-label>Startet in: </ion-label>
+    <ion-input type="number" [(ngModel)]="event.$start" placeholder="Minuten eingeben..." clearInput="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Keywords: </ion-label>
+    <ion-input type="text" [(ngModel)]="event.$keywords" placeholder="eingeben..." clearInput="true"></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
+
+  <hr>
+  <p class="header">Anstehende Moves</p>
+  <ion-item>
+    <ion-label>Move: </ion-label>
+    <ion-input readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Startzeit: </ion-label>
+    <ion-input readonly="true"></ion-input>
+  </ion-item>
+
+  <hr>
+  <p class="header">Zuletzt erstellter Move</p>
+
+  <ion-item>
+    <ion-label>Move: </ion-label>
+    <ion-input [(ngModel)]="eventCreated.$title" readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Startzeit: </ion-label>
+    <ion-input [(ngModel)]="eventCreated.$start" readonly="true"></ion-input>
+  </ion-item>
+
+  <!--
+  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
+  -->
+  <!--
+    
+  <br /><br /> debug:
+
+  <ion-item>
+    <ion-label>title: </ion-label>
+    <ion-input type="text" [(ngModel)]="this.event.title" placeholder="-" readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>longitude: </ion-label>
+    <ion-input type="text" [(ngModel)]="this.event.longitude" placeholder="-" readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>latitude: </ion-label>
+    <ion-input type="text" [(ngModel)]="this.event.latitude" placeholder="-" readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>start: </ion-label>
+    <ion-input type="text" [(ngModel)]="this.event.start" placeholder="-" readonly="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>keywords: </ion-label>
+    <ion-input type="text" [(ngModel)]="this.event.keywords" placeholder="-" readonly="true"></ion-input>
+  </ion-item>
+-->
+
+</ion-content>
