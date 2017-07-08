@@ -1,11 +1,12 @@
 /**
- * Created by eugen on 16.06.17.
+ * Created by eugen on 30.06.17.
  */
+
 
 
 import { ComponentFixture, async , TestBed } from '@angular/core/testing';
 import { TestUtils }               from '../../test';
-import { Login }                   from './login';
+import { ListView }                   from './list-view';
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { IonicModule, Platform, NavController} from 'ionic-angular/index';
@@ -17,21 +18,21 @@ import { RestService } from "../../services/restService";
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 
-let fixture: ComponentFixture<Login> = null;
+let fixture: ComponentFixture<ListView> = null;
 let instance: any = null;
 
-describe('Pages: Login', () => {
+describe('Pages: ListView', () => {
     let de: DebugElement;
-    let comp: Login;
-    let fixture: ComponentFixture<Login>;
+    let comp: ListView;
+    let fixture: ComponentFixture<ListView>;
 
 
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [Login],
+            declarations: [ListView],
             imports: [
-                IonicModule.forRoot(Login)
+                IonicModule.forRoot(ListView)
             ],
             providers: [
                 NavController,
@@ -46,25 +47,13 @@ describe('Pages: Login', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(Login);
+        fixture = TestBed.createComponent(ListView);
         comp = fixture.componentInstance;
     });
 
 
     it('should be created', () => {
-        expect(comp instanceof Login).toBe(true);
+        expect(comp instanceof ListView).toBe(true);
     });
 
-    /*   it('should show an allert', () => {
-        sypOn(window, 'alert');
-        expect(alert).toHaveBeenCalled();
-    }); */
-
-
 });
-
-
-
-
-
-

@@ -17,7 +17,7 @@ import { Camera, CameraOptions } from "@ionic-native/camera";
 @IonicPage()
 @Component({
   selector: 'page-new-event',
-  templateUrl: 'new-event.html',
+  templateUrl: './new-event.html',
 })
 export class NewEvent {
 

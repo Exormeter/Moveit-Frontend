@@ -15,7 +15,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 @IonicPage()
 @Component({
   selector: 'page-event-view',
-  templateUrl: 'event-view.html'
+  templateUrl: './event-view.html'
 })
 
 

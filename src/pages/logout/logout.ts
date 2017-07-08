@@ -13,7 +13,7 @@ import { Login } from '../login/login';
 @IonicPage()
 @Component({
   selector: 'page-logout',
-  templateUrl: 'logout.html',
+  templateUrl: './logout.html',
 })
 export class Logout {
 

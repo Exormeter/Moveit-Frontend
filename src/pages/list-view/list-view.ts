@@ -17,7 +17,7 @@ import { LatLng } from '@ionic-native/google-maps';
 @IonicPage()
 @Component({
   selector: 'page-list-view',
-  templateUrl: 'list-view.html',
+  templateUrl: './list-view.html',
 })
 export class ListView {
   myEvents: MyEvent[] = new Array();
