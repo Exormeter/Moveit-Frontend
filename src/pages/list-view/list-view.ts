@@ -44,7 +44,7 @@ export class ListView {
       .subscribe(response => {
         response.forEach(element => {
           this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, element.start, element.__v, element.subscriber, element.keywords));
+            element.latitude, element.start, element.__v, element.picture, element.subscriber, element.keywords));
         }, error => {
           console.log("Oooops!");
         });
@@ -54,7 +54,7 @@ export class ListView {
       .subscribe(response => {
         response.forEach(element => {
           this.myEventsSub.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, element.start, element.__v, element.subscriber, element.keywords));
+            element.latitude, element.start, element.__v, element.picture, element.subscriber, element.keywords));
         }, error => {
           console.log("Oooops!");
         });

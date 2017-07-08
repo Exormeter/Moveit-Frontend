@@ -6,6 +6,7 @@ import { MapView } from '../map-view/map-view';
 import { RestService } from "../../services/restService";
 import { Push } from "@ionic/cloud-angular";
 import { MyEvent } from '../../models/event';
+import { Camera, CameraOptions } from "@ionic-native/camera";
 
 /**
  * Generated class for the NewEvent page.
@@ -20,9 +21,6 @@ import { MyEvent } from '../../models/event';
 })
 export class NewEvent {
 
-  data: any;
-  posts: any;
-
   debugVar = {
     start: '',
     title: '',
@@ -36,15 +34,8 @@ export class NewEvent {
   lng: number;
   eventCreated: MyEvent = new MyEvent();
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
-    this.data = {};
-    this.data.username = 'admin';
-    this.data.password = '123456';
-    this.data.response = '';
-    this.push.rx.notification()
-    .subscribe((msg) => {
-      alert(msg.title + ': ' + msg.text);
-    });
+  constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
+
   }
 
   ionViewDidLoad() {
@@ -55,9 +46,12 @@ export class NewEvent {
       .subscribe(response => {
         console.log(response);
         console.log(response.length);
-        var eventLength = response.length;
-        this.eventCreated.$title = response[eventLength-1].title;
-        this.eventCreated.$start = response[eventLength-1].starttimepoint;
+        let eventLength: number = response.length;
+        if(eventLength > 0){
+          this.eventCreated.$title = response[eventLength-1].title;
+          this.eventCreated.$start = response[eventLength-1].starttimepoint;
+        }
+        
       }, error => {
         console.log("Oooops!");
       });
@@ -94,6 +88,22 @@ export class NewEvent {
     this.event.$start = '';
   }
   */
+  takePhotoLocation(){
+    const options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      let base64Image = 'data:image/png;base64,' + imageData;
+      this.event.$picture = base64Image;
+      }, (err) => {
+        console.log(err);
+    });
+  }
 
   presentAlert(title, subTitle) {
     let alert = this.alertCtrl.create({

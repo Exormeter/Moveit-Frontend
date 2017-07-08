@@ -8,11 +8,12 @@ export class MyEvent{
     private latitude: number;
     private start: string;
     private __v: number;
+	private picture: string;
     private subscriber: string[];
     private keywords: string[];
 
 	constructor(id: string = '', $createdAt: string = '', $creator: string = '', $title: string = '' , $longitude: number = 0,
-	$latitude: number = 0, $start: string = '', _v: number = 0, $subscriber: string[] = [], $keywords: string[] = []) {
+	$latitude: number = 0, $start: string = '', _v: number = 0, $picture: string = '',$subscriber: string[] = [], $keywords: string[] = []) {
 		this._id = id;
 		this.createdAt = $createdAt;
 		this.creator = $creator;
@@ -21,6 +22,7 @@ export class MyEvent{
 		this.latitude = $latitude;
 		this.start = $start;
 		this.__v = _v;
+		this.picture = $picture;
 		this.subscriber = $subscriber;
 		this.keywords = $keywords;
 	}
@@ -97,6 +99,14 @@ export class MyEvent{
 
 	public set _v(value: number) {
 		this.__v = value;
+	}
+
+	public get $picture(): string {
+		return this.picture;
+	}
+
+	public set $picture(value: string) {
+		this.picture = value;
 	}
 
 	public get $subscriber(): string[] {
