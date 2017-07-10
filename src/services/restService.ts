@@ -64,6 +64,14 @@ export class RestService {
         return response;
     }
 
+    getAllEvents(lat: number, lng: number): Observable<any> {
+        let url: string = this.baseurl + '/allEvents';
+        let response: Observable<any> = this.http.get(url + '?lon=' + lng + '&lat=' + lat, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
+
     getMyEvents(): Observable<any> {
         let url: string = this.baseurl + '/myEvents';
         let response: Observable<any> = this.http.get(url, { withCredentials: true })

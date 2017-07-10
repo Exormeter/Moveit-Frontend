@@ -50,23 +50,22 @@ export class ListView {
         });
       });
 
-    this.restService.getMyEventSubscriber()
+    this.restService.getAllEvents(1.1, 4.1)
       .subscribe(response => {
         response.forEach(element => {
-          this.myEventsSub.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, element.start, element.__v, element.picture, element.subscriber, element.keywords));
+          let e = new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+            element.latitude, element.start, element.__v, element.picture, element.subscriber, element.keywords);
+            e.$distA = Math.round(element.distA/10.0)/100.0;
+          this.myEventsSub.push(e);
         }, error => {
           console.log("Oooops!");
         });
-        this.myEventsLength = this.myEvents.length;
+        // this.myEventsLength = this.myEvents.length;
       });
 
     this.myEventsSearch = this.myEvents;
 
-    if (this.myEvents.length <= 0) {
-
-    }
-    this.getDistance(52.030228, 8.532471);
+    this.myEventsSub = this.myEventsSub;
   }
 
   reset() {
