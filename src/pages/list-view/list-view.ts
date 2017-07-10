@@ -1,7 +1,7 @@
 
 import { EventView } from '../event-view/event-view';
 import { Component } from '@angular/core';
-import { ModalController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { RestService } from "../../services/restService";
 import { MyEvent } from "../../models/event";
 import { User } from "../../models/user";
@@ -20,16 +20,17 @@ import { LatLng } from '@ionic-native/google-maps';
   templateUrl: './list-view.html',
 })
 export class ListView {
-  myEvents: MyEvent[] = new Array();
-  myEventsSub: MyEvent[] = new Array();
-  myEventsSearch: MyEvent[] = new Array();
+  myEvents: MyEvent[] = [];
+  myEventsSub: MyEvent[] = [];
+  myEventsSearch: MyEvent[] = [];
   geolocation: Geolocation = new Geolocation();
-  myLat: number;
-  myLong: number;
+  myLat: number = 1.23;
+  myLong: number = 4.56;
 
   myEventsLength: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modalCtrl: ModalController,
+    private alertCtrl: AlertController) {
   }
 
 
@@ -40,6 +41,20 @@ export class ListView {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListView');
+
+    this.geolocation.getCurrentPosition().then(res => {
+      this.myLat = res.coords.latitude;
+      this.myLong = res.coords.longitude;
+      this.presentAlert("Deine Position:", this.myLat + " " + this.myLong);
+      this.ionViewWillEnter();
+    });
+  }
+
+  ionViewWillEnter() {
+    this.myEvents = [];
+    this.myEventsSub = [];
+    this.myEventsSearch = [];
+
     this.restService.getMyEvents()
       .subscribe(response => {
         response.forEach(element => {
@@ -50,13 +65,12 @@ export class ListView {
         });
       });
 
-    this.restService.getAllEvents(1.1, 4.1)
+    this.restService.getAllEvents(this.myLat, this.myLong)
       .subscribe(response => {
         response.forEach(element => {
-          let e = new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, element.start, element.__v, element.picture, element.subscriber, element.keywords);
-            e.$distA = Math.round(element.distA/10.0)/100.0;
-          this.myEventsSub.push(e);
+          this.myEventsSub.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+            element.latitude, element.start, element.__v, element.picture, element.subscriber, element.keywords,
+            Math.round(element.distA / 10.0) / 100.0));
         }, error => {
           console.log("Oooops!");
         });
@@ -64,7 +78,6 @@ export class ListView {
       });
 
     this.myEventsSearch = this.myEvents;
-
     this.myEventsSub = this.myEventsSub;
   }
 
@@ -148,5 +161,14 @@ export class ListView {
     geolocation.location(function () {
       console.log('finished, loading app.');
     });
+  }
+
+  presentAlert(title, subTitle) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['Okay']
+    });
+    alert.present();
   }
 }
