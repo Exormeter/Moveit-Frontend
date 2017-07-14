@@ -42,45 +42,44 @@ export class ListView {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListView');
+  }
 
+  ionViewWillEnter() {
     this.geolocation.getCurrentPosition().then(res => {
       this.myLat = res.coords.latitude;
       this.myLong = res.coords.longitude;
       this.presentAlert("Deine Position:", this.myLat + " " + this.myLong);
-      this.ionViewWillEnter();
+
+      this.myEvents = [];
+      this.allEvents = [];
+      this.myEventsSearch = [];
+      this.allEventsSearch = [];
+
+      this.restService.getMyEvents()
+        .subscribe(response => {
+          response.forEach(element => {
+            this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+              element.latitude, new Date(element.starttimepoint).toString(), element.__v, element.picture, element.subscriber, element.keywords));
+          }, error => {
+            console.log("Oooops!");
+          });
+        });
+
+      this.restService.getAllEvents(this.myLat, this.myLong)
+        .subscribe(response => {
+          response.forEach(element => {
+            this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+              element.latitude, new Date(element.starttimepoint).toString(), element.__v, element.picture, element.subscriber, element.keywords,
+              Math.round(element.distA / 10.0) / 100.0));
+          }, error => {
+            console.log("Oooops!");
+          });
+          // this.myEventsLength = this.myEvents.length;
+        });
+
+      this.myEventsSearch = this.myEvents;
+      this.allEventsSearch = this.allEvents;
     });
-  }
-
-  ionViewWillEnter() {
-    this.myEvents = [];
-    this.allEvents = [];
-    this.myEventsSearch = [];
-    this.allEventsSearch = [];
-
-    this.restService.getMyEvents()
-      .subscribe(response => {
-        response.forEach(element => {
-          this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords));
-        }, error => {
-          console.log("Oooops!");
-        });
-      });
-
-    this.restService.getAllEvents(this.myLat, this.myLong)
-      .subscribe(response => {
-        response.forEach(element => {
-          this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords,
-            Math.round(element.distA / 10.0) / 100.0));
-        }, error => {
-          console.log("Oooops!");
-        });
-        // this.myEventsLength = this.myEvents.length;
-      });
-
-    this.myEventsSearch = this.myEvents;
-    this.allEventsSearch = this.allEvents;
   }
 
   reset() {
