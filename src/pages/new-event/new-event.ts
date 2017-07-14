@@ -126,9 +126,9 @@ export class NewEvent {
   */
   takePhotoLocation(){
     const options: CameraOptions = {
-      quality: 50,
+      quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      sourceType: this.camera.PictureSourceType.CAMERA,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
