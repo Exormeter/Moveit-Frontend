@@ -7,13 +7,16 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>listView</ion-title>
+        <ion-title>List View</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-note>
+        Deine Position: {{myLat}} {{myLong}} ({{myAddress}})
+    </ion-note>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
         <ion-list-header>

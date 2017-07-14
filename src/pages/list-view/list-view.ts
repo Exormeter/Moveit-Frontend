@@ -27,6 +27,7 @@ export class ListView {
   geolocation: Geolocation = new Geolocation();
   myLat: number = 1.23;
   myLong: number = 4.56;
+  myAddress: string = null;
 
   myEventsLength: number;
 
@@ -46,9 +47,19 @@ export class ListView {
 
   ionViewWillEnter() {
     this.geolocation.getCurrentPosition().then(res => {
+
       this.myLat = res.coords.latitude;
       this.myLong = res.coords.longitude;
-      this.presentAlert("Deine Position:", this.myLat + " " + this.myLong);
+      if (!this.myAddress) {
+        this.restService.getAddress(this.myLat, this.myLong).
+          subscribe(r => {
+            if (r.results && r.results.length > 0 && r.results[0].formatted_address) {
+              this.myAddress = r.results[0].formatted_address;
+            } else {
+              this.myAddress = 'keine Adresse';
+            }
+          });
+      }
 
       this.myEvents = [];
       this.allEvents = [];
@@ -79,6 +90,7 @@ export class ListView {
 
       this.myEventsSearch = this.myEvents;
       this.allEventsSearch = this.allEvents;
+
     });
   }
 
@@ -126,7 +138,7 @@ export class ListView {
     alert.present();
   }
 
-  dateToString(date: Date): string{
+  dateToString(date: Date): string {
     let time: string = "";
     time = time + date.getHours() + ":" + date.getMinutes();
     return time;

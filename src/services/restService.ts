@@ -105,41 +105,41 @@ export class RestService {
         return response;
     }
 
-    getPushToken(userName: string): Observable<any>{
+    getPushToken(userName: string): Observable<any> {
         let url: string = this.baseurl + '/getUserToken?username=' + userName;
-        let response: Observable<any> = this.http.get(url, { withCredentials: true})
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
             .map(response => response.json());
 
         return response;
     }
 
-    setPushToken(pushToken: string): Observable<any>{
+    setPushToken(pushToken: string): Observable<any> {
         let url: string = this.baseurl + '/setUserToken';
-        let response: Observable<any> = this.http.post(url, {token: pushToken}, {withCredentials: true})
+        let response: Observable<any> = this.http.post(url, { token: pushToken }, { withCredentials: true })
             .map(response => response.json());
 
         return response;
     }
 
-    getUserPicture(userName: string): Observable<any>{
+    getUserPicture(userName: string): Observable<any> {
         let url: string = this.baseurl + '/getPicture?username=' + userName;
-        let response: Observable<any> = this.http.get(url, { withCredentials: true})
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
             .map(response => response.json());
 
         return response;
     }
 
-    setUserPicture(base64Picture: string): Observable<any>{
+    setUserPicture(base64Picture: string): Observable<any> {
         let url: string = this.baseurl + '/setPicture';
-        let response: Observable<any> = this.http.post(url, {picture: base64Picture}, {withCredentials: true})
+        let response: Observable<any> = this.http.post(url, { picture: base64Picture }, { withCredentials: true })
             .map(response => response.json());
 
         return response;
     }
 
-    getEventPicture(eventId: string): Observable<any>{
+    getEventPicture(eventId: string): Observable<any> {
         let url: string = this.baseurl + '/getEventPicture?eventID=' + eventId;
-        let response: Observable<any> = this.http.get(url, {withCredentials: true})
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
             .map(response => response.json());
 
         return response;
@@ -171,7 +171,15 @@ export class RestService {
 
     subscribeToEvent(eventId: string): Observable<any> {
         let url: string = this.baseurl + '/eventSubscribe?eventID=' + eventId;
-        let response: Observable<any> = this.http.get(url, { withCredentials: true})
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
+
+    getAddress(lat: number, lng: number) {
+        let url: string = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&sensor=true';
+        let response: Observable<any> = this.http.get(url)
             .map(response => response.json());
 
         return response;
