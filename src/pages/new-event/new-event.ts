@@ -21,29 +21,59 @@ import { Camera, CameraOptions } from "@ionic-native/camera";
 })
 export class NewEvent {
 
+<<<<<<< HEAD
+  //data: any;
+  //posts: any;
+
+=======
+>>>>>>> 1db47f6ec963acd451d7c55043fbe58781608281
   debugVar = {
     start: '',
     title: '',
     longitude: '',
     latitude: '',
-    keywords: ''
+    keywords: '',
+    firstTime: '',
+    secondTime: ''
   };
 
-  event: MyEvent = new MyEvent();
   lat: number;
   lng: number;
+  event: MyEvent = new MyEvent();
   eventCreated: MyEvent = new MyEvent();
+  nextMove: MyEvent = new MyEvent();
 
+<<<<<<< HEAD
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
+    /*
+    this.data = {};
+    this.data.username = 'admin';
+    this.data.password = '123456';
+    this.data.response = '';
+    */
+    this.push.rx.notification()
+      .subscribe((msg) => {
+        alert(msg.title + ': ' + msg.text);
+      });
+=======
   constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
 
+>>>>>>> 1db47f6ec963acd451d7c55043fbe58781608281
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
 
-    //beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
+    // beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
     this.restService.getMyEvents()
       .subscribe(response => {
+<<<<<<< HEAD
+        //console.log("response:" + response);
+        //console.log("response.length:" + response.length);
+        this.eventCreated.$title = response[response.length - 1].title;
+        this.eventCreated.$start = response[response.length - 1].starttimepoint;
+        console.log("this.eventCreated.$start: " + this.eventCreated.$start);
+=======
         console.log(response);
         console.log(response.length);
         let eventLength: number = response.length;
@@ -52,17 +82,51 @@ export class NewEvent {
           this.eventCreated.$starttimepoint = response[eventLength-1].starttimepoint;
         }
         
+>>>>>>> 1db47f6ec963acd451d7c55043fbe58781608281
       }, error => {
-        console.log("Oooops!");
+        console.log("Oooops! @11");
+      });
+
+    // wir zeigen das nächste Event an: entweder vom User selbst erstellt oder teilgenommen
+    // zu erst holen wir uns das aktuellste Event an dem man teilnimmt und vergleichen ob das zuletzt erstellte akuteller ist
+    /*
+    this.restService.getMyEvents()
+      .subscribe(response => {
+        //console.log("response:" + response);
+        //console.log("response.length: (getMyEvents)" + response.length);
+        this.debugVar.secondTime = response[response.length - 1].starttimepoint;
+        console.log("this.debugVar.secondTime: " + this.debugVar.secondTime);
+        if (this.debugVar.firstTime < this.debugVar.secondTime) {
+          console.log("Second greater Firsttime");
+          this.nextMove.$title = response[response.length - 1].title;
+          this.nextMove.$start = response[response.length - 1].starttimepoint;
+        }
+      }, error => {
+        console.log("Oooops! @33");
+      });
+    */
+
+    this.restService.getMyEventSubscriber()
+      .subscribe(response => {
+        console.log("response (firstTime): " + response);
+        //console.log("response.length (getMyEventSubscriber):" + response.length);
+        this.nextMove.$title = response[response.length - 1].title;
+        this.nextMove.$start = response[response.length - 1].starttimepoint;
+        this.debugVar.firstTime = response[response.length - 1].starttimepoint;
+        console.log("this.debugVar.firstTime: " + this.debugVar.firstTime);
+        console.log("this.nextMove.$start: " + this.nextMove.$start);
+        console.log("response[response.length - 1].starttimepoint: " + response[response.length - 1].starttimepoint);
+      }, error => {
+        console.log("Oooops! @22");
       });
   }
 
   selectStartOnMap() {
     let mapView = this.modelCrtl.create(EventCreateMap);
     mapView.present();
-    mapView.onDidDismiss(data=> {
-          this.event.$latitude = data.latitude;
-          this.event.$longitude = data.longitude;
+    mapView.onDidDismiss(data => {
+      this.event.$latitude = data.latitude;
+      this.event.$longitude = data.longitude;
     });
   }
 
