@@ -49,7 +49,7 @@ export class NewEvent {
         let eventLength: number = response.length;
         if(eventLength > 0){
           this.eventCreated.$title = response[eventLength-1].title;
-          this.eventCreated.$start = response[eventLength-1].starttimepoint;
+          this.eventCreated.$starttimepoint = response[eventLength-1].starttimepoint;
         }
         
       }, error => {

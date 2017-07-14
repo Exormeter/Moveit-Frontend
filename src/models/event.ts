@@ -6,7 +6,7 @@ export class MyEvent{
     private title: string;
     private longitude: number;
     private latitude: number;
-    private start: string;
+    private starttimepoint: string;
     private __v: number;
 	private picture: string;
     private subscriber: string[];
@@ -14,7 +14,7 @@ export class MyEvent{
 	private distA: number;
 
 	constructor(id: string = '', $createdAt: string = '', $creator: string = '', $title: string = '' , $longitude: number = 0,
-	$latitude: number = 0, $start: string = '', _v: number = 0, $picture: string = '',$subscriber: string[] = [], $keywords: string[] = [],
+	$latitude: number = 0, $starttimepoint: string = '', _v: number = 0, $picture: string = '',$subscriber: string[] = [], $keywords: string[] = [],
 	$distA: number = 0) {
 		this._id = id;
 		this.createdAt = $createdAt;
@@ -22,7 +22,7 @@ export class MyEvent{
 		this.title = $title;
 		this.longitude = $longitude;
 		this.latitude = $latitude;
-		this.start = $start;
+		this.starttimepoint = $starttimepoint;
 		this.__v = _v;
 		this.picture = $picture;
 		this.subscriber = $subscriber;
@@ -63,12 +63,12 @@ export class MyEvent{
 	}
 
 
-	public get $start(): string {
-		return this.start;
+	public get $starttimepoint(): string {
+		return this.starttimepoint;
 	}
 
-	public set $start(value: string) {
-		this.start = value;
+	public set $starttimepoint(value: string) {
+		this.starttimepoint = value;
 	}
 
 	public get $creator(): string {

@@ -21,7 +21,7 @@
 
   <ion-item>
     <ion-label>Startet in: </ion-label>
-    <ion-input type="number" [(ngModel)]="event.$start" placeholder="Minuten eingeben..." clearInput="true"></ion-input>
+    <ion-input type="number" [(ngModel)]="event.$starttimepoint" placeholder="Minuten eingeben..." clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -51,7 +51,7 @@
   </ion-item>
   <ion-item>
     <ion-label>Startzeit: </ion-label>
-    <ion-input [(ngModel)]="eventCreated.$start" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="eventCreated.$starttimepoint" readonly="true"></ion-input>
   </ion-item>
 
   <!--
