@@ -21,8 +21,9 @@ import { LatLng } from '@ionic-native/google-maps';
 })
 export class ListView {
   myEvents: MyEvent[] = [];
-  myEventsSub: MyEvent[] = [];
+  allEvents: MyEvent[] = [];
   myEventsSearch: MyEvent[] = [];
+  allEventsSearch: MyEvent[] = [];
   geolocation: Geolocation = new Geolocation();
   myLat: number = 1.23;
   myLong: number = 4.56;
@@ -52,8 +53,9 @@ export class ListView {
 
   ionViewWillEnter() {
     this.myEvents = [];
-    this.myEventsSub = [];
+    this.allEvents = [];
     this.myEventsSearch = [];
+    this.allEventsSearch = [];
 
     this.restService.getMyEvents()
       .subscribe(response => {
@@ -68,7 +70,7 @@ export class ListView {
     this.restService.getAllEvents(this.myLat, this.myLong)
       .subscribe(response => {
         response.forEach(element => {
-          this.myEventsSub.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+          this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
             element.latitude, new Date(element.starttimepoint).toString(), element.__v, element.picture, element.subscriber, element.keywords,
             Math.round(element.distA / 10.0) / 100.0));
         }, error => {
@@ -78,23 +80,41 @@ export class ListView {
       });
 
     this.myEventsSearch = this.myEvents;
-    this.myEventsSub = this.myEventsSub;
+    this.allEventsSearch = this.allEvents;
   }
 
   reset() {
     this.myEventsSearch = this.myEvents;
+    this.allEventsSearch = this.allEvents;
   }
 
   getItems(ev: any) {
-
+    this.reset();
     // set val to the value of the searchbar
     let val = ev.target.value;
-    this.reset();
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.myEventsSearch = this.myEventsSearch.filter((item) => {
-        return (item.$title.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+    if (val) {
+      val = val.trim();
+      if (val) {
+        this.myEventsSearch = this.myEventsSearch.filter((e) => {
+          for (var index = 0; index < e.$keywords.length; index++) {
+            var k = e.$keywords[index].toLowerCase();
+            if (k.indexOf(val) >= 0) {
+              return true;
+            }
+          }
+          return false;
+        });
+
+        this.allEventsSearch = this.allEventsSearch.filter((e) => {
+          for (var index = 0; index < e.$keywords.length; index++) {
+            var k = e.$keywords[index].toLowerCase();
+            if (k.indexOf(val) >= 0) {
+              return true;
+            }
+          }
+          return false;
+        });
+      }
     }
   }
 

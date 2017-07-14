@@ -1,6 +1,8 @@
 <ion-header>
 </ion-header>
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
 <ion-content padding>
 
   <!--
@@ -11,8 +13,8 @@
 
   <p class="header">Neuen move erstellen</p>
   <ion-item>
-    <ion-label>Move: </ion-label>
-    <ion-input type="text" [(ngModel)]="event.$title" placeholder="eingeben..." clearInput="true"></ion-input>
+    <ion-label floating>Titel: </ion-label>
+    <ion-input type="text" [(ngModel)]="event.$title" clearInput="true"></ion-input>
   </ion-item>
 
   <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
@@ -21,28 +23,30 @@
 
   <ion-item>
     <ion-label>Startet in: </ion-label>
-    <ion-input type="number" [(ngModel)]="event.$start" placeholder="Minuten eingeben..." clearInput="true"></ion-input>
+    <ion-input type="number" [(ngModel)]="event.$starttimepoint" placeholder="Minuten eingeben..." clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Keywords: </ion-label>
-    <ion-input type="text" [(ngModel)]="event.$keywords" placeholder="eingeben..." clearInput="true"></ion-input>
+    <ion-label floating>Keywords (mit Kommas trennen): </ion-label>
+    <ion-input type="text" [(ngModel)]="event.$keywords" clearInput="true"></ion-input>
   </ion-item>
 
   <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
-
   <hr>
-  <p class="header">Anstehende Moves</p>
+
+  <br /><br />
+  <p class="header">Anstehender Move</p>
   <ion-item>
     <ion-label>Move: </ion-label>
-    <ion-input readonly="true"></ion-input>
+    <ion-input [(ngModel)]="nextMove.$title" readonly="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Startzeit: </ion-label>
-    <ion-input readonly="true"></ion-input>
+    <ion-input [(ngModel)]="nextMove.$start" readonly="true"></ion-input>
   </ion-item>
-
   <hr>
+
+  <br /><br />
   <p class="header">Zuletzt erstellter Move</p>
 
   <ion-item>
@@ -51,7 +55,7 @@
   </ion-item>
   <ion-item>
     <ion-label>Startzeit: </ion-label>
-    <ion-input [(ngModel)]="eventCreated.$start" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="eventCreated.$starttimepoint" readonly="true"></ion-input>
   </ion-item>
 
   <!--
