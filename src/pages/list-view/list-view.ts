@@ -59,7 +59,7 @@ export class ListView {
         .subscribe(response => {
           response.forEach(element => {
             this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-              element.latitude, new Date(element.starttimepoint).toString(), element.__v, element.picture, element.subscriber, element.keywords));
+              element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords));
           }, error => {
             console.log("Oooops!");
           });
@@ -69,7 +69,7 @@ export class ListView {
         .subscribe(response => {
           response.forEach(element => {
             this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-              element.latitude, new Date(element.starttimepoint).toString(), element.__v, element.picture, element.subscriber, element.keywords,
+              element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords,
               Math.round(element.distA / 10.0) / 100.0));
           }, error => {
             console.log("Oooops!");
