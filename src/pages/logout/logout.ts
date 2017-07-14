@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { App, IonicPage, ViewController, NavParams } from 'ionic-angular';
-
+import { Push} from '@ionic/cloud-angular';
 import { Login } from '../login/login';
 
 /**
@@ -13,13 +13,13 @@ import { Login } from '../login/login';
 @IonicPage()
 @Component({
   selector: 'page-logout',
-  templateUrl: 'logout.html',
+  templateUrl: './logout.html',
 })
 export class Logout {
 
   message: any;
 
-  constructor(public viewCtrl: ViewController, public appCtrl: App, public navParams: NavParams, public http: Http) {
+  constructor(public viewCtrl: ViewController, public appCtrl: App, public navParams: NavParams, public http: Http, public push: Push) {
   }
 
   ionViewDidLoad() {
@@ -27,8 +27,8 @@ export class Logout {
     this.http.get('https://moveit-backend.herokuapp.com/logout', { withCredentials: true })
       .map(response => response.json())
       .subscribe(response => {
-        //this.message = response;
         if (response.message === 'Logout erfolgreich') {
+          this.push.unregister();
           this.appCtrl.getRootNav().setRoot(Login);
         }
       }, error => {

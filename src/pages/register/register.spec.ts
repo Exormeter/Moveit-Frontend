@@ -1,11 +1,11 @@
 /**
- * Created by eugen on 16.06.17.
+ * Created by eugen on 30.06.17.
  */
 
 
 import { ComponentFixture, async , TestBed } from '@angular/core/testing';
 import { TestUtils }               from '../../test';
-import { Login }                   from './login';
+import { Register }                   from './register';
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { IonicModule, Platform, NavController} from 'ionic-angular/index';
@@ -17,21 +17,21 @@ import { RestService } from "../../services/restService";
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 
-let fixture: ComponentFixture<Login> = null;
+let fixture: ComponentFixture<Register> = null;
 let instance: any = null;
 
-describe('Pages: Login', () => {
+describe('Pages: Register', () => {
     let de: DebugElement;
-    let comp: Login;
-    let fixture: ComponentFixture<Login>;
+    let comp: Register;
+    let fixture: ComponentFixture<Register>;
 
 
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [Login],
+            declarations: [Register],
             imports: [
-                IonicModule.forRoot(Login)
+                IonicModule.forRoot(Register)
             ],
             providers: [
                 NavController,
@@ -46,25 +46,15 @@ describe('Pages: Login', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(Login);
+        fixture = TestBed.createComponent(Register);
         comp = fixture.componentInstance;
     });
 
 
     it('should be created', () => {
-        expect(comp instanceof Login).toBe(true);
+        expect(comp instanceof Register).toBe(true);
     });
 
-    /*   it('should show an allert', () => {
-        sypOn(window, 'alert');
-        expect(alert).toHaveBeenCalled();
-    }); */
 
 
 });
-
-
-
-
-
-

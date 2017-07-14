@@ -2,12 +2,16 @@
 // IONIC:
 import { EventEmitter}      from '@angular/core';
 import { FormBuilder }      from '@angular/forms';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 // from
 // https://github.com/stonelasley/ionic-mocks/
 // should the package be incorporated?
 
 declare var jasmine: any;
+
+
 
 export class AlertMock {
 	public static instance(): any {
@@ -101,6 +105,10 @@ export class PlatformMock {
     });
   }
 
+  public getQueryParam():boolean{
+    return true;
+  }
+
   public registerBackButtonAction(fn: Function, priority?: number): Function {
     return (() => true);
   }
@@ -152,6 +160,18 @@ export class PlatformMock {
 
   public getActiveElement(): any {
     return document['activeElement'];
+  }
+}
+
+export class StatusBarMock extends StatusBar {
+  styleDefault() {
+    return;
+  }
+}
+
+export class SplashScreenMock extends SplashScreen {
+  hide() {
+    return;
   }
 }
 

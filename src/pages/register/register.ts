@@ -9,7 +9,7 @@ import { User } from '../../models/user';
 @IonicPage()
 @Component({
   selector: 'page-register',
-  templateUrl: 'register.html',
+  templateUrl: './register.html',
 })
 
 export class Register {

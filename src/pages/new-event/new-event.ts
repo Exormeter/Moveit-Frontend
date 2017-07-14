@@ -6,6 +6,7 @@ import { MapView } from '../map-view/map-view';
 import { RestService } from "../../services/restService";
 import { Push } from "@ionic/cloud-angular";
 import { MyEvent } from '../../models/event';
+import { Camera, CameraOptions } from "@ionic-native/camera";
 
 /**
  * Generated class for the NewEvent page.
@@ -16,13 +17,16 @@ import { MyEvent } from '../../models/event';
 @IonicPage()
 @Component({
   selector: 'page-new-event',
-  templateUrl: 'new-event.html',
+  templateUrl: './new-event.html',
 })
 export class NewEvent {
 
+<<<<<<< HEAD
   //data: any;
   //posts: any;
 
+=======
+>>>>>>> 1db47f6ec963acd451d7c55043fbe58781608281
   debugVar = {
     start: '',
     title: '',
@@ -39,6 +43,7 @@ export class NewEvent {
   eventCreated: MyEvent = new MyEvent();
   nextMove: MyEvent = new MyEvent();
 
+<<<<<<< HEAD
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
     /*
     this.data = {};
@@ -50,6 +55,10 @@ export class NewEvent {
       .subscribe((msg) => {
         alert(msg.title + ': ' + msg.text);
       });
+=======
+  constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
+
+>>>>>>> 1db47f6ec963acd451d7c55043fbe58781608281
   }
 
   ionViewDidLoad() {
@@ -58,11 +67,22 @@ export class NewEvent {
     // beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
     this.restService.getMyEvents()
       .subscribe(response => {
+<<<<<<< HEAD
         //console.log("response:" + response);
         //console.log("response.length:" + response.length);
         this.eventCreated.$title = response[response.length - 1].title;
         this.eventCreated.$start = response[response.length - 1].starttimepoint;
         console.log("this.eventCreated.$start: " + this.eventCreated.$start);
+=======
+        console.log(response);
+        console.log(response.length);
+        let eventLength: number = response.length;
+        if(eventLength > 0){
+          this.eventCreated.$title = response[eventLength-1].title;
+          this.eventCreated.$start = response[eventLength-1].starttimepoint;
+        }
+        
+>>>>>>> 1db47f6ec963acd451d7c55043fbe58781608281
       }, error => {
         console.log("Oooops! @11");
       });
@@ -132,6 +152,22 @@ export class NewEvent {
     this.event.$start = '';
   }
   */
+  takePhotoLocation(){
+    const options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      let base64Image = 'data:image/png;base64,' + imageData;
+      this.event.$picture = base64Image;
+      }, (err) => {
+        console.log(err);
+    });
+  }
 
   presentAlert(title, subTitle) {
     let alert = this.alertCtrl.create({

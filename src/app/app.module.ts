@@ -23,6 +23,7 @@ import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { User } from "../models/user";
 import { MyEvent } from "../models/event";
 import { PushService } from "../services/pushService";
+import { Camera } from "@ionic-native/camera";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -83,6 +84,7 @@ const cloudSettings: CloudSettings = {
     User,
     Geolocation,
     PushService,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

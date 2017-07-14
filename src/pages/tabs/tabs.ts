@@ -7,7 +7,7 @@ import { Profile } from '../profile/profile';
 import { Logout } from '../logout/logout';
 
 @Component({
-  templateUrl: 'tabs.html'
+  templateUrl: './tabs.html'
 })
 export class TabsPage {
 

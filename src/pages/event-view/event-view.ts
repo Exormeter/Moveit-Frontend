@@ -5,6 +5,7 @@ import { ToastController } from 'ionic-angular';
 import { PushService } from "../../services/pushService";
 import { User } from "../../models/user";
 import { RestService } from "../../services/restService";
+import {DomSanitizer} from '@angular/platform-browser';
 /**
  * Generated class for the EventView Modal.
  *
@@ -14,7 +15,7 @@ import { RestService } from "../../services/restService";
 @IonicPage()
 @Component({
   selector: 'page-event-view',
-  templateUrl: 'event-view.html'
+  templateUrl: './event-view.html'
 })
 
 
@@ -23,8 +24,9 @@ export class EventView {
     event: MyEvent = new MyEvent();
     subscriber: String[] = new Array<String>();
     keywords: String[] = new Array<String>();
+    creatorAvatar = "https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png"
 
-    constructor(public restService: RestService, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public toastCtrl: ToastController, public pushService: PushService, public user: User) {
+    constructor(public _DomSanitizer: DomSanitizer, public restService: RestService, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public toastCtrl: ToastController, public pushService: PushService, public user: User) {
       
     }
 
@@ -32,23 +34,24 @@ export class EventView {
         this.event = this.navParams.get('event');
         this.subscriber = this.event.$subscriber;
         this.keywords = this.event.$keywords;
+        this.restService.getUserPicture(this.event.$creator).subscribe(response =>{
+          this.creatorAvatar = response.picture;
+        });
         this.fillSubscriberList();
     }
 
-    join(){
-      console.log("Joined fired");
-      // let toast = this.toastCtrl.create({
-      //   message: 'Erfolgreich teilgenommen',
-      //   duration: 3000,
-      //   position: 'middle'
-      // });
-      // toast.present();
+    enter(){
+      let toast = this.toastCtrl.create({
+        message: 'Erfolgreich teilgenommen',
+        duration: 3000,
+        position: 'middle'
+      });
+      toast.present();
       this.sendPush();
     }
 
     cancel(){
-      //this.viewCtrl.dismiss();
-      this.sendPush();
+      this.viewCtrl.dismiss();
     }
 
     fillSubscriberList()
@@ -60,18 +63,15 @@ export class EventView {
 
     sendPush(){
       let pushRecipient: string = this.event.$creator;
-
-      this.restService.getAllUsers()
+      console.log(pushRecipient);
+      this.restService.getPushToken(pushRecipient)
       .subscribe(response => {
-        response.forEach(userPushtoken => {
-          if(userPushtoken[0] == pushRecipient){
-            this.pushService.sendPush(userPushtoken[1], this.user.$username).
+            console.log(response.pushToken);
+            this.pushService.sendPush(response.pushToken, this.user.$username).
             subscribe(response =>{
               console.log(response);
             })
-          }
-        });
-      })
+      });
     }
 
 

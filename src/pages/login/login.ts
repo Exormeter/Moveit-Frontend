@@ -64,12 +64,14 @@ export class Login {
               this.user.$gender = userResponse.sex;
               this.user.$username = userResponse.username;
             });
-            
             /*
-            this.push.register().then((t: PushToken) => {
-              return this.push.saveToken(t);
-            }).then((t: PushToken) => {
-              console.log('Token saved:' +  t.token);
+            this.push.register().then((token: PushToken) => {
+              return this.push.saveToken(token);
+            }).then((token: PushToken) => {
+              console.log(token);
+              this.restService.setPushToken(token.token).subscribe(response =>{
+                console.log(response.message);
+              });
             });
             */
             

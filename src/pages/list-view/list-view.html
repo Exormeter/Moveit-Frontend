@@ -6,41 +6,41 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>listView</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>listView</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-<ion-list>
-   <ion-list-header>
-      Meine Events
-  </ion-list-header>  
-  <!--<ion-label >- Keine Events gefunden -</ion-label>-->
-  <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
-    <ion-avatar item-left>
-        <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
-    </ion-avatar>
-    <h2>{{ item.$title}}</h2>
-    <p>{{ item.$start}}14.55 Uhr</p>
-    <ion-note item-right> 5</ion-note>
-  </ion-item> 
-</ion-list>
-<ion-list>
-  <ion-list-header>
-      Meine Teilnahmen
-  </ion-list-header>  
-  <!--<ion-label >- Keine Events gefunden -</ion-label>-->
-  <ion-item *ngFor="let item of myEventsSub" (click)="itemSelected(item)">
-    <ion-avatar item-left>
-        <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
-    </ion-avatar>
-    <h2>{{ item.$title}}</h2>
-    <p>{{ item.$start}}14.55 Uhr</p>
-    <ion-note item-right> 5 KM</ion-note>
-  </ion-item> 
-</ion-list>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+        <ion-list-header>
+            Meine Events
+        </ion-list-header>
+        <!--<ion-label >- Keine Events gefunden -</ion-label>-->
+        <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
+            <ion-avatar item-left>
+                <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
+            </ion-avatar>
+            <h2>{{item.$title}} ({{item.$keywords}})</h2>
+            <p>{{item.$start}} Uhr</p>
+            <ion-note item-right> 5</ion-note>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            Alle Events
+        </ion-list-header>
+        <!--<ion-label >- Keine Events gefunden -</ion-label>-->
+        <ion-item *ngFor="let item of myEventsSub" (click)="itemSelected(item)">
+            <ion-avatar item-left>
+                <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
+            </ion-avatar>
+            <h2>{{item.$title}} ({{item.$keywords}})</h2>
+            <p>{{item.$start}} Uhr</p>
+            <ion-note item-right>{{item.$distA}} KM</ion-note>
+        </ion-item>
+    </ion-list>
 </ion-content>
