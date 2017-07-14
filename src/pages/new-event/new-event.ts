@@ -93,12 +93,12 @@ export class NewEvent {
       quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      encodingType: this.camera.EncodingType.PNG,
+      encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      let base64Image = 'data:image/png;base64,' + imageData;
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.event.$picture = base64Image;
       }, (err) => {
         console.log(err);

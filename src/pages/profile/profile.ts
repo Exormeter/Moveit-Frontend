@@ -25,7 +25,7 @@ export class Profile {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      encodingType: this.camera.EncodingType.PNG,
+      encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
   }
 
@@ -47,7 +47,7 @@ export class Profile {
 
   changePicture() {
     this.camera.getPicture(this.cameraOptions).then((imageData) => {
-      let base64Image = 'data:image/png;base64,' + imageData;
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.user.$picture = base64Image;
       this.restService.setUserPicture(base64Image).subscribe(response => {
         console.log(response.message);

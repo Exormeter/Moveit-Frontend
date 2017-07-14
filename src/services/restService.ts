@@ -25,6 +25,7 @@ export class RestService {
 
     newEvent(event: MyEvent): Observable<any> {
         var url = this.baseurl + '/newEvent';
+        console.log(event.$picture);
         let response: Observable<any> = this.http.post(url, {
             title: event.$title,
             keywords: event.$keywords,
@@ -136,6 +137,14 @@ export class RestService {
         return response;
     }
 
+    getEventPicture(eventId: string): Observable<any>{
+        let url: string = this.baseurl + '/getEventPicture?eventID=' + eventId;
+        let response: Observable<any> = this.http.get(url, {withCredentials: true})
+            .map(response => response.json());
+
+        return response;
+    }
+
     changeEmail(user: User): Observable<any> {
         var url = this.baseurl + '/userEmail';
 
@@ -155,6 +164,14 @@ export class RestService {
             password1: user.$password,
             password2: user.$password
         }, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
+
+    subscribeToEvent(eventId: string): Observable<any> {
+        let url: string = this.baseurl + '/eventSubscribe?eventID=' + eventId;
+        let response: Observable<any> = this.http.get(url, { withCredentials: true})
             .map(response => response.json());
 
         return response;

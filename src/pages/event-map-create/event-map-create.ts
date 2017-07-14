@@ -96,6 +96,7 @@ export class EventCreateMap{
         this.viewCtrl.dismiss({
             latitude: this.latLng.lat,
             longitude: this.latLng.lng
+            
         });
     }
 
