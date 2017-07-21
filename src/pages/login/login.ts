@@ -23,8 +23,8 @@ import { Push, PushToken} from '@ionic/cloud-angular';
 export class Login {
 
   loginVars = {
-    username: 'Essometer',
-    password: '12nils34'
+    username: 'admin',
+    password: '123456'
   };
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {

@@ -23,55 +23,25 @@
             Meine Events
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
-        <ion-row *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
-            <ion-col>
-                <ion-avatar>
-                    <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
-                </ion-avatar>
-            </ion-col>
-            <ion-col>
-                {{item.$creator}}
-            </ion-col>
-            <ion-col>
-                {{item.$title}}
-            </ion-col>
-            <ion-col>
-                {{item.$keywords}}
-            </ion-col>
-            <ion-col>
-                <ion-datetime displayFormat="DD.MM.YYYY HH:mm" [(ngModel)]="item.$starttimepoint"></ion-datetime>
-            </ion-col>
-            <ion-col>
-                <ion-note>{{item.$distA}} KM</ion-note>
-            </ion-col>
-        </ion-row>
+        <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
+            <ion-avatar item-left>
+                <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
+            </ion-avatar>
+            {{item.$starttimepoint}} {{item.$creator}} {{item.$title}} ({{item.$keywords}})
+            <ion-note item-right>{{item.$distA}} KM</ion-note>
+        </ion-item>
     </ion-list>
     <ion-list>
         <ion-list-header>
             Alle Events
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
-        <ion-row *ngFor="let item of allEventsSearch" (click)="itemSelected(item)">
-            <ion-col>
-                <ion-avatar>
-                    <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
-                </ion-avatar>
-            </ion-col>
-            <ion-col>
-                {{item.$creator}}
-            </ion-col>
-            <ion-col>
-                {{item.$title}}
-            </ion-col>
-            <ion-col>
-                {{item.$keywords}}
-            </ion-col>
-            <ion-col>
-                <ion-datetime displayFormat="DD.MM.YYYY HH:mm" [(ngModel)]="item.$starttimepoint"></ion-datetime>
-            </ion-col>
-            <ion-col>
-                <ion-note>{{item.$distA}} KM</ion-note>
-            </ion-col>
-        </ion-row>
+        <ion-item *ngFor="let item of allEventsSearch" (click)="itemSelected(item)">
+            <ion-avatar item-left>
+                <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
+            </ion-avatar>
+            {{item.$starttimepoint}} {{item.$creator}} {{item.$title}} ({{item.$keywords}})
+            <ion-note item-right>{{item.$distA}} KM</ion-note>
+        </ion-item>
     </ion-list>
 </ion-content>

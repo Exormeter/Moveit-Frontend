@@ -81,7 +81,7 @@ export class ListView {
       .subscribe(response => {
         response.forEach(element => {
           this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, element.starttimepoint, element.__v, element.picture, element.subscriber, element.keywords));
+            element.latitude, this.dateToString(element.starttimepoint), element.__v, element.picture, element.subscriber, element.keywords));
         }, error => {
           console.log("Oooops!");
         });
@@ -91,7 +91,7 @@ export class ListView {
       .subscribe(response => {
         response.forEach(element => {
           this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, element.starttimepoint, element.__v, element.picture, element.subscriber, element.keywords,
+            element.latitude, this.dateToString(element.starttimepoint), element.__v, element.picture, element.subscriber, element.keywords,
             Math.round(element.distA / 10.0) / 100.0));
         }, error => {
           console.log("Oooops!");
@@ -137,7 +137,6 @@ export class ListView {
     }
   }
 
-  /*
   presentAlert(title, subTitle) {
     let alert = this.alertCtrl.create({
       title: title,
@@ -147,10 +146,7 @@ export class ListView {
     alert.present();
   }
 
-  dateToString(date: Date): string {
-    let time: string = "";
-    time = time + date.getHours() + ":" + date.getMinutes();
-    return time;
+  dateToString(date: string): string {
+    return new Date(date).toISOString();
   }
-  */
 }
