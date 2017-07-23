@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ViewController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
+import {ModalController, ViewController,  IonicPage,   NavController,   NavParams} from 'ionic-angular';
 import { MyEvent } from '../../models/event';
 import { ToastController } from 'ionic-angular';
 import { PushService } from "../../services/pushService";
@@ -7,6 +7,8 @@ import { User } from "../../models/user";
 import { RestService } from "../../services/restService";
 import {DomSanitizer} from '@angular/platform-browser';
 import { Subscriber } from "../../models/subscriber";
+import { MapView } from "../map-view/map-view";
+import { EventCreateMap } from "../event-map-create/event-map-create";
 /**
  * Generated class for the EventView Modal.
  *
@@ -26,14 +28,18 @@ export class EventView {
     subscriberList: Subscriber[] = new Array();
     creatorAvatar = "https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png"
     isNotSubscriberOrCreator: boolean = true;
+    modalCreatorisNotMapView: boolean = true;
 
-    constructor(public _DomSanitizer: DomSanitizer, public restService: RestService, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public toastCtrl: ToastController, public pushService: PushService, public user: User) {
+    constructor(public modalCtrl: ModalController, public _DomSanitizer: DomSanitizer, public restService: RestService, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public toastCtrl: ToastController, public pushService: PushService, public user: User) {
       
     }
 
     ionViewWillEnter(){
         this.isNotSubscriberOrCreator = true;
         this.event = this.navParams.get('event');
+        if(this.navParams.get('pre') == MapView){
+          this.modalCreatorisNotMapView = false;
+        }
         this.restService.getUserPicture(this.event.$creator).subscribe(response =>{
           this.creatorAvatar = response.picture;
         });
@@ -63,6 +69,19 @@ export class EventView {
 
     cancel(){
       this.viewCtrl.dismiss();
+    }
+
+    viewOnMap(){
+      document.getElementsByTagName("ion-modal")[0].setAttribute("style", "opacity:0");
+      let data = {lat: this.event.$latitude, lng: this.event.$longitude, eventName: this.event.$title};
+      let mapView = this.modalCtrl.create(EventCreateMap, data);
+      mapView.present();
+      mapView.onDidDismiss(data => {
+        this.navCtrl.pop();
+        //document.getElementsByClassName("ion-modal")[0].setAttribute("style", "opacity:1");
+        console.log("test");
+      });
+      
     }
 
     fillSubscriberList()

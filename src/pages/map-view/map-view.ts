@@ -79,7 +79,7 @@ export class MapView {
           mapView.map.addMarker(markerOptions).then( function(marker: Marker){
             marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe( ()=>{
               console.log(marker.getSnippet());
-              let eventViewer = mapView.navCtrl.push(EventView, {event: mapView.findEvent(marker.getSnippet(), mapView.eventList)})
+              let eventViewer = mapView.navCtrl.push(EventView, {event: mapView.findEvent(marker.getSnippet(), mapView.eventList), pre: MapView})
             });
           })
         });
