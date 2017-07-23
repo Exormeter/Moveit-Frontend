@@ -36,6 +36,7 @@ export class NewEvent {
   event: MyEvent = new MyEvent();
   eventCreated: MyEvent = new MyEvent();
   nextMove: MyEvent = new MyEvent();
+  newKeyword: string = "";
 
   constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
 
@@ -43,7 +44,6 @@ export class NewEvent {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
-
     // beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
     this.restService.getMyEvents()
       .subscribe(response => {
@@ -59,35 +59,13 @@ export class NewEvent {
         console.log("Oooops! @11");
       });
 
-    // wir zeigen das nächste Event an: entweder vom User selbst erstellt oder teilgenommen
-    // zu erst holen wir uns das aktuellste Event an dem man teilnimmt und vergleichen ob das zuletzt erstellte akuteller ist
-    /*
-    this.restService.getMyEvents()
-      .subscribe(response => {
-        //console.log("response:" + response);
-        //console.log("response.length: (getMyEvents)" + response.length);
-        this.debugVar.secondTime = response[response.length - 1].starttimepoint;
-        console.log("this.debugVar.secondTime: " + this.debugVar.secondTime);
-        if (this.debugVar.firstTime < this.debugVar.secondTime) {
-          console.log("Second greater Firsttime");
-          this.nextMove.$title = response[response.length - 1].title;
-          this.nextMove.$start = response[response.length - 1].starttimepoint;
-        }
-      }, error => {
-        console.log("Oooops! @33");
-      });
-    */
+   
 
     this.restService.getMyEventSubscriber()
       .subscribe(response => {
-        console.log("response (firstTime): " + response);
-        //console.log("response.length (getMyEventSubscriber):" + response.length);
         this.nextMove.$title = response[response.length - 1].title;
         this.nextMove.$starttimepoint = response[response.length - 1].starttimepoint;
         this.debugVar.firstTime = response[response.length - 1].starttimepoint;
-        console.log("this.debugVar.firstTime: " + this.debugVar.firstTime);
-        console.log("this.nextMove.$start: " + this.nextMove.$starttimepoint);
-        console.log("response[response.length - 1].starttimepoint: " + response[response.length - 1].starttimepoint);
       }, error => {
         console.log("Oooops! @22");
       });
@@ -115,15 +93,12 @@ export class NewEvent {
       });
   }
 
-  /*
-  resetInputs() {
-    this.event.$title = '';
-    this.event.$longitude = '';
-    this.event.$latitude = '';
-    this.event.$keywords = "";
-    this.event.$start = '';
+  addToKeywordList(){
+    this.event.$keywords.push(this.newKeyword);
+    this.newKeyword = "";
   }
-  */
+
+
   takePhotoLocation(){
     const options: CameraOptions = {
       quality: 20,
