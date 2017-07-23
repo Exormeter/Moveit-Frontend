@@ -81,7 +81,7 @@ export class ListView {
       .subscribe(response => {
         response.forEach(element => {
           this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, this.dateToString(element.starttimepoint), element.__v, element.picture, element.subscriber, element.keywords));
+            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords));
         }, error => {
           console.log("Oooops!");
         });
@@ -91,7 +91,7 @@ export class ListView {
       .subscribe(response => {
         response.forEach(element => {
           this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, this.dateToString(element.starttimepoint), element.__v, element.picture, element.subscriber, element.keywords,
+            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords,
             Math.round(element.distA / 10.0) / 100.0));
         }, error => {
           console.log("Oooops!");
@@ -146,7 +146,42 @@ export class ListView {
     alert.present();
   }
 
-  dateToString(date: string): string {
-    return new Date(date).toISOString();
-  }
+  dateToString(date: Date): string{
+     let time: string = "";
+     let day: string;
+     let month: string;
+     let hours: string;
+     let minutes: string;
+     
+     if(date.getDay() <= 9){
+      day = "" + 0 + date.getDay();
+     }
+     else{
+       day = "" + date.getDay();
+     }
+
+     if(date.getMinutes() <= 9){
+      minutes = "" + 0 + date.getMinutes();
+     }
+     else{
+       minutes = "" + date.getMinutes();
+     }
+
+     if(date.getMonth() <= 9){
+      month = "" + 0 + date.getMonth();
+     }
+     else{
+       month = "" + date.getMonth();
+     }
+
+     if(date.getHours() <= 9){
+      hours = "" + 0 + date.getHours();
+     }
+     else{
+      hours = "" + date.getHours();
+     }
+
+     time = time + day + "." + month + "." + date.getFullYear() + " " + hours + ":" + minutes;
+     return time;
+   }
 }
