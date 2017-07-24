@@ -25,13 +25,24 @@ export class RestService {
 
     newEvent(event: MyEvent): Observable<any> {
         var url = this.baseurl + '/newEvent';
+
+        // Uhrzeit berechnen wann der Move startet
+        // Date.now is aktuelle Lokalzeit in Millisekunden
+        // event.$starttimepoint gibt der Benutzer an in wie vielen Minuten das Event startet
+        // um die Milliksekunden der Minuten zu bekommen, rechnen wir die Minuten * 60000
+        // Beide Millisekunden kombiniert, ergeben die Startzeit
+
+        var startZeit = + event.$starttimepoint * 60000 + Date.now();
+
+        //console.log("startZeit: " + new Date(startZeit).toString());
+
         console.log(event.$picture);
         let response: Observable<any> = this.http.post(url, {
             title: event.$title,
             keywords: event.$keywords,
             longitude: event.$longitude,
             latitude: event.$latitude,
-            starttimepoint: Date.now(),
+            starttimepoint: startZeit,
             subscriber: event.$subscriber,
             picture: event.$picture
         }, { withCredentials: true })
@@ -44,8 +55,8 @@ export class RestService {
         var url = this.baseurl + '/signup';
 
         let response: Observable<any> = this.http.post(url, {
-            firstname: user.$firstname,
-            lastname: user.$lastname,
+            firstName: user.$firstname,
+            lastName: user.$lastname,
             email: user.$email,
             birthdate: user.$birthday,
             sex: user.$gender,

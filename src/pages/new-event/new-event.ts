@@ -21,15 +21,11 @@ import { Camera, CameraOptions } from "@ionic-native/camera";
 })
 export class NewEvent {
 
-  debugVar = {
-    start: '',
-    title: '',
-    longitude: '',
-    latitude: '',
-    keywords: '',
-    firstTime: '',
-    secondTime: ''
-  };
+  /*
+  Alex' To-Do Liste:
+  *ng-if bei new-event
+  IonLoadWillEnter
+  */
 
   lat: number;
   lng: number;
@@ -39,36 +35,46 @@ export class NewEvent {
   newKeyword: string = "";
 
   constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
+  }
 
+  getLastCreatedMove() {
+    this.restService.getMyEvents()
+      .subscribe(response => {
+        console.log("respone (getLastCreatedMove): " + response);
+        let eventLength: number = response.length;
+        if (eventLength > 0) {
+          this.eventCreated.$title = response[eventLength - 1].title;
+          this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+        } else if (eventLength == 0) {
+          this.eventCreated.$title = "Noch kein Move erstellt :(";
+          this.eventCreated.$starttimepoint = "";
+        }
+      }, error => {
+        console.log("Oooops! @11");
+      });
+  }
+
+  getNextMove() {
+    this.restService.getMyEventSubscriber()
+      .subscribe(response => {
+        console.log("response (getNextMove): " + response);
+        if (response.length > 0) {
+          this.nextMove.$title = response[response.length - 1].title;
+          this.nextMove.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+        } else if (response.length == 0) {
+          this.nextMove.$title = "Kein Move anstehend :)"
+          this.nextMove.$starttimepoint = "";
+        }
+      }, error => {
+        console.log("Oooops! @22");
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
-    // beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
-    this.restService.getMyEvents()
-      .subscribe(response => {
-        console.log(response);
-        console.log(response.length);
-        let eventLength: number = response.length;
-        if(eventLength > 0){
-          this.eventCreated.$title = response[eventLength-1].title;
-          this.eventCreated.$starttimepoint = response[eventLength-1].starttimepoint;
-        }
-        
-      }, error => {
-        console.log("Oooops! @11");
-      });
 
-   
-
-    this.restService.getMyEventSubscriber()
-      .subscribe(response => {
-        this.nextMove.$title = response[response.length - 1].title;
-        this.nextMove.$starttimepoint = response[response.length - 1].starttimepoint;
-        this.debugVar.firstTime = response[response.length - 1].starttimepoint;
-      }, error => {
-        console.log("Oooops! @22");
-      });
+    this.getLastCreatedMove();
+    this.getNextMove();
   }
 
   selectStartOnMap() {
@@ -81,25 +87,35 @@ export class NewEvent {
   }
 
   createMove() {
-    this.restService.newEvent(this.event)
-      .subscribe(response => {
-        if (response.message === 'Event erstellt') {
-          this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
-        } else {
-          this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
-        }
-      }, error => {
-        console.log("Oooops!");
-      });
+    // Der auskommentierte Teil sind die checks ob alle Eingaben gemacht wurden
+    // Damit wir angenehmer testen können ist der auskommentiert
+    // Beim Browser können wir auch keinen Standort auswählen also wäre es immer false
+
+    if (this.event.$title == "" || this.event.$starttimepoint == "" || this.event.$keywords == undefined) {
+      this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
+    } else if (!this.event.$latitude || !this.event.$longitude) {
+      this.presentAlert("Fehlgeschlagen", "Keinen Standort ausgewählt");
+    } else {
+      this.restService.newEvent(this.event)
+        .subscribe(response => {
+          if (response.message === 'Event erstellt') {
+            this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
+            this.getLastCreatedMove();
+          } else {
+            this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+          }
+        }, error => {
+          console.log("Oooops!");
+        });
+    }
   }
 
-  addToKeywordList(){
+  addToKeywordList() {
     this.event.$keywords.push(this.newKeyword);
     this.newKeyword = "";
   }
 
-
-  takePhotoLocation(){
+  takePhotoLocation() {
     const options: CameraOptions = {
       quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -111,8 +127,8 @@ export class NewEvent {
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.event.$picture = base64Image;
-      }, (err) => {
-        console.log(err);
+    }, (err) => {
+      console.log(err);
     });
   }
 
