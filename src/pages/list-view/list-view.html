@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>List View</ion-title>
+        <ion-title>Event Liste</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,7 +15,7 @@
 
 <ion-content padding>
     <ion-note>
-        Deine Position: {{myLat}} {{myLong}} ({{myAddress}})
+        Deine Position: {{myAddress}}
     </ion-note>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
@@ -27,9 +27,10 @@
             <ion-avatar item-left>
                 <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
             </ion-avatar>
-            <h2>{{item.$title}} ({{item.$keywords}})</h2>
-            {{item.$starttimepoint}} Uhr {{item.$creator}}
-            <ion-note item-right>{{item.$distA}} KM</ion-note>
+            <h2>{{item.$title}}</h2>
+            <p>Um {{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstellt</p>
+            <h3>{{mySplit(item.$keywords)}}</h3>
+            <ion-note item-right>{{getSubscriberCount(item.$subscriber)}}</ion-note>
         </ion-item>
     </ion-list>
     <ion-list>
@@ -41,8 +42,9 @@
             <ion-avatar item-left>
                 <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
             </ion-avatar>
-            <h2>{{item.$title}} ({{item.$keywords}})</h2>
-            {{item.$starttimepoint}} Uhr {{item.$creator}}
+            <h2>{{item.$title}} </h2>
+            <p>Um {{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstelt</p>         
+            <h3>{{mySplit(item.$keywords)}}</h3>
             <ion-note item-right>{{item.$distA}} KM</ion-note>
         </ion-item>
     </ion-list>

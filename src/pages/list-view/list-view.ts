@@ -27,6 +27,8 @@ export class ListView {
   geolocation: Geolocation = new Geolocation();
   myLat: number = 52;
   myLong: number = 8;
+  count: number;
+  keywordsHashtag: string;
   myAddress: string = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modalCtrl: ModalController,
@@ -43,8 +45,29 @@ export class ListView {
     console.log('ionViewDidLoad ListView');
   }
 
+  mySplit(keywords:string[])
+  {
+    this.keywordsHashtag=""
+    keywords.forEach(element=>{
+
+      this.keywordsHashtag += " #" + element;
+    })
+    return this.keywordsHashtag;
+  }
+
   ionViewWillEnter() {
     this.updatePosition();
+  }
+
+  getSubscriberCount(sub: User[])
+  {
+    this.count = 0;
+    sub.forEach(element =>
+    {
+      this.count++;
+    })
+
+    return this.count;
   }
 
   updatePosition() {
