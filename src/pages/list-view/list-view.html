@@ -22,7 +22,7 @@
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
         <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
             <h2>{{item.$title}}</h2>
-            <p>Um {{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstellt</p>
+            <p>{{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstellt</p>
             <h3>{{mySplit(item.$keywords)}}</h3>
             <ion-note item-right >{{getSubscriberCount(item.$subscriber)}}</ion-note>
         </ion-item>
@@ -34,7 +34,7 @@
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
         <ion-item *ngFor="let item of allEventsSearch" (click)="itemSelected(item)">
             <h2>{{item.$title}} </h2>
-            <p>Um {{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstelt</p>         
+            <p>{{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstelt</p>         
             <h3>{{mySplit(item.$keywords)}}</h3>
             <ion-note item-right>{{item.$distA}} KM</ion-note>
         </ion-item>

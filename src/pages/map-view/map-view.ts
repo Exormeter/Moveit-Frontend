@@ -61,7 +61,6 @@ export class MapView {
           console.log(element);
           //Nutze Animation Feld zum Speichern der Event ID, da sonst die MarkerOptions keine
           //zusätzlichen costum Felder zulassen
-          if (element.$starttimepoint > Date.now()) {
             let eventPosition: LatLng = new LatLng(element.latitude, element.longitude);
             let markerOptions: MarkerOptions = {
               position: eventPosition,
@@ -74,19 +73,58 @@ export class MapView {
                 let eventViewer = mapView.navCtrl.push(EventView, { event: mapView.findEvent(marker.getSnippet(), mapView.eventList), pre: MapView })
               });
             })
-          }
         });
       }, error => {
         console.log("Oooops!");
       });
   }
 
-  findEvent(id: string, eventList: MyEvent[]): MyEvent {
-    for (var event of eventList) {
-      if (event.$id == id) {
-        return event;
-      }
+    findEvent(id: string, eventList: MyEvent[]): MyEvent{
+      for(var event of eventList){
+        if(event.$id == id){
+          console.log("Keys" + event.$keywords);
+          return event;
+        }
+      } 
+      return null;
     }
-    return null;
-  }
+
+    dateToString(date: Date): string{
+     let time: string = "";
+     let day: string;
+     let month: string;
+     let hours: string;
+     let minutes: string;
+     
+     if(date.getDay() <= 9){
+      day = "" + 0 + date.getDay();
+     }
+     else{
+       day = "" + date.getDay();
+     }
+
+     if(date.getMinutes() <= 9){
+      minutes = "" + 0 + date.getMinutes();
+     }
+     else{
+       minutes = "" + date.getMinutes();
+     }
+
+     if(date.getMonth() <= 9){
+      month = "" + 0 + date.getMonth();
+     }
+     else{
+       month = "" + date.getMonth();
+     }
+
+     if(date.getHours() <= 9){
+      hours = "" + 0 + date.getHours();
+     }
+     else{
+      hours = "" + date.getHours();
+     }
+
+     time = time + day + "." + month + "." + date.getFullYear() + " " + hours + ":" + minutes;
+     return time;
+   }
 }
