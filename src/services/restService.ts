@@ -31,6 +31,7 @@ export class RestService {
         // event.$starttimepoint gibt der Benutzer an in wie vielen Minuten das Event startet
         // um die Milliksekunden der Minuten zu bekommen, rechnen wir die Minuten * 60000
         // Beide Millisekunden kombiniert, ergeben die Startzeit
+        // Das = + ist eine Konvertierung in Millisekunden
 
         var startZeit = + event.$starttimepoint * 60000 + Date.now();
 

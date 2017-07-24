@@ -35,12 +35,12 @@ export class NewEvent {
     this.restService.getMyEvents()
       .subscribe(response => {
         console.log("respone (getLastCreatedMove): " + response);
-        if (response.length > 0) {
-          console.log("inside if");
-          this.eventCreated.$title = response[response.length - 1].title;
+        let eventLength: number = response.length;
+        if (eventLength > 0) {
+          this.eventCreated.$title = response[eventLength - 1].title;
           this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
-        } else if (response.length == 0) {
-          this.eventCreated.$title = "Noch kein Move erstellt :)";
+        } else if (eventLength == 0) {
+          this.eventCreated.$title = "Noch kein Move erstellt :(";
           this.eventCreated.$starttimepoint = "";
         }
       }, error => {
@@ -53,19 +53,19 @@ export class NewEvent {
       .subscribe(response => {
         console.log("response (getNextMove): " + response);
         if (response.length > 0) {
-          this.eventCreated.$title = response[response.length - 1].title;
-          this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+          this.nextMove.$title = response[response.length - 1].title;
+          this.nextMove.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
         } else if (response.length == 0) {
-          this.eventCreated.$title = "Kein Move anstehend :(";
-          this.eventCreated.$starttimepoint = "";
+          this.nextMove.$title = "Kein Move anstehend :)"
+          this.nextMove.$starttimepoint = "";
         }
       }, error => {
-        console.log("Oooops! @11");
+        console.log("Oooops! @22");
       });
   }
 
   ionViewWillEnter() {
-    console.log('ioniViewWillEnter NewEvent');
+    console.log('ionViewDidLoad NewEvent');
 
     this.getLastCreatedMove();
     this.getNextMove();
