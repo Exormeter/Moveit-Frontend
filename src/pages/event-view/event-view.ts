@@ -63,19 +63,9 @@ export class EventView {
   enter() {
     this.restService.subscribeToEvent(this.event.$id).subscribe(response => {
 
-<<<<<<< HEAD
-=======
-    viewOnMap(){
-      document.getElementsByTagName("ion-modal")[0].setAttribute("style", "opacity:0");
-      let data = {lat: this.event.$latitude, lng: this.event.$longitude, eventName: this.event.$title};
-      let mapView = this.modalCtrl.create(EventCreateMap, data);
-      mapView.present();
-      mapView.onDidDismiss(data => {
-        this.navCtrl.pop();
-      });
-      
-    }
->>>>>>> e45d414268e9a9b4f16610d2f6d1a2c50dd512c7
+
+   
+
 
       if (response.message === "Event updated") {
         this.sendPush();
@@ -92,19 +82,17 @@ export class EventView {
   cancel() {
     this.viewCtrl.dismiss();
   }
-
-  viewOnMap() {
-    document.getElementsByTagName("ion-modal")[0].setAttribute("style", "opacity:0");
-    let data = { lat: this.event.$latitude, lng: this.event.$longitude, eventName: this.event.$title };
-    let mapView = this.modalCtrl.create(EventCreateMap, data);
-    mapView.present();
-    mapView.onDidDismiss(data => {
-      this.navCtrl.pop();
-      //document.getElementsByClassName("ion-modal")[0].setAttribute("style", "opacity:1");
-      console.log("test");
-    });
-
-  }
+  
+   viewOnMap(){
+      document.getElementsByTagName("ion-modal")[0].setAttribute("style", "opacity:0");
+      let data = {lat: this.event.$latitude, lng: this.event.$longitude, eventName: this.event.$title};
+      let mapView = this.modalCtrl.create(EventCreateMap, data);
+      mapView.present();
+      mapView.onDidDismiss(data => {
+        this.navCtrl.pop();
+      });
+      
+    }
 
   fillSubscriberList() {
     this.event.$subscriber.forEach(subscriber => {
