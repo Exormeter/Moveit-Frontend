@@ -23,8 +23,8 @@ import { Push, PushToken} from '@ionic/cloud-angular';
 export class Login {
 
   loginVars = {
-    username: 'admin',
-    password: '123456'
+    username: '',
+    password: ''
   };
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
@@ -64,7 +64,7 @@ export class Login {
               this.user.$gender = userResponse.sex;
               this.user.$username = userResponse.username;
             });
-            /*
+            
             this.push.register().then((token: PushToken) => {
               return this.push.saveToken(token);
             }).then((token: PushToken) => {
@@ -75,7 +75,7 @@ export class Login {
             }).catch(function (error){
               console.log("Not a valide Device");
             });
-            */
+            
             
             this.navCtrl.setRoot(TabsPage);
           } else if (response.message === 'User Not found') {

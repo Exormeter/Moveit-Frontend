@@ -35,6 +35,7 @@ export class Register {
     } else if (this.user.$password != this.user.$passwordCheck) {
       this.presentAlert('Login fehlgeschlagen', 'Passwörter stimmen nicht überein');
     } else {
+      this.user.$picture = "https://www.sitepoint.com/premium/books/full-stack-javascript-development-with-mean/preview/figures/ch9-default-profile-pic.png";
       this.restService.register(this.user)
         .subscribe(response => {
           if (response.message === 'Missing credentials') {
