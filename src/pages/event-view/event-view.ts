@@ -37,6 +37,7 @@ export class EventView {
   ionViewWillEnter() {
     this.isNotSubscriberOrCreator = true;
     this.event = this.navParams.get('event');
+    console.log(this.navParams.get('keys'));
     if (this.navParams.get('pre') == MapView) {
       this.modalCreatorisNotMapView = false;
     }
@@ -62,11 +63,6 @@ export class EventView {
 
   enter() {
     this.restService.subscribeToEvent(this.event.$id).subscribe(response => {
-
-
-   
-
-
       if (response.message === "Event updated") {
         this.sendPush();
         let toast = this.toastCtrl.create({
