@@ -37,13 +37,7 @@ export class NewEvent {
   constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
   }
 
-<<<<<<< HEAD
   getLastCreatedMove() {
-=======
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewEvent');
-    // beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
->>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
     this.restService.getMyEvents()
       .subscribe(response => {
         console.log("respone (getLastCreatedMove): " + response);
@@ -60,7 +54,6 @@ export class NewEvent {
       });
   }
 
-<<<<<<< HEAD
   getNextMove() {
     this.restService.getMyEventSubscriber()
       .subscribe(response => {
@@ -72,15 +65,6 @@ export class NewEvent {
           this.nextMove.$title = "Kein Move anstehend :)"
           this.nextMove.$starttimepoint = "";
         }
-=======
-   
-
-    this.restService.getMyEventSubscriber()
-      .subscribe(response => {
-        this.nextMove.$title = response[response.length - 1].title;
-        this.nextMove.$starttimepoint = response[response.length - 1].starttimepoint;
-        this.debugVar.firstTime = response[response.length - 1].starttimepoint;
->>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
       }, error => {
         console.log("Oooops! @22");
       });
@@ -107,40 +91,31 @@ export class NewEvent {
     // Damit wir angenehmer testen können ist der auskommentiert
     // Beim Browser können wir auch keinen Standort auswählen also wäre es immer false
 
-    /*
     if (this.event.$title == "" || this.event.$starttimepoint == "" || this.event.$keywords == undefined) {
       this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
     } else if (!this.event.$latitude || !this.event.$longitude) {
       this.presentAlert("Fehlgeschlagen", "Keinen Standort ausgewählt");
     } else {
-*/
-    this.restService.newEvent(this.event)
-      .subscribe(response => {
-        if (response.message === 'Event erstellt') {
-          this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
-          this.getLastCreatedMove();
-        } else {
-          this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
-        }
-      }, error => {
-        console.log("Oooops!");
-      });
-    /*  
-      }
-      */
+      this.restService.newEvent(this.event)
+        .subscribe(response => {
+          if (response.message === 'Event erstellt') {
+            this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
+            this.getLastCreatedMove();
+          } else {
+            this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+          }
+        }, error => {
+          console.log("Oooops!");
+        });
+    }
   }
 
-<<<<<<< HEAD
-  takePhotoLocation() {
-=======
-  addToKeywordList(){
+  addToKeywordList() {
     this.event.$keywords.push(this.newKeyword);
     this.newKeyword = "";
   }
 
-
-  takePhotoLocation(){
->>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
+  takePhotoLocation() {
     const options: CameraOptions = {
       quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
