@@ -43,6 +43,7 @@ export class Register {
             this.presentAlert('Fehlgeschlagen', 'Benutzername bereits vergeben.');
           } else if (response.message === 'User Registration succesful') {
             this.presentAlert('Erfolgreich', 'Glückwunsch, Sie können sich jetzt anmelden');
+            this.navCtrl.pop();
           } else {
             this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
           }

@@ -55,8 +55,8 @@ export class RestService {
         var url = this.baseurl + '/signup';
 
         let response: Observable<any> = this.http.post(url, {
-            firstname: user.$firstname,
-            lastname: user.$lastname,
+            firstName: user.$firstname,
+            lastName: user.$lastname,
             email: user.$email,
             birthdate: user.$birthday,
             sex: user.$gender,
