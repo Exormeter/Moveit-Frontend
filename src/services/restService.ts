@@ -62,6 +62,7 @@ export class RestService {
             sex: user.$gender,
             username: user.$username,
             password: user.$password,
+            picture: user.$picture,
             passwordCheck: user.$passwordCheck
         })
             .map(response => response.json());
