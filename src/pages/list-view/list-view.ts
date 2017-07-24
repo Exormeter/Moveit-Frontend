@@ -66,7 +66,6 @@ export class ListView {
     {
       this.count++;
     })
-
     return this.count;
   }
 
@@ -136,6 +135,7 @@ export class ListView {
     let val = ev.target.value;
     if (val) {
       val = val.trim();
+      val = val.toLowerCase();
       if (val) {
         this.myEventsSearch = this.myEventsSearch.filter((e) => {
           for (var index = 0; index < e.$keywords.length; index++) {
