@@ -21,15 +21,11 @@ import { Camera, CameraOptions } from "@ionic-native/camera";
 })
 export class NewEvent {
 
-  debugVar = {
-    start: '',
-    title: '',
-    longitude: '',
-    latitude: '',
-    keywords: '',
-    firstTime: '',
-    secondTime: ''
-  };
+  /*
+  Alex' To-Do Liste:
+  *ng-if bei new-event
+  IonLoadWillEnter
+  */
 
   lat: number;
   lng: number;
@@ -38,59 +34,46 @@ export class NewEvent {
   nextMove: MyEvent = new MyEvent();
 
   constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
+  }
 
+  getLastCreatedMove() {
+    this.restService.getMyEvents()
+      .subscribe(response => {
+        console.log("respone (getLastCreatedMove): " + response);
+        let eventLength: number = response.length;
+        if (eventLength > 0) {
+          this.eventCreated.$title = response[eventLength - 1].title;
+          this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+        } else if (eventLength == 0) {
+          this.eventCreated.$title = "Noch kein Move erstellt :(";
+          this.eventCreated.$starttimepoint = "";
+        }
+      }, error => {
+        console.log("Oooops! @11");
+      });
+  }
+
+  getNextMove() {
+    this.restService.getMyEventSubscriber()
+      .subscribe(response => {
+        console.log("response (getNextMove): " + response);
+        if (response.length > 0) {
+          this.nextMove.$title = response[response.length - 1].title;
+          this.nextMove.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+        } else if (response.length == 0) {
+          this.nextMove.$title = "Kein Move anstehend :)"
+          this.nextMove.$starttimepoint = "";
+        }
+      }, error => {
+        console.log("Oooops! @22");
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
 
-    // beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
-    this.restService.getMyEvents()
-      .subscribe(response => {
-        console.log(response);
-        console.log(response.length);
-        let eventLength: number = response.length;
-        if(eventLength > 0){
-          this.eventCreated.$title = response[eventLength-1].title;
-          this.eventCreated.$starttimepoint = response[eventLength-1].starttimepoint;
-        }
-        
-      }, error => {
-        console.log("Oooops! @11");
-      });
-
-    // wir zeigen das nächste Event an: entweder vom User selbst erstellt oder teilgenommen
-    // zu erst holen wir uns das aktuellste Event an dem man teilnimmt und vergleichen ob das zuletzt erstellte akuteller ist
-    /*
-    this.restService.getMyEvents()
-      .subscribe(response => {
-        //console.log("response:" + response);
-        //console.log("response.length: (getMyEvents)" + response.length);
-        this.debugVar.secondTime = response[response.length - 1].starttimepoint;
-        console.log("this.debugVar.secondTime: " + this.debugVar.secondTime);
-        if (this.debugVar.firstTime < this.debugVar.secondTime) {
-          console.log("Second greater Firsttime");
-          this.nextMove.$title = response[response.length - 1].title;
-          this.nextMove.$start = response[response.length - 1].starttimepoint;
-        }
-      }, error => {
-        console.log("Oooops! @33");
-      });
-    */
-
-    this.restService.getMyEventSubscriber()
-      .subscribe(response => {
-        console.log("response (firstTime): " + response);
-        //console.log("response.length (getMyEventSubscriber):" + response.length);
-        this.nextMove.$title = response[response.length - 1].title;
-        this.nextMove.$starttimepoint = response[response.length - 1].starttimepoint;
-        this.debugVar.firstTime = response[response.length - 1].starttimepoint;
-        console.log("this.debugVar.firstTime: " + this.debugVar.firstTime);
-        console.log("this.nextMove.$start: " + this.nextMove.$starttimepoint);
-        console.log("response[response.length - 1].starttimepoint: " + response[response.length - 1].starttimepoint);
-      }, error => {
-        console.log("Oooops! @22");
-      });
+    this.getLastCreatedMove();
+    this.getNextMove();
   }
 
   selectStartOnMap() {
@@ -103,28 +86,34 @@ export class NewEvent {
   }
 
   createMove() {
+    // Der auskommentierte Teil sind die checks ob alle Eingaben gemacht wurden
+    // Damit wir angenehmer testen können ist der auskommentiert
+    // Beim Browser können wir auch keinen Standort auswählen also wäre es immer false
+
+    /*
+    if (this.event.$title == "" || this.event.$starttimepoint == "" || this.event.$keywords == undefined) {
+      this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
+    } else if (!this.event.$latitude || !this.event.$longitude) {
+      this.presentAlert("Fehlgeschlagen", "Keinen Standort ausgewählt");
+    } else {
+*/
     this.restService.newEvent(this.event)
       .subscribe(response => {
         if (response.message === 'Event erstellt') {
           this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
+          this.getLastCreatedMove();
         } else {
           this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
         }
       }, error => {
         console.log("Oooops!");
       });
+    /*  
+      }
+      */
   }
 
-  /*
-  resetInputs() {
-    this.event.$title = '';
-    this.event.$longitude = '';
-    this.event.$latitude = '';
-    this.event.$keywords = "";
-    this.event.$start = '';
-  }
-  */
-  takePhotoLocation(){
+  takePhotoLocation() {
     const options: CameraOptions = {
       quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -136,8 +125,8 @@ export class NewEvent {
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/png;base64,' + imageData;
       this.event.$picture = base64Image;
-      }, (err) => {
-        console.log(err);
+    }, (err) => {
+      console.log(err);
     });
   }
 

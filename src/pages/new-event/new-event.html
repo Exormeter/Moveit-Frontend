@@ -1,7 +1,9 @@
 <ion-header>
 </ion-header>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<!--
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+-->
 
 <ion-content padding>
 
@@ -9,7 +11,7 @@
   <ion-navbar>
     <ion-title>Neuer Move!</ion-title>
   </ion-navbar>
--->
+  -->
 
   <p class="header">Neuen move erstellen</p>
   <ion-item>
@@ -19,7 +21,6 @@
 
   <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
   <button ion-button (click)="takePhotoLocation()">Snap Location</button>
-
 
   <ion-item>
     <ion-label>Startet in: </ion-label>
@@ -42,7 +43,7 @@
   </ion-item>
   <ion-item>
     <ion-label>Startzeit: </ion-label>
-    <ion-input [(ngModel)]="nextMove.$start" readonly="true"></ion-input>
+    <ion-input [(ngModel)]="nextMove.$starttimepoint" readonly="true"></ion-input>
   </ion-item>
   <hr>
 
@@ -57,34 +58,5 @@
     <ion-label>Startzeit: </ion-label>
     <ion-input [(ngModel)]="eventCreated.$starttimepoint" readonly="true"></ion-input>
   </ion-item>
-
-  <!--
-  <button ion-button (click)="resetInputs()" color="danger">Zurücksetzen</button>
-  -->
-  <!--
-    
-  <br /><br /> debug:
-
-  <ion-item>
-    <ion-label>title: </ion-label>
-    <ion-input type="text" [(ngModel)]="this.event.title" placeholder="-" readonly="true"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>longitude: </ion-label>
-    <ion-input type="text" [(ngModel)]="this.event.longitude" placeholder="-" readonly="true"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>latitude: </ion-label>
-    <ion-input type="text" [(ngModel)]="this.event.latitude" placeholder="-" readonly="true"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>start: </ion-label>
-    <ion-input type="text" [(ngModel)]="this.event.start" placeholder="-" readonly="true"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>keywords: </ion-label>
-    <ion-input type="text" [(ngModel)]="this.event.keywords" placeholder="-" readonly="true"></ion-input>
-  </ion-item>
--->
 
 </ion-content>

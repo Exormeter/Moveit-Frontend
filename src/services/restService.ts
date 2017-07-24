@@ -25,12 +25,23 @@ export class RestService {
 
     newEvent(event: MyEvent): Observable<any> {
         var url = this.baseurl + '/newEvent';
+
+        // Uhrzeit berechnen wann der Move startet
+        // Date.now is aktuelle Lokalzeit in Millisekunden
+        // event.$starttimepoint gibt der Benutzer an in wie vielen Minuten das Event startet
+        // um die Milliksekunden der Minuten zu bekommen, rechnen wir die Minuten * 60000
+        // Beide Millisekunden kombiniert, ergeben die Startzeit
+
+        var startZeit = + event.$starttimepoint * 60000 + Date.now();
+
+        //console.log("startZeit: " + new Date(startZeit).toString());
+
         let response: Observable<any> = this.http.post(url, {
             title: event.$title,
             keywords: event.$keywords,
             longitude: event.$longitude,
             latitude: event.$latitude,
-            starttimepoint: Date.now(),
+            starttimepoint: startZeit,
             subscriber: event.$subscriber,
             picture: event.$picture
         }, { withCredentials: true })
@@ -104,33 +115,33 @@ export class RestService {
         return response;
     }
 
-    getPushToken(userName: string): Observable<any>{
+    getPushToken(userName: string): Observable<any> {
         let url: string = this.baseurl + '/getUserToken?username=' + userName;
-        let response: Observable<any> = this.http.get(url, { withCredentials: true})
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
             .map(response => response.json());
 
         return response;
     }
 
-    setPushToken(pushToken: string): Observable<any>{
+    setPushToken(pushToken: string): Observable<any> {
         let url: string = this.baseurl + '/setUserToken';
-        let response: Observable<any> = this.http.post(url, {token: pushToken}, {withCredentials: true})
+        let response: Observable<any> = this.http.post(url, { token: pushToken }, { withCredentials: true })
             .map(response => response.json());
 
         return response;
     }
 
-    getUserPicture(userName: string): Observable<any>{
+    getUserPicture(userName: string): Observable<any> {
         let url: string = this.baseurl + '/getPicture?username=' + userName;
-        let response: Observable<any> = this.http.get(url, { withCredentials: true})
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
             .map(response => response.json());
 
         return response;
     }
 
-    setUserPicture(base64Picture: string): Observable<any>{
+    setUserPicture(base64Picture: string): Observable<any> {
         let url: string = this.baseurl + '/setPicture';
-        let response: Observable<any> = this.http.post(url, {picture: base64Picture}, {withCredentials: true})
+        let response: Observable<any> = this.http.post(url, { picture: base64Picture }, { withCredentials: true })
             .map(response => response.json());
 
         return response;

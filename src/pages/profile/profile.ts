@@ -5,7 +5,8 @@ import { Http } from '@angular/http';
 import { Page } from 'ionic/ionic';
 import { User } from "../../models/user";
 import { Camera, CameraOptions } from "@ionic-native/camera";
-import {DomSanitizer} from '@angular/platform-browser'; 
+import { DomSanitizer } from '@angular/platform-browser';
+import { MyEvent } from '../../models/event';
 
 @IonicPage()
 @Component({
@@ -14,26 +15,54 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class Profile {
 
-  changeableVars = {
+  profileVars = {
     newEmail: '',
     newEmailCheck: '',
     newPassword: '',
-    newPasswordCheck: ''
+    newPasswordCheck: '',
+    amountEventSubs: 'X',
+    amountEventsCreated: 'Y'
   };
 
+  eventCreated: MyEvent = new MyEvent();
+  nextMove: MyEvent = new MyEvent();
+
   cameraOptions: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      encodingType: this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    encodingType: this.camera.EncodingType.PNG,
+    mediaType: this.camera.MediaType.PICTURE
   }
 
   constructor(public _DomSanitizer: DomSanitizer, public camera: Camera, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, private alertCtrl: AlertController, public user: User) {
   }
 
+  getAmountCreatedMoves() {
+    this.restService.getMyEvents()
+      .subscribe(response => {
+        console.log("respone (getLastCreatedMove): " + response);
+        this.profileVars.amountEventsCreated = response.length;
+      }, error => {
+        console.log("Oooops! @11");
+      });
+  }
+
+  getAmoundMoveSubs() {
+    this.restService.getMyEventSubscriber()
+      .subscribe(response => {
+        console.log("response (getNextMove): " + response);
+        this.profileVars.amountEventSubs = response.length;
+      }, error => {
+        console.log("Oooops! @22");
+      });
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad Profile');
+
+    this.getAmountCreatedMoves();
+    this.getAmoundMoveSubs();
   }
 
   presentAlert(title, subTitle) {
@@ -59,13 +88,13 @@ export class Profile {
   }
 
   changeEmail() {
-    if (this.changeableVars.newEmail == "" || this.changeableVars.newEmailCheck == "") {
+    if (this.profileVars.newEmail == "" || this.profileVars.newEmailCheck == "") {
       this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
-    } else if (this.changeableVars.newEmail != this.changeableVars.newEmailCheck) {
+    } else if (this.profileVars.newEmail != this.profileVars.newEmailCheck) {
       this.presentAlert("Fehlgeschlagen", "Emails stimmen nicht überein");
     } else {
 
-      this.user.$email = this.changeableVars.newEmail;
+      this.user.$email = this.profileVars.newEmail;
 
       this.restService.changeEmail(this.user)
         .subscribe(response => {
@@ -83,13 +112,13 @@ export class Profile {
   }
 
   changePassword() {
-    if (this.changeableVars.newPassword == "" || this.changeableVars.newPasswordCheck == "") {
+    if (this.profileVars.newPassword == "" || this.profileVars.newPasswordCheck == "") {
       this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
-    } else if (this.changeableVars.newPassword != this.changeableVars.newPasswordCheck) {
+    } else if (this.profileVars.newPassword != this.profileVars.newPasswordCheck) {
       this.presentAlert("Fehlgeschlagen", "Passwörter stimmen nicht überein");
     } else {
 
-      this.user.$password = this.changeableVars.newPassword;
+      this.user.$password = this.profileVars.newPassword;
 
       this.restService.changePassword(this.user)
         .subscribe(response => {
@@ -107,6 +136,5 @@ export class Profile {
   }
 
   deleteAccount() {
-
   }
 }
