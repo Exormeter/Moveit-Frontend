@@ -78,8 +78,6 @@ export class EventView {
       mapView.present();
       mapView.onDidDismiss(data => {
         this.navCtrl.pop();
-        //document.getElementsByClassName("ion-modal")[0].setAttribute("style", "opacity:1");
-        console.log("test");
       });
       
     }
