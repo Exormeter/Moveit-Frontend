@@ -23,13 +23,13 @@ export class PushService{
     }
 
 
-    sendPush(token: string, userName: string): Observable<any>{
+    sendPush(token: string, userName: string, event: string): Observable<any>{
         let url: string = this.baseurl + '/push/notifications';
         var payload =  {
             tokens: [token],
             profile: 'moveit',
             notification: {
-                message: userName + ' nimmt an deinem Move teil!'
+                message: userName + ' nimmt an deinem Move '+ event + ' teil!'
             }
         }
         let response: Observable<any> = this.http.post(url, JSON.stringify(payload), {headers: this.headers})
