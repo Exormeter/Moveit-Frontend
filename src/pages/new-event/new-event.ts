@@ -93,8 +93,10 @@ export class NewEvent {
 
     if (this.event.$title == "" || this.event.$starttimepoint == "" || this.event.$keywords == undefined) {
       this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
+      /*
     } else if (!this.event.$latitude || !this.event.$longitude) {
       this.presentAlert("Fehlgeschlagen", "Keinen Standort ausgewählt");
+      */
     } else {
       this.restService.newEvent(this.event)
         .subscribe(response => {
