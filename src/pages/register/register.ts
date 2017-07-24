@@ -19,6 +19,7 @@ export class Register {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Register');
+    this.resetInputs();
   }
 
   createAccount() {

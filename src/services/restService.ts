@@ -25,6 +25,7 @@ export class RestService {
 
     newEvent(event: MyEvent): Observable<any> {
         var url = this.baseurl + '/newEvent';
+<<<<<<< HEAD
 
         // Uhrzeit berechnen wann der Move startet
         // Date.now is aktuelle Lokalzeit in Millisekunden
@@ -36,6 +37,9 @@ export class RestService {
 
         //console.log("startZeit: " + new Date(startZeit).toString());
 
+=======
+        console.log(event.$picture);
+>>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
         let response: Observable<any> = this.http.post(url, {
             title: event.$title,
             keywords: event.$keywords,
@@ -142,6 +146,17 @@ export class RestService {
     setUserPicture(base64Picture: string): Observable<any> {
         let url: string = this.baseurl + '/setPicture';
         let response: Observable<any> = this.http.post(url, { picture: base64Picture }, { withCredentials: true })
+<<<<<<< HEAD
+=======
+            .map(response => response.json());
+
+        return response;
+    }
+
+    getEventPicture(eventId: string): Observable<any> {
+        let url: string = this.baseurl + '/getEventPicture?eventID=' + eventId;
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
+>>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
             .map(response => response.json());
 
         return response;
@@ -166,6 +181,22 @@ export class RestService {
             password1: user.$password,
             password2: user.$password
         }, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
+
+    subscribeToEvent(eventId: string): Observable<any> {
+        let url: string = this.baseurl + '/eventSubscribe?eventID=' + eventId;
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
+
+    getAddress(lat: number, lng: number) {
+        let url: string = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&sensor=true';
+        let response: Observable<any> = this.http.get(url)
             .map(response => response.json());
 
         return response;

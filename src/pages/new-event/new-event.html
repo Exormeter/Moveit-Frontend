@@ -28,9 +28,17 @@
   </ion-item>
 
   <ion-item>
-    <ion-label floating>Keywords (mit Kommas trennen): </ion-label>
-    <ion-input type="text" [(ngModel)]="event.$keywords" clearInput="true"></ion-input>
+    <ion-label>Keyword:</ion-label>
+    <ion-input type="text" [(ngModel)]="newKeyword"></ion-input>
+    <button clear item-right (click)=addToKeywordList()>Add</button>
   </ion-item>
+
+
+  <ion-list>
+    <ion-item *ngFor="let keyword of event.$keywords">
+      <ion-input type="text" [readonly]=true value=#{{keyword}}></ion-input>
+    </ion-item>
+  </ion-list>
 
   <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
   <hr>

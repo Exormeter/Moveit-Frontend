@@ -32,11 +32,18 @@ export class NewEvent {
   event: MyEvent = new MyEvent();
   eventCreated: MyEvent = new MyEvent();
   nextMove: MyEvent = new MyEvent();
+  newKeyword: string = "";
 
   constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
   }
 
+<<<<<<< HEAD
   getLastCreatedMove() {
+=======
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad NewEvent');
+    // beim Laden der Page bekommen wir alle Events die der eingelogte User erstellt hat
+>>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
     this.restService.getMyEvents()
       .subscribe(response => {
         console.log("respone (getLastCreatedMove): " + response);
@@ -53,6 +60,7 @@ export class NewEvent {
       });
   }
 
+<<<<<<< HEAD
   getNextMove() {
     this.restService.getMyEventSubscriber()
       .subscribe(response => {
@@ -64,6 +72,15 @@ export class NewEvent {
           this.nextMove.$title = "Kein Move anstehend :)"
           this.nextMove.$starttimepoint = "";
         }
+=======
+   
+
+    this.restService.getMyEventSubscriber()
+      .subscribe(response => {
+        this.nextMove.$title = response[response.length - 1].title;
+        this.nextMove.$starttimepoint = response[response.length - 1].starttimepoint;
+        this.debugVar.firstTime = response[response.length - 1].starttimepoint;
+>>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
       }, error => {
         console.log("Oooops! @22");
       });
@@ -113,17 +130,27 @@ export class NewEvent {
       */
   }
 
+<<<<<<< HEAD
   takePhotoLocation() {
+=======
+  addToKeywordList(){
+    this.event.$keywords.push(this.newKeyword);
+    this.newKeyword = "";
+  }
+
+
+  takePhotoLocation(){
+>>>>>>> be1bd4746fbb8733386bffcd48231b2472a13dce
     const options: CameraOptions = {
-      quality: 50,
+      quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.CAMERA,
-      encodingType: this.camera.EncodingType.PNG,
+      encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      let base64Image = 'data:image/png;base64,' + imageData;
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.event.$picture = base64Image;
     }, (err) => {
       console.log(err);

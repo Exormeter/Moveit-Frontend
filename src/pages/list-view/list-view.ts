@@ -21,13 +21,13 @@ import { LatLng } from '@ionic-native/google-maps';
 })
 export class ListView {
   myEvents: MyEvent[] = [];
-  myEventsSub: MyEvent[] = [];
+  allEvents: MyEvent[] = [];
   myEventsSearch: MyEvent[] = [];
+  allEventsSearch: MyEvent[] = [];
   geolocation: Geolocation = new Geolocation();
-  myLat: number = 1.23;
-  myLong: number = 4.56;
-
-  myEventsLength: number;
+  myLat: number = 52;
+  myLong: number = 8;
+  myAddress: string = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modalCtrl: ModalController,
     private alertCtrl: AlertController) {
@@ -41,25 +41,47 @@ export class ListView {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListView');
-
-    this.geolocation.getCurrentPosition().then(res => {
-      this.myLat = res.coords.latitude;
-      this.myLong = res.coords.longitude;
-      this.presentAlert("Deine Position:", this.myLat + " " + this.myLong);
-      this.ionViewWillEnter();
-    });
   }
 
   ionViewWillEnter() {
+    this.updatePosition();
+  }
+
+  updatePosition() {
+    this.geolocation.getCurrentPosition().then(res => {
+      this.myLat = res.coords.latitude;
+      this.myLong = res.coords.longitude;
+
+      this.updateAddress();
+    });
+  }
+
+  updateAddress() {
+    if (!this.myAddress) {
+      this.restService.getAddress(this.myLat, this.myLong).
+        subscribe(r => {
+          if (r.results && r.results.length > 0 && r.results[0].formatted_address) {
+            this.myAddress = r.results[0].formatted_address;
+          } else {
+            this.myAddress = 'keine Adresse';
+          }
+        });
+    }
+
+    this.updateLists();
+  }
+
+  updateLists() {
     this.myEvents = [];
-    this.myEventsSub = [];
+    this.allEvents = [];
     this.myEventsSearch = [];
+    this.allEventsSearch = [];
 
     this.restService.getMyEvents()
       .subscribe(response => {
         response.forEach(element => {
           this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, new Date(element.starttimepoint).toString(), element.__v, element.picture, element.subscriber, element.keywords));
+            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords));
         }, error => {
           console.log("Oooops!");
         });
@@ -68,33 +90,50 @@ export class ListView {
     this.restService.getAllEvents(this.myLat, this.myLong)
       .subscribe(response => {
         response.forEach(element => {
-          this.myEventsSub.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, new Date(element.starttimepoint).toString(), element.__v, element.picture, element.subscriber, element.keywords,
+          this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords,
             Math.round(element.distA / 10.0) / 100.0));
         }, error => {
           console.log("Oooops!");
         });
-        // this.myEventsLength = this.myEvents.length;
       });
 
     this.myEventsSearch = this.myEvents;
-    this.myEventsSub = this.myEventsSub;
+    this.allEventsSearch = this.allEvents;
   }
 
   reset() {
     this.myEventsSearch = this.myEvents;
+    this.allEventsSearch = this.allEvents;
   }
 
   getItems(ev: any) {
-
+    this.reset();
     // set val to the value of the searchbar
     let val = ev.target.value;
-    this.reset();
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.myEventsSearch = this.myEventsSearch.filter((item) => {
-        return (item.$title.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+    if (val) {
+      val = val.trim();
+      if (val) {
+        this.myEventsSearch = this.myEventsSearch.filter((e) => {
+          for (var index = 0; index < e.$keywords.length; index++) {
+            var k = e.$keywords[index].toLowerCase();
+            if (k.indexOf(val) >= 0) {
+              return true;
+            }
+          }
+          return false;
+        });
+
+        this.allEventsSearch = this.allEventsSearch.filter((e) => {
+          for (var index = 0; index < e.$keywords.length; index++) {
+            var k = e.$keywords[index].toLowerCase();
+            if (k.indexOf(val) >= 0) {
+              return true;
+            }
+          }
+          return false;
+        });
+      }
     }
   }
 
@@ -106,4 +145,43 @@ export class ListView {
     });
     alert.present();
   }
+
+  dateToString(date: Date): string{
+     let time: string = "";
+     let day: string;
+     let month: string;
+     let hours: string;
+     let minutes: string;
+     
+     if(date.getDay() <= 9){
+      day = "" + 0 + date.getDay();
+     }
+     else{
+       day = "" + date.getDay();
+     }
+
+     if(date.getMinutes() <= 9){
+      minutes = "" + 0 + date.getMinutes();
+     }
+     else{
+       minutes = "" + date.getMinutes();
+     }
+
+     if(date.getMonth() <= 9){
+      month = "" + 0 + date.getMonth();
+     }
+     else{
+       month = "" + date.getMonth();
+     }
+
+     if(date.getHours() <= 9){
+      hours = "" + 0 + date.getHours();
+     }
+     else{
+      hours = "" + date.getHours();
+     }
+
+     time = time + day + "." + month + "." + date.getFullYear() + " " + hours + ":" + minutes;
+     return time;
+   }
 }

@@ -23,8 +23,8 @@ import { Push, PushToken} from '@ionic/cloud-angular';
 export class Login {
 
   loginVars = {
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123456'
   };
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
@@ -72,6 +72,8 @@ export class Login {
               this.restService.setPushToken(token.token).subscribe(response =>{
                 console.log(response.message);
               });
+            }).catch(function (error){
+              console.log("Not a valide Device");
             });
             */
             

@@ -28,11 +28,11 @@ export class Profile {
   nextMove: MyEvent = new MyEvent();
 
   cameraOptions: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    encodingType: this.camera.EncodingType.PNG,
-    mediaType: this.camera.MediaType.PICTURE
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
   }
 
   constructor(public _DomSanitizer: DomSanitizer, public camera: Camera, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, private alertCtrl: AlertController, public user: User) {
@@ -76,7 +76,7 @@ export class Profile {
 
   changePicture() {
     this.camera.getPicture(this.cameraOptions).then((imageData) => {
-      let base64Image = 'data:image/png;base64,' + imageData;
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.user.$picture = base64Image;
       this.restService.setUserPicture(base64Image).subscribe(response => {
         console.log(response.message);

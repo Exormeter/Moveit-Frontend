@@ -7,13 +7,16 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>listView</ion-title>
+        <ion-title>List View</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-note>
+        Deine Position: {{myLat}} {{myLong}} ({{myAddress}})
+    </ion-note>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
         <ion-list-header>
@@ -25,8 +28,8 @@
                 <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
             </ion-avatar>
             <h2>{{item.$title}} ({{item.$keywords}})</h2>
-            <p>{{item.$starttimepoint}} Uhr</p>
-            <ion-note item-right> 5</ion-note>
+            {{item.$starttimepoint}} Uhr {{item.$creator}}
+            <ion-note item-right>{{item.$distA}} KM</ion-note>
         </ion-item>
     </ion-list>
     <ion-list>
@@ -34,12 +37,12 @@
             Alle Events
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
-        <ion-item *ngFor="let item of myEventsSub" (click)="itemSelected(item)">
+        <ion-item *ngFor="let item of allEventsSearch" (click)="itemSelected(item)">
             <ion-avatar item-left>
                 <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
             </ion-avatar>
             <h2>{{item.$title}} ({{item.$keywords}})</h2>
-            <p>{{item.$starttimepoint}} Uhr</p>
+            {{item.$starttimepoint}} Uhr {{item.$creator}}
             <ion-note item-right>{{item.$distA}} KM</ion-note>
         </ion-item>
     </ion-list>

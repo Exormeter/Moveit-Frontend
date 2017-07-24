@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{event.$title}}</ion-title>
+    <ion-buttons end>
+    <button *ngIf=modalCreatorisNotMapView color="danger" (click)="viewOnMap()">Karte</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -32,11 +35,11 @@
             </ion-card-header>
             <ion-card-content>
                 <ion-list>
-                    <ion-item *ngFor="let item of subscriber">
+                    <ion-item *ngFor="let item of subscriberList">
                         <ion-avatar item-left>
-                            <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png">
+                            <img [src]="_DomSanitizer.bypassSecurityTrustUrl(item.$picture)">
                         </ion-avatar>
-                        <h2 item-left>{{item}}</h2>
+                        <h2 item-left>{{item.$username}}</h2>
                     </ion-item>
                 </ion-list>
                
@@ -44,7 +47,7 @@
         </ion-card>
          <ion-card>
              <ion-card-header>
-                Standort
+                Location
             </ion-card-header>            
             <ion-card-content>
                  <img [src]="_DomSanitizer.bypassSecurityTrustUrl(event.$picture)"/>
@@ -56,13 +59,13 @@
             </ion-card-header>            
             <ion-card-content>
                  <ion-list>
-                    <p *ngFor="let item of keywords">#{{item}}</p>
+                    <p *ngFor="let item of event.$keywords">#{{item}}</p>
                 </ion-list>
             </ion-card-content>
         </ion-card>
 </ion-content>
 
 <ion-footer>
-        <button ion-button full color="secondary" (click)="enter()">Zurück</button>
+        <button *ngIf=isNotSubscriberOrCreator ion-button full color="secondary"(click)="enter()">Teilnehmen</button>
         <button ion-button full color="danger" (click)="cancel()">Zurück</button>
 </ion-footer>

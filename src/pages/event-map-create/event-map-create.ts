@@ -14,7 +14,7 @@ export class EventCreateMap{
 
     map: GoogleMap;
     googleMaps: GoogleMaps = new GoogleMaps();
-    latLng: LatLng;
+    latLng: LatLng = new LatLng(0,0);
 
     geoOptions: GeolocationOptions = {
         enableHighAccuracy: true,
@@ -37,10 +37,13 @@ export class EventCreateMap{
 
         this.map = this.googleMaps.create(element);
         this.map.clear();
-        this.geolocation.getCurrentPosition().then(resp => {
-             console.log(resp);
-        });
-        this.addDraggableMarker();
+        if(this.navParams.get("lat") == undefined){
+            this.addDraggableMarker();
+        }
+        else{
+            this.addConstatMarker(this.navParams.get("lat"), this.navParams.get("lng"), this.navParams.get("eventName"));
+        }
+        
 
         //Setz die Elemnte über der Karte unsichtbar, da die Karte sonst nicht angezeigt wird
         document.getElementsByClassName("app-root")[1].setAttribute("style", "opacity:0");
@@ -84,11 +87,25 @@ export class EventCreateMap{
                     });
                 });
             });
-        });
-
-        
-            
+        });  
     }
+
+    addConstatMarker(lat: number, lng: number, eventName: string){
+             let myPosLatLong: LatLng = new LatLng(lat, lng);
+             this.latLng = myPosLatLong;
+             let position: CameraPosition = {
+                target: myPosLatLong,
+                zoom: 18,
+                 tilt: 30
+             };
+             this.map.moveCamera(position);
+             let markerOptions: MarkerOptions = {
+                 position: myPosLatLong,
+                 title: eventName
+              };
+              this.map.addMarker(markerOptions);
+    }
+
 
     //entfert den Marker, da die Map als Singelton geladen wird und somit
     //alle Änderungen an der Karte auch im regulären MapView angezeigt würden
@@ -96,6 +113,7 @@ export class EventCreateMap{
         this.viewCtrl.dismiss({
             latitude: this.latLng.lat,
             longitude: this.latLng.lng
+            
         });
     }
 
