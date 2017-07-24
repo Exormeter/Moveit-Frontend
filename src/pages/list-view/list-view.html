@@ -17,7 +17,7 @@
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
         <ion-list-header>
-             <p >Meine Events</p>
+             Meine Events
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
         <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
@@ -29,7 +29,7 @@
     </ion-list>
     <ion-list>
         <ion-list-header>
-            <p>Alle Events</p>
+            Alle Events
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
         <ion-item *ngFor="let item of allEventsSearch" (click)="itemSelected(item)">

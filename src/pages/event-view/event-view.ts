@@ -62,9 +62,9 @@ export class EventView {
   }
 
   enter() {
+    this.sendPush();
     this.restService.subscribeToEvent(this.event.$id).subscribe(response => {
       if (response.message === "Event updated") {
-        this.sendPush();
         let toast = this.toastCtrl.create({
           message: 'Erfolgreich teilgenommen',
           duration: 3000,
@@ -107,7 +107,7 @@ export class EventView {
     this.restService.getPushToken(pushRecipient)
       .subscribe(response => {
         console.log(response.pushToken);
-        this.pushService.sendPush(response.pushToken, this.user.$username).
+        this.pushService.sendPush(response.pushToken, this.user.$username, this.event.$title).
           subscribe(response => {
             console.log(response);
           })

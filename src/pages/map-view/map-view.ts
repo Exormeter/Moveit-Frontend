@@ -56,8 +56,8 @@ export class MapView {
     this.restService.getEventsInCircle(pos.lat, pos.lng, 10000)
       .subscribe(response => {
         response.forEach(element => {
-          mapView.eventList.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, element.start, element.__v, element.subscriber, element.keywords));
+          this.eventList.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
+            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords));
           console.log(element);
           //Nutze Animation Feld zum Speichern der Event ID, da sonst die MarkerOptions keine
           //zusätzlichen costum Felder zulassen
