@@ -6,39 +6,33 @@
 -->
 <ion-header>
     <ion-navbar>
-        <ion-title>Event Liste</ion-title>
+        <ion-title class="center">Event Liste</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-note>
-        Deine Position: {{myAddress}}
+    <ion-note class="center">
+        <p class="center">Deine Position: {{myAddress}}</p>
     </ion-note>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
         <ion-list-header>
-            Meine Events
+             <p >Meine Events</p>
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
         <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
-            <ion-avatar item-left>
-                <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
-            </ion-avatar>
             <h2>{{item.$title}}</h2>
             <p>Um {{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstellt</p>
             <h3>{{mySplit(item.$keywords)}}</h3>
-            <ion-note item-right>{{getSubscriberCount(item.$subscriber)}}</ion-note>
+            <ion-note item-right >{{getSubscriberCount(item.$subscriber)}}</ion-note>
         </ion-item>
     </ion-list>
     <ion-list>
         <ion-list-header>
-            Alle Events
+            <p>Alle Events</p>
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
         <ion-item *ngFor="let item of allEventsSearch" (click)="itemSelected(item)">
-            <ion-avatar item-left>
-                <img src="http://www.freeiconspng.com/uploads/sports-sell-icon-5.png">
-            </ion-avatar>
             <h2>{{item.$title}} </h2>
             <p>Um {{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstelt</p>         
             <h3>{{mySplit(item.$keywords)}}</h3>
