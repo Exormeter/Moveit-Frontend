@@ -37,8 +37,6 @@ export class MapView {
       this.loadMap();
     }
 
-
-
     loadMap(){
         let element: HTMLElement = document.getElementById('map');
         this.map = this.googleMaps.create(element);

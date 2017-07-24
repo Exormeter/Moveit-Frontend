@@ -21,12 +21,6 @@ import { Camera, CameraOptions } from "@ionic-native/camera";
 })
 export class NewEvent {
 
-  /*
-  Alex' To-Do Liste:
-  *ng-if bei new-event
-  IonLoadWillEnter
-  */
-
   lat: number;
   lng: number;
   event: MyEvent = new MyEvent();
@@ -43,10 +37,31 @@ export class NewEvent {
         console.log("respone (getLastCreatedMove): " + response);
         let eventLength: number = response.length;
         if (eventLength > 0) {
+          /*
+          if (response[response.length - 1].starttimepoint < Date.now()) {
+
+            response.sort(function (a, b) {
+              console.log("b.$starttimepoint: " + a.$starttimepoint);
+              console.log("a.$starttimepoint: " + b.$starttimepoint);
+              console.log("new Date(a.$starttimepoint).getTime() - new Date(b.$starttimepoint).getTime() : " + (new Date(a.$starttimepoint).getTime() - new Date(b.$starttimepoint).getTime()));
+              return new Date(b.$starttimepoint).getTime() - new Date(a.$starttimepoint).getTime();
+            });
+
+            if (response[0].$starttimepoint > Date.now()) {
+              this.eventCreated.$title = response[0].title;
+              this.eventCreated.$starttimepoint = new Date(response[0].starttimepoint).toString();
+            } else {
+              this.eventCreated.$title = "Noch kein Move erstellt :)";
+              this.eventCreated.$starttimepoint = "";
+            }
+*/
           this.eventCreated.$title = response[eventLength - 1].title;
           this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+          /* 
+          }
+           */
         } else if (eventLength == 0) {
-          this.eventCreated.$title = "Noch kein Move erstellt :(";
+          this.eventCreated.$title = "Noch kein Move erstellt :)";
           this.eventCreated.$starttimepoint = "";
         }
       }, error => {
@@ -59,19 +74,47 @@ export class NewEvent {
       .subscribe(response => {
         console.log("response (getNextMove): " + response);
         if (response.length > 0) {
-          this.nextMove.$title = response[response.length - 1].title;
-          this.nextMove.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+          /*
+          if (response[response.length - 1].starttimepoint < Date.now()) {
+
+            response.sort(function (a, b) {
+              console.log("b.$starttimepoint: " + a.$starttimepoint);
+              console.log("a.$starttimepoint: " + b.$starttimepoint);
+              console.log("new Date(a.$starttimepoint).getTime() - new Date(b.$starttimepoint).getTime() : " + (new Date(a.$starttimepoint).getTime() - new Date(b.$starttimepoint).getTime()));
+              return new Date(b.$starttimepoint).getTime() - new Date(a.$starttimepoint).getTime();
+            });
+
+            if (response[0].$starttimepoint > Date.now()) {
+              this.eventCreated.$title = response[0].title;
+              this.eventCreated.$starttimepoint = new Date(response[0].starttimepoint).toString();
+            } else {
+              this.eventCreated.$title = "Kein Move anstehend :(";
+              this.eventCreated.$starttimepoint = "";
+            }
+
+            */
+
+          if (response[0].$starttimepoint > Date.now()) {
+            this.eventCreated.$title = response[response.length - 1].title;
+            this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
+          } else {
+            this.eventCreated.$title = "Noch kein Move erstellt :)";
+            this.eventCreated.$starttimepoint = "NaN";
+          }
+          /*
+        }
+        */
         } else if (response.length == 0) {
-          this.nextMove.$title = "Kein Move anstehend :)"
-          this.nextMove.$starttimepoint = "";
+          this.eventCreated.$title = "Kein Move anstehend :(";
+          this.eventCreated.$starttimepoint = "";
         }
       }, error => {
-        console.log("Oooops! @22");
+        console.log("Oooops! @11");
       });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewEvent');
+  ionViewWillEnter() {
+    console.log('ioniViewWillEnter NewEvent');
 
     this.getLastCreatedMove();
     this.getNextMove();
