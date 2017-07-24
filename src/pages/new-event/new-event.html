@@ -1,4 +1,7 @@
 <ion-header>
+  <ion-navbar>
+    <ion-title>Neuer Move!</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <!--
@@ -6,12 +9,6 @@
 -->
 
 <ion-content padding>
-
-  <!--
-  <ion-navbar>
-    <ion-title>Neuer Move!</ion-title>
-  </ion-navbar>
-  -->
 
   <p class="header">Neuen move erstellen</p>
   <ion-item>
@@ -30,7 +27,7 @@
   <ion-item>
     <ion-label>Keyword:</ion-label>
     <ion-input type="text" [(ngModel)]="newKeyword"></ion-input>
-    <button clear item-right (click)=addToKeywordList()>Add</button>
+    <button ion-button clear item-right (click)=addToKeywordList()>Add</button>
   </ion-item>
 
 
