@@ -28,12 +28,11 @@ export class Login {
   };
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
-    /*
     this.push.rx.notification()
     .subscribe((msg) => {
       alert(msg.title + ': ' + msg.text);
     });
-    */
+    
   }
 
   presentAlert(title, subTitle) {
