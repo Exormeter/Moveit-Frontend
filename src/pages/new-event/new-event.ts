@@ -8,12 +8,6 @@ import { Push } from "@ionic/cloud-angular";
 import { MyEvent } from '../../models/event';
 import { Camera, CameraOptions } from "@ionic-native/camera";
 
-/**
- * Generated class for the NewEvent page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-new-event',
@@ -81,15 +75,15 @@ export class NewEvent {
   }
 
   createMove() {
+    // locationCheck = true: führt beim erstellen des Events ein Check aus, ob ein Standort ausgewählt ist
+    // auf false setzen damit man es im Browser testen kann (da man dort kein Standort setzt)
+    var locationCheck = true;
+
     if (this.event.$title == "" || this.event.$starttimepoint == "" || this.event.$keywords == undefined) {
       this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
-    }
-    // Um ohne Standort einzugeben im Browser zu testen, auskommentieren von hier (x1) ....
-    else if (!this.event.$latitude || !this.event.$longitude) {
+    } else if ((!this.event.$latitude || !this.event.$longitude) && locationCheck) {
       this.presentAlert("Fehlgeschlagen", "Keinen Standort ausgewählt");
-    }
-    // bis hier (x1)
-    else {
+    } else {
       this.restService.newEvent(this.event)
         .subscribe(response => {
           if (response.message === 'Event erstellt') {
