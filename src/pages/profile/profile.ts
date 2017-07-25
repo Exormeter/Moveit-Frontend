@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { RestService } from '../../services/restService';
+import { Login } from '../login/login';
 import { Http } from '@angular/http';
 import { Page } from 'ionic/ionic';
 import { User } from "../../models/user";
@@ -28,11 +29,11 @@ export class Profile {
   nextMove: MyEvent = new MyEvent();
 
   cameraOptions: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
   }
 
   constructor(public _DomSanitizer: DomSanitizer, public camera: Camera, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, private alertCtrl: AlertController, public user: User) {
@@ -136,5 +137,57 @@ export class Profile {
   }
 
   deleteAccount() {
+    let alert = this.alertCtrl.create({
+      title: 'ACHTUNG!!!!',
+      message: 'Sie sind dabei Ihren Account zu löschen! Nach dieser Nachricht kommt eine letzte Bestätigung, nach der gibt es kein zurück mehr!',
+      buttons: [
+        {
+          text: 'Abbrechen',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel1 clicked');
+          }
+        },
+        {
+          text: 'Fortfahren',
+          handler: () => {
+            console.log('Okay clicked');
+
+            let alert = this.alertCtrl.create({
+              title: 'ACHTUNG!!!!',
+              message: 'Letzte Chance!!!',
+              buttons: [
+                {
+                  text: 'Abbrechen',
+                  role: 'cancel',
+                  handler: () => {
+                    console.log('Cancel2 clicked');
+                  }
+                },
+                {
+                  text: 'Account löschen',
+                  handler: () => {
+                    console.log('Account löschen clicked');
+
+                    this.restService.deleteUser()
+                      .subscribe(response => {
+                        if (response.message === 'User deleted') {
+                          this.navCtrl.setRoot(Login);
+                        } else {
+                          this.presentAlert('Oh noes D:', 'Etwas unerwartetes ist passiert... Keine Internetverbindung?')
+                        }
+                      }, error => {
+                        console.log("Oooops!");
+                      });
+                  }
+                }
+              ]
+            });
+            alert.present();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
