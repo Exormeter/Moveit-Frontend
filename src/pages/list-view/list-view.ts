@@ -45,10 +45,9 @@ export class ListView {
     console.log('ionViewDidLoad ListView');
   }
 
-  mySplit(keywords:string[])
-  {
-    this.keywordsHashtag=""
-    keywords.forEach(element=>{
+  mySplit(keywords: string[]) {
+    this.keywordsHashtag = ""
+    keywords.forEach(element => {
 
       this.keywordsHashtag += " #" + element;
     })
@@ -59,11 +58,9 @@ export class ListView {
     this.updatePosition();
   }
 
-  getSubscriberCount(sub: User[])
-  {
+  getSubscriberCount(sub: User[]) {
     this.count = 0;
-    sub.forEach(element =>
-    {
+    sub.forEach(element => {
       this.count++;
     })
     return this.count;
@@ -169,42 +166,42 @@ export class ListView {
     alert.present();
   }
 
-  dateToString(date: Date): string{
-     let time: string = "";
-     let day: string;
-     let month: string;
-     let hours: string;
-     let minutes: string;
-     
-     if(date.getDay() <= 9){
+  dateToString(date: Date): string {
+    let time: string = "";
+    let day: string;
+    let month: string;
+    let hours: string;
+    let minutes: string;
+
+    if (date.getDay() <= 9) {
       day = "" + 0 + date.getDay();
-     }
-     else{
-       day = "" + date.getDay();
-     }
+    }
+    else {
+      day = "" + date.getDay();
+    }
 
-     if(date.getMinutes() <= 9){
+    if (date.getMinutes() <= 9) {
       minutes = "" + 0 + date.getMinutes();
-     }
-     else{
-       minutes = "" + date.getMinutes();
-     }
+    }
+    else {
+      minutes = "" + date.getMinutes();
+    }
 
-     if(date.getMonth() <= 9){
+    if (date.getMonth() <= 9) {
       month = "" + 0 + date.getMonth();
-     }
-     else{
-       month = "" + date.getMonth();
-     }
+    }
+    else {
+      month = "" + date.getMonth();
+    }
 
-     if(date.getHours() <= 9){
+    if (date.getHours() <= 9) {
       hours = "" + 0 + date.getHours();
-     }
-     else{
+    }
+    else {
       hours = "" + date.getHours();
-     }
+    }
 
-     time = time + day + "." + month + "." + date.getFullYear() + " " + hours + ":" + minutes;
-     return time;
-   }
+    time = time + day + "." + month + "." + date.getFullYear() + " " + hours + ":" + minutes;
+    return time;
+  }
 }

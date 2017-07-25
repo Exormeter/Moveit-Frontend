@@ -34,8 +34,10 @@ export class RestService {
         // Das = + ist eine Konvertierung in Millisekunden
 
         var startZeit = + event.$starttimepoint * 60000 + Date.now();
-
-        //console.log("startZeit: " + new Date(startZeit).toString());
+        console.log("inside restService:" +
+                    "event.$starttimepoint: " + event.$starttimepoint +
+                    "Date.now(): " + Date.now() +
+                    "startZeit:" + startZeit);
 
         console.log(event.$picture);
         let response: Observable<any> = this.http.post(url, {
