@@ -1,21 +1,21 @@
-export class MyEvent{
+export class MyEvent {
 
-    private _id: string;
-    private createdAt: string;
-    private creator: string;
-    private title: string;
-    private longitude: number;
-    private latitude: number;
-    private starttimepoint: string;
-    private __v: number;
+	private _id: string;
+	private createdAt: string;
+	private creator: string;
+	private title: string;
+	private longitude: number;
+	private latitude: number;
+	private starttimepoint: string;
+	private __v: number;
 	private picture: string;
-    private subscriber: string[];
-    private keywords: string[];
+	private subscriber: string[];
+	private keywords: string[];
 	private distA: number;
 
-	constructor(id: string = '', $createdAt: string = '', $creator: string = '', $title: string = '' , $longitude: number = 0,
-	$latitude: number = 0, $starttimepoint: string = '', _v: number = 0, $picture: string = '',$subscriber: string[] = [], $keywords: string[] = [],
-	$distA: number = 0) {
+	constructor(id: string = '', $createdAt: string = '', $creator: string = '', $title: string = '', $longitude: number = 0,
+		$latitude: number = 0, $starttimepoint: string = '', _v: number = 0, $picture: string = '', $subscriber: string[] = [], $keywords: string[] = [],
+		$distA: number = 0) {
 		this._id = id;
 		this.createdAt = $createdAt;
 		this.creator = $creator;
@@ -29,7 +29,7 @@ export class MyEvent{
 		this.keywords = $keywords;
 		this.distA = $distA;
 	}
-	
+
 	public get $title(): string {
 		return this.title;
 	}
@@ -61,7 +61,6 @@ export class MyEvent{
 	public set $latitude(value: number) {
 		this.latitude = value;
 	}
-
 
 	public get $starttimepoint(): string {
 		return this.starttimepoint;
@@ -128,7 +127,7 @@ export class MyEvent{
 		this.distA = value;
 	}
 
-	public getit(): string{
+	public getit(): string {
 		return "test";
 	}
 }

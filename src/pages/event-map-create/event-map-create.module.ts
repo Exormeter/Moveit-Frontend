@@ -13,4 +13,4 @@ import { EventCreateMap } from './event-map-create';
     EventCreateMap
   ]
 })
-export class EventCreateMapModule {}
+export class EventCreateMapModule { }

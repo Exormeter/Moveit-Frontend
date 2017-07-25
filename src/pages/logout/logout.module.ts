@@ -13,4 +13,4 @@ import { Logout } from './logout';
     Logout
   ]
 })
-export class LogoutModule {}
+export class LogoutModule { }

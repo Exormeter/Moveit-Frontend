@@ -13,4 +13,4 @@ import { Login } from './login';
     Login
   ]
 })
-export class LoginModule {}
+export class LoginModule { }

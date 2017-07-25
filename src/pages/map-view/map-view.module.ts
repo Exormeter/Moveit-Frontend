@@ -13,4 +13,4 @@ import { MapView } from './map-view';
     MapView
   ]
 })
-export class MapViewModule {}
+export class MapViewModule { }

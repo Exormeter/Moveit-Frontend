@@ -9,18 +9,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Subscriber } from "../../models/subscriber";
 import { MapView } from "../map-view/map-view";
 import { EventCreateMap } from "../event-map-create/event-map-create";
-/**
- * Generated class for the EventView Modal.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-event-view',
   templateUrl: './event-view.html'
 })
-
 
 export class EventView {
 
@@ -78,17 +72,17 @@ export class EventView {
   cancel() {
     this.viewCtrl.dismiss();
   }
-  
-   viewOnMap(){
-      document.getElementsByTagName("ion-modal")[0].setAttribute("style", "opacity:0");
-      let data = {lat: this.event.$latitude, lng: this.event.$longitude, eventName: this.event.$title};
-      let mapView = this.modalCtrl.create(EventCreateMap, data);
-      mapView.present();
-      mapView.onDidDismiss(data => {
-        this.navCtrl.pop();
-      });
-      
-    }
+
+  viewOnMap() {
+    document.getElementsByTagName("ion-modal")[0].setAttribute("style", "opacity:0");
+    let data = { lat: this.event.$latitude, lng: this.event.$longitude, eventName: this.event.$title };
+    let mapView = this.modalCtrl.create(EventCreateMap, data);
+    mapView.present();
+    mapView.onDidDismiss(data => {
+      this.navCtrl.pop();
+    });
+
+  }
 
   fillSubscriberList() {
     this.event.$subscriber.forEach(subscriber => {
@@ -113,9 +107,4 @@ export class EventView {
           })
       });
   }
-
-
-
-
-
 }
