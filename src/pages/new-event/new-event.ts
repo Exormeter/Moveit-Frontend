@@ -81,17 +81,15 @@ export class NewEvent {
   }
 
   createMove() {
-    // Der auskommentierte Teil sind die checks ob alle Eingaben gemacht wurden
-    // Damit wir angenehmer testen können ist der auskommentiert
-    // Beim Browser können wir auch keinen Standort auswählen also wäre es immer false
-
     if (this.event.$title == "" || this.event.$starttimepoint == "" || this.event.$keywords == undefined) {
       this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
-      /*
-    } else if (!this.event.$latitude || !this.event.$longitude) {
+    }
+    // Um ohne Standort einzugeben im Browser zu testen, auskommentieren von hier (x1) ....
+    else if (!this.event.$latitude || !this.event.$longitude) {
       this.presentAlert("Fehlgeschlagen", "Keinen Standort ausgewählt");
-      */
-    } else {
+    }
+    // bis hier (x1)
+    else {
       this.restService.newEvent(this.event)
         .subscribe(response => {
           if (response.message === 'Event erstellt') {

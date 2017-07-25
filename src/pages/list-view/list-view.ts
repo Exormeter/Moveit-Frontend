@@ -112,6 +112,7 @@ export class ListView {
           this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
             element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords,
             Math.round(element.distA / 10.0) / 100.0));
+          console.log(element.starttimepoint);
         }, error => {
           console.log("Oooops!");
         });
@@ -173,11 +174,11 @@ export class ListView {
     let hours: string;
     let minutes: string;
 
-    if (date.getDay() <= 9) {
-      day = "" + 0 + date.getDay();
+    if (date.getDate() <= 9) {
+      day = "" + 0 + date.getDate();
     }
     else {
-      day = "" + date.getDay();
+      day = "" + date.getDate();
     }
 
     if (date.getMinutes() <= 9) {
@@ -188,10 +189,10 @@ export class ListView {
     }
 
     if (date.getMonth() <= 9) {
-      month = "" + 0 + date.getMonth();
+      month = "" + 0 + (date.getMonth() + 1);
     }
     else {
-      month = "" + date.getMonth();
+      month = "" + (date.getMonth() + 1);
     }
 
     if (date.getHours() <= 9) {
