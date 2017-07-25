@@ -41,7 +41,6 @@ export class User{
 	public set $gender(value: string) {
 		this.gender = value;
 	}
-    
 
 	public get $birthday(): string {
 		return this.birthday;

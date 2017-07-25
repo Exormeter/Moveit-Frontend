@@ -13,4 +13,4 @@ import { Profile } from './profile';
     Profile
   ]
 })
-export class ProfileModule {}
+export class ProfileModule { }

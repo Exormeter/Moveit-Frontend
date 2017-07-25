@@ -5,7 +5,6 @@ import 'rxjs/add/operator/map';
 import { User } from "../models/user";
 import { MyEvent } from "../models/event";
 
-
 @Injectable()
 export class RestService {
 
@@ -35,9 +34,9 @@ export class RestService {
 
         var startZeit = + event.$starttimepoint * 60000 + Date.now();
         console.log("inside restService:" +
-                    "event.$starttimepoint: " + event.$starttimepoint +
-                    "Date.now(): " + Date.now() +
-                    "startZeit:" + startZeit);
+            "event.$starttimepoint: " + event.$starttimepoint +
+            "Date.now(): " + Date.now() +
+            "startZeit:" + startZeit);
 
         console.log(event.$picture);
         let response: Observable<any> = this.http.post(url, {
@@ -179,6 +178,15 @@ export class RestService {
             password1: user.$password,
             password2: user.$password
         }, { withCredentials: true })
+            .map(response => response.json());
+
+        return response;
+    }
+
+    deleteUser(): Observable<any> {
+        let url: string = this.baseurl + '/userDelete';
+
+        let response: Observable<any> = this.http.get(url, { withCredentials: true })
             .map(response => response.json());
 
         return response;

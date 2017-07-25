@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { App, IonicPage, ViewController, NavParams } from 'ionic-angular';
-import { Push} from '@ionic/cloud-angular';
+import { Push } from '@ionic/cloud-angular';
 import { Login } from '../login/login';
 
-/**
- * Generated class for the Logout page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-logout',

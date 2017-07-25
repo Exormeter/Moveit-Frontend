@@ -2,20 +2,18 @@
  * Created by eugen on 30.06.17.
  */
 
-
-import { ComponentFixture, async , TestBed } from '@angular/core/testing';
-import { TestUtils }               from '../../test';
-import { EventView }                   from './event-view';
-import { By }           from '@angular/platform-browser';
+import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { TestUtils } from '../../test';
+import { EventView } from './event-view';
+import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { IonicModule, Platform, NavController} from 'ionic-angular/index';
+import { IonicModule, Platform, NavController } from 'ionic-angular/index';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { PlatformMock, StatusBarMock, SplashScreenMock,NavMock } from '../../mocks';
-import {NavParams, ViewController} from 'ionic-angular';
+import { PlatformMock, StatusBarMock, SplashScreenMock, NavMock } from '../../mocks';
+import { NavParams, ViewController } from 'ionic-angular';
 import { RestService } from "../../services/restService";
 import { Http, Headers, RequestOptions } from '@angular/http';
-
 
 let fixture: ComponentFixture<EventView> = null;
 let instance: any = null;
@@ -25,8 +23,6 @@ describe('Pages: EventView', () => {
     let comp: EventView;
     let fixture: ComponentFixture<EventView>;
 
-
-
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [EventView],
@@ -35,13 +31,13 @@ describe('Pages: EventView', () => {
             ],
             providers: [
                 NavController,
-                { provide: Platform, useClass: PlatformMock},
+                { provide: Platform, useClass: PlatformMock },
                 { provide: StatusBar, useClass: StatusBarMock },
                 { provide: SplashScreen, useClass: SplashScreenMock },
                 { provide: NavParams, useClass: NavMock },
-                { provide: RestService},
-                { provide: Http},
-                { provide: ViewController}
+                { provide: RestService },
+                { provide: Http },
+                { provide: ViewController }
             ]
         });
     }));
@@ -50,7 +46,6 @@ describe('Pages: EventView', () => {
         fixture = TestBed.createComponent(EventView);
         comp = fixture.componentInstance;
     });
-
 
     it('should be created', () => {
         expect(comp instanceof EventView).toBe(true);

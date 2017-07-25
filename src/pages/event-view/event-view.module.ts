@@ -13,4 +13,4 @@ import { EventView } from './event-view';
     EventView
   ]
 })
-export class EventViewModule {}
+export class EventViewModule { }

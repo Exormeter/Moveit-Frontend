@@ -1,9 +1,6 @@
 /**
  * Created by eugen on 30.06.17.
  */
-
-
-
 import { ComponentFixture, async , TestBed } from '@angular/core/testing';
 import { TabsPage }                   from './tabs';
 import { DebugElement } from '@angular/core';
@@ -15,7 +12,6 @@ import { NavParams } from 'ionic-angular';
 import { RestService } from "../../services/restService";
 import { Http, Headers, RequestOptions } from '@angular/http';
 
-
 let fixture: ComponentFixture<TabsPage> = null;
 let instance: any = null;
 
@@ -23,7 +19,6 @@ describe('Pages: TabsPage', () => {
     let de: DebugElement;
     let comp: TabsPage;
     let fixture: ComponentFixture<TabsPage>;
-
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -48,9 +43,7 @@ describe('Pages: TabsPage', () => {
         comp = fixture.componentInstance;
     });
 
-
     it('should be created', () => {
         expect(comp instanceof TabsPage).toBe(true);
     });
-
 });

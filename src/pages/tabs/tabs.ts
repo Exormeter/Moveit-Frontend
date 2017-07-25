@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NewEvent } from '../new-event/new-event';
 import { ListView } from '../list-view/list-view';
 import { MapView } from '../map-view/map-view';

@@ -3,18 +3,11 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { Http } from '@angular/http';
 import { Page } from 'ionic/ionic';
 import { RestService } from '../../services/restService';
-
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
 import { User } from '../../models/user';
-import { Push, PushToken} from '@ionic/cloud-angular';
+import { Push, PushToken } from '@ionic/cloud-angular';
 
-/**
- * Generated class for the Login page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -29,10 +22,16 @@ export class Login {
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
     this.push.rx.notification()
+<<<<<<< HEAD
     .subscribe((msg) => {
       alert(msg.title + ': ' + msg.text);
     });
     
+=======
+      .subscribe((msg) => {
+        alert(msg.title + ': ' + msg.text);
+      });
+>>>>>>> 55b2932a8f2d934c562d0343578cae8095309dcb
   }
 
   presentAlert(title, subTitle) {
@@ -51,10 +50,10 @@ export class Login {
     } else {
 
       // POST ab hier
-        this.restService.login(this.loginVars.username, this.loginVars.password)
+      this.restService.login(this.loginVars.username, this.loginVars.password)
         .subscribe(response => {
           if (response.message === 'User Login succesful') {
-            this.restService.getUser().subscribe(userResponse =>{
+            this.restService.getUser().subscribe(userResponse => {
               this.user.$firstname = userResponse.firstName;
               this.user.$lastname = userResponse.lastName;
               this.user.$email = userResponse.email;
@@ -63,19 +62,18 @@ export class Login {
               this.user.$gender = userResponse.sex;
               this.user.$username = userResponse.username;
             });
-            
+
             this.push.register().then((token: PushToken) => {
               return this.push.saveToken(token);
             }).then((token: PushToken) => {
               console.log(token);
-              this.restService.setPushToken(token.token).subscribe(response =>{
+              this.restService.setPushToken(token.token).subscribe(response => {
                 console.log(response.message);
               });
-            }).catch(function (error){
+            }).catch(function (error) {
               console.log("Not a valide Device");
             });
-            
-            
+
             this.navCtrl.setRoot(TabsPage);
           } else if (response.message === 'User Not found') {
             this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');
@@ -86,7 +84,7 @@ export class Login {
           }
         }, error => {
           console.log("Oooops!");
-      });
+        });
     }
   }
 

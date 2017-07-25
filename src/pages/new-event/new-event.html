@@ -4,10 +4,6 @@
   </ion-navbar>
 </ion-header>
 
-<!--
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
--->
-
 <ion-content padding>
   <ion-item>
     <ion-label floating>Titel: </ion-label>
@@ -18,16 +14,15 @@
   <button ion-button (click)="takePhotoLocation()">Snap Location</button>
 
   <ion-item>
-    <ion-label>Startet in: </ion-label>
-    <ion-input type="number" [(ngModel)]="event.$starttimepoint" placeholder="Minuten eingeben..." clearInput="true"></ion-input>
+    <ion-label floating>Startet in (minuten): </ion-label>
+    <ion-input type="number" [(ngModel)]="event.$starttimepoint" clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Keyword:</ion-label>
+    <ion-label floating>Keyword:</ion-label>
     <ion-input type="text" [(ngModel)]="newKeyword"></ion-input>
     <button ion-button clear item-right (click)=addToKeywordList()>Add</button>
   </ion-item>
-
 
   <ion-list>
     <ion-item *ngFor="let keyword of event.$keywords">
@@ -39,7 +34,7 @@
   <hr>
 
   <br /><br />
-  <p class="header">Anstehender Move</p>
+  <p class="header">Dein nächster Move:</p>
   <ion-item>
     <ion-label>Move: </ion-label>
     <ion-input [(ngModel)]="nextMove.$title" readonly="true"></ion-input>
@@ -51,7 +46,7 @@
   <hr>
 
   <br /><br />
-  <p class="header">Zuletzt erstellter Move</p>
+  <p class="header">Dein letzter Move:</p>
 
   <ion-item>
     <ion-label>Move: </ion-label>
@@ -61,5 +56,4 @@
     <ion-label>Startzeit: </ion-label>
     <ion-input [(ngModel)]="eventCreated.$starttimepoint" readonly="true"></ion-input>
   </ion-item>
-
 </ion-content>

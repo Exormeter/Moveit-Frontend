@@ -1,4 +1,3 @@
-
 import { EventView } from '../event-view/event-view';
 import { Component } from '@angular/core';
 import { ModalController, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -8,12 +7,6 @@ import { User } from "../../models/user";
 import { Geolocation } from '@ionic-native/geolocation';
 import { LatLng } from '@ionic-native/google-maps';
 
-/**
- * Generated class for the ListView page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-list-view',

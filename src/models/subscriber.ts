@@ -3,7 +3,6 @@ export class Subscriber{
     picture: string;
     username: string;
 
-
 	constructor($picture: string, $username: string) {
         this.picture = $picture;
         this.username = $username;
@@ -24,6 +23,4 @@ export class Subscriber{
 	public set $picture(value: string) {
 		this.picture = value;
 	}
-    
-
 }

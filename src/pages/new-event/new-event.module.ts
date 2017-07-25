@@ -13,4 +13,4 @@ import { NewEvent } from './new-event';
     NewEvent
   ]
 })
-export class NewEventModule {}
+export class NewEventModule { }

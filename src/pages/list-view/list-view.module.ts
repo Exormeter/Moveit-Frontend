@@ -13,4 +13,4 @@ import { ListView } from './list-view';
     ListView
   ]
 })
-export class ListViewModule {}
+export class ListViewModule { }
