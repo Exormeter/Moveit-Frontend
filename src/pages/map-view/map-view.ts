@@ -89,18 +89,18 @@ export class MapView {
       return null;
     }
 
-    dateToString(date: Date): string{
+   dateToString(date: Date): string{
      let time: string = "";
      let day: string;
      let month: string;
      let hours: string;
      let minutes: string;
      
-     if(date.getDay() <= 9){
-      day = "" + 0 + date.getDay();
+     if(date.getDate() <= 9){
+      day = "" + 0 + date.getDate();
      }
      else{
-       day = "" + date.getDay();
+       day = "" + date.getDate();
      }
 
      if(date.getMinutes() <= 9){
@@ -111,10 +111,10 @@ export class MapView {
      }
 
      if(date.getMonth() <= 9){
-      month = "" + 0 + date.getMonth();
+      month = "" + 0 + (date.getMonth() + 1);
      }
      else{
-       month = "" + date.getMonth();
+       month = "" + (date.getMonth() + 1);
      }
 
      if(date.getHours() <= 9){
