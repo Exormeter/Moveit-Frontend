@@ -64,6 +64,9 @@ export class Profile {
 
     this.getAmountCreatedMoves();
     this.getAmoundMoveSubs();
+
+    if (this.user.$gender == 'male') this.user.$gender = 'männlich';
+    else this.user.$gender = 'weiblich';
   }
 
   presentAlert(title, subTitle) {

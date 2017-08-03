@@ -89,6 +89,7 @@ export class NewEvent {
           if (response.message === 'Event erstellt') {
             this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
             this.getLastCreatedMove();
+            this.event = new MyEvent();
           } else {
             this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
           }
