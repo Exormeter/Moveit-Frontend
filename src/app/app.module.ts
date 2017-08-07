@@ -24,6 +24,7 @@ import { User } from "../models/user";
 import { MyEvent } from "../models/event";
 import { PushService } from "../services/pushService";
 import { Camera } from "@ionic-native/camera";
+import { EventService } from "../services/eventService";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -85,6 +86,7 @@ const cloudSettings: CloudSettings = {
     Geolocation,
     PushService,
     Camera,
+    EventService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

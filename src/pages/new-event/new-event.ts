@@ -7,6 +7,8 @@ import { RestService } from "../../services/restService";
 import { Push } from "@ionic/cloud-angular";
 import { MyEvent } from '../../models/event';
 import { Camera, CameraOptions } from "@ionic-native/camera";
+import { EventService } from "../../services/eventService";
+import { Observable } from "rxjs/Rx";
 
 @IonicPage()
 @Component({
@@ -22,48 +24,19 @@ export class NewEvent {
   nextMove: MyEvent = new MyEvent();
   newKeyword: string = "";
 
-  constructor(private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
+  constructor(private eventService: EventService, private camera: Camera, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modelCrtl: ModalController, public push: Push) {
   }
 
-  getLastCreatedMove() {
-    this.restService.getMyEvents()
-      .subscribe(response => {
-        console.log("respone (getLastCreatedMove): " + response);
-        let eventLength: number = response.length;
-        if (eventLength > 0) {
-          this.eventCreated.$title = response[eventLength - 1].title;
-          this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
-        } else if (eventLength == 0) {
-          this.eventCreated.$title = "Noch kein Move erstellt :(";
-          this.eventCreated.$starttimepoint = "";
-        }
-      }, error => {
-        console.log("Oooops! @11");
-      });
+  ionViewDidLoad(){
+    this.eventService.getMyEventListObservable().subscribe(event => {
+        this.eventCreated = event;
+    });
+
+    this.eventService.getMyEventsSubscribedObservable().subscribe(event =>{
+        this.nextMove = event  
+    });
   }
 
-  getNextMove() {
-    this.restService.getMyEventSubscriber()
-      .subscribe(response => {
-        console.log("response (getNextMove): " + response);
-        if (response.length > 0) {
-          this.nextMove.$title = response[response.length - 1].title;
-          this.nextMove.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
-        } else if (response.length == 0) {
-          this.nextMove.$title = "Kein Move anstehend :)"
-          this.nextMove.$starttimepoint = "";
-        }
-      }, error => {
-        console.log("Oooops! @22");
-      });
-  }
-
-  ionViewWillEnter() {
-    console.log('ionViewDidLoad NewEvent');
-
-    this.getLastCreatedMove();
-    this.getNextMove();
-  }
 
   selectStartOnMap() {
     let mapView = this.modelCrtl.create(EventCreateMap);
@@ -88,7 +61,7 @@ export class NewEvent {
         .subscribe(response => {
           if (response.message === 'Event erstellt') {
             this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
-            this.getLastCreatedMove();
+            this.eventService.refreshMyEventsList();
             this.event = new MyEvent();
           } else {
             this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
@@ -105,6 +78,7 @@ export class NewEvent {
   }
 
   takePhotoLocation() {
+    this.eventService.refreshMyEventsList();
     const options: CameraOptions = {
       quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,

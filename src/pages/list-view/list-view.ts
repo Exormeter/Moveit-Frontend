@@ -6,6 +6,7 @@ import { MyEvent } from "../../models/event";
 import { User } from "../../models/user";
 import { Geolocation } from '@ionic-native/geolocation';
 import { LatLng } from '@ionic-native/google-maps';
+import { EventService } from "../../services/eventService";
 
 @IonicPage()
 @Component({
@@ -13,10 +14,8 @@ import { LatLng } from '@ionic-native/google-maps';
   templateUrl: './list-view.html',
 })
 export class ListView {
-  myEvents: MyEvent[] = [];
-  allEvents: MyEvent[] = [];
-  myEventsSearch: MyEvent[] = [];
-  allEventsSearch: MyEvent[] = [];
+  myEvents: MyEvent[] = new Array();
+  allEvents: MyEvent[] = new Array();
   geolocation: Geolocation = new Geolocation();
   myLat: number = 52;
   myLong: number = 8;
@@ -25,7 +24,8 @@ export class ListView {
   myAddress: string = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public modalCtrl: ModalController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController, private eventService: EventService) {
+      
   }
 
 
@@ -34,8 +34,15 @@ export class ListView {
     eventViewer.present();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListView');
+  subcribeToEventLists(){
+    this.eventService.getAllEventListObservable().subscribe(event =>{
+      this.allEvents.push(event);
+    });
+
+    this.eventService.getMyEventListObservable().subscribe(event =>{
+      console.log(event);
+      this.myEvents.push(event);
+    });
   }
 
   mySplit(keywords: string[]) {
@@ -45,6 +52,10 @@ export class ListView {
       this.keywordsHashtag += " #" + element;
     })
     return this.keywordsHashtag;
+  }
+
+  ionViewDidLoad(){
+    this.subcribeToEventLists();
   }
 
   ionViewWillEnter() {
@@ -63,7 +74,6 @@ export class ListView {
     this.geolocation.getCurrentPosition().then(res => {
       this.myLat = res.coords.latitude;
       this.myLong = res.coords.longitude;
-
       this.updateAddress();
     });
   }
@@ -79,73 +89,51 @@ export class ListView {
           }
         });
     }
-
-    this.updateLists();
   }
 
-  updateLists() {
-    this.myEvents = [];
-    this.allEvents = [];
-    this.myEventsSearch = [];
-    this.allEventsSearch = [];
 
-    this.restService.getMyEvents()
-      .subscribe(response => {
-        response.forEach(element => {
-          this.myEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords));
-        }, error => {
-          console.log("Oooops!");
-        });
-      });
+  reset(){
+    this.myEvents.forEach((event) => {
+      event.$isNotHidden = true;
+    });
 
-    this.restService.getAllEvents(this.myLat, this.myLong)
-      .subscribe(response => {
-        response.forEach(element => {
-          this.allEvents.push(new MyEvent(element._id, element.createdAt, element.creator, element.title, element.longitude,
-            element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords,
-            Math.round(element.distA / 10.0) / 100.0));
-          console.log(element.starttimepoint);
-        }, error => {
-          console.log("Oooops!");
-        });
-      });
-
-    this.myEventsSearch = this.myEvents;
-    this.allEventsSearch = this.allEvents;
+     this.allEvents.forEach((event) => {
+      event.$isNotHidden = true;
+    });
   }
 
-  reset() {
-    this.myEventsSearch = this.myEvents;
-    this.allEventsSearch = this.allEvents;
-  }
 
   getItems(ev: any) {
     this.reset();
-    // set val to the value of the searchbar
-    let val = ev.target.value;
-    if (val) {
-      val = val.trim();
-      val = val.toLowerCase();
-      if (val) {
-        this.myEventsSearch = this.myEventsSearch.filter((e) => {
-          for (var index = 0; index < e.$keywords.length; index++) {
-            var k = e.$keywords[index].toLowerCase();
-            if (k.indexOf(val) >= 0) {
-              return true;
+    let input = ev.target.value;
+    if (input) {
+      input = input.trim();
+      input = input.toLowerCase();
+      if (input) {
+        this.myEvents.forEach((event) => {
+          let isFound: boolean = false;
+          for (var index = 0; index < event.$keywords.length; index++) {
+            let keyword: string = event.$keywords[index].toLowerCase();
+            if (keyword.indexOf(input) >= 0) {
+              isFound = true;
             }
           }
-          return false;
+          if(!isFound){
+            event.$isNotHidden = false;
+          }
         });
 
-        this.allEventsSearch = this.allEventsSearch.filter((e) => {
-          for (var index = 0; index < e.$keywords.length; index++) {
-            var k = e.$keywords[index].toLowerCase();
-            if (k.indexOf(val) >= 0) {
-              return true;
+        this.allEvents.forEach((event) => {
+          let isFound: boolean = false;
+          for (var index = 0; index < event.$keywords.length; index++) {
+            let keyword: string = event.$keywords[index].toLowerCase();
+            if (keyword.indexOf(input) >= 0) {
+              isFound = true;
             }
           }
-          return false;
+          if(!isFound){
+            event.$isNotHidden = false;
+          }
         });
       }
     }
@@ -160,42 +148,4 @@ export class ListView {
     alert.present();
   }
 
-  dateToString(date: Date): string {
-    let time: string = "";
-    let day: string;
-    let month: string;
-    let hours: string;
-    let minutes: string;
-
-    if (date.getDate() <= 9) {
-      day = "" + 0 + date.getDate();
-    }
-    else {
-      day = "" + date.getDate();
-    }
-
-    if (date.getMinutes() <= 9) {
-      minutes = "" + 0 + date.getMinutes();
-    }
-    else {
-      minutes = "" + date.getMinutes();
-    }
-
-    if (date.getMonth() <= 9) {
-      month = "" + 0 + (date.getMonth() + 1);
-    }
-    else {
-      month = "" + (date.getMonth() + 1);
-    }
-
-    if (date.getHours() <= 9) {
-      hours = "" + 0 + date.getHours();
-    }
-    else {
-      hours = "" + date.getHours();
-    }
-
-    time = time + day + "." + month + "." + date.getFullYear() + " " + hours + ":" + minutes;
-    return time;
-  }
 }

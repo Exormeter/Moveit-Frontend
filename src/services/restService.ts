@@ -104,7 +104,7 @@ export class RestService {
         return response;
     }
 
-    getMyEventSubscriber(): Observable<any> {
+    getMyEventSubscribed(): Observable<any> {
         let url: string = this.baseurl + '/myEventsSubscriber';
         let response: Observable<any> = this.http.get(url, { withCredentials: true })
             .map(response => response.json());

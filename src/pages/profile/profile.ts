@@ -50,7 +50,7 @@ export class Profile {
   }
 
   getAmoundMoveSubs() {
-    this.restService.getMyEventSubscriber()
+    this.restService.getMyEventSubscribed()
       .subscribe(response => {
         console.log("response (getNextMove): " + response);
         this.profileVars.amountEventSubs = response.length;

@@ -7,6 +7,7 @@ import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
 import { User } from '../../models/user';
 import { Push, PushToken } from '@ionic/cloud-angular';
+import { EventService } from "../../services/eventService";
 
 @IonicPage()
 @Component({
@@ -16,8 +17,8 @@ import { Push, PushToken } from '@ionic/cloud-angular';
 export class Login {
 
   loginVars = {
-    username: '',
-    password: ''
+    username: 'Nils',
+    password: 'qwert'
   };
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {

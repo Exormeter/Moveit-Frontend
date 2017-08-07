@@ -12,6 +12,7 @@ export class MyEvent {
 	private subscriber: string[];
 	private keywords: string[];
 	private distA: number;
+	private isNotHidden: boolean;
 
 	constructor(id: string = '', $createdAt: string = '', $creator: string = '', $title: string = '', $longitude: number = 0,
 		$latitude: number = 0, $starttimepoint: string = '', _v: number = 0, $picture: string = '', $subscriber: string[] = [], $keywords: string[] = [],
@@ -28,6 +29,7 @@ export class MyEvent {
 		this.subscriber = $subscriber;
 		this.keywords = $keywords;
 		this.distA = $distA;
+		this.isNotHidden = true;
 	}
 
 	public get $title(): string {
@@ -127,7 +129,11 @@ export class MyEvent {
 		this.distA = value;
 	}
 
-	public getit(): string {
-		return "test";
+	public get $isNotHidden(): boolean{
+		return this.isNotHidden;
+	}
+
+	public set $isNotHidden(bool: boolean){
+		this.isNotHidden = bool;
 	}
 }
