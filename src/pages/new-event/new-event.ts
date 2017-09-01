@@ -34,7 +34,7 @@ export class NewEvent {
           this.eventCreated.$title = response[eventLength - 1].title;
           this.eventCreated.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
         } else if (eventLength == 0) {
-          this.eventCreated.$title = "Noch kein Move erstellt :(";
+          this.eventCreated.$title = "";
           this.eventCreated.$starttimepoint = "";
         }
       }, error => {
@@ -50,7 +50,7 @@ export class NewEvent {
           this.nextMove.$title = response[response.length - 1].title;
           this.nextMove.$starttimepoint = new Date(response[response.length - 1].starttimepoint).toString();
         } else if (response.length == 0) {
-          this.nextMove.$title = "Kein Move anstehend :)"
+          this.nextMove.$title = "no event upcoming";
           this.nextMove.$starttimepoint = "";
         }
       }, error => {
@@ -76,22 +76,23 @@ export class NewEvent {
 
   createMove() {
     // locationCheck = true: führt beim erstellen des Events ein Check aus, ob ein Standort ausgewählt ist
-    // auf false setzen damit man es im Browser testen kann (da man dort kein Standort setzt)
+    // auf false setzen damit man es im Browser besser testen kann
+    // da man nicht jedes Mal zum erstellen eines Events einen Standort setzen muss
     var locationCheck = true;
 
     if (this.event.$title == "" || this.event.$starttimepoint == "" || this.event.$keywords == undefined) {
-      this.presentAlert("Fehlgeschlagen", "Nicht alle Felder ausgefüllt");
+      this.presentAlert("Failure", "You left some fields blank");
     } else if ((!this.event.$latitude || !this.event.$longitude) && locationCheck) {
-      this.presentAlert("Fehlgeschlagen", "Keinen Standort ausgewählt");
+      this.presentAlert("Failure", "No location selected");
     } else {
       this.restService.newEvent(this.event)
         .subscribe(response => {
           if (response.message === 'Event erstellt') {
-            this.presentAlert('Erfolgreich', 'Event erfolgreich erstellt');
+            this.presentAlert('Succes', 'Event created');
             this.getLastCreatedMove();
             this.event = new MyEvent();
           } else {
-            this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+            this.presentAlert('Oh noes...', 'An unexpected error happened');
           }
         }, error => {
           console.log("Oooops!");

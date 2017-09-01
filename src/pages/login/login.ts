@@ -22,10 +22,10 @@ export class Login {
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public restService: RestService, public user: User, public push: Push) {
     this.push.rx.notification()
-    .subscribe((msg) => {
-      alert(msg.title + ': ' + msg.text);
-    });
-    
+      .subscribe((msg) => {
+        alert(msg.title + ': ' + msg.text);
+      });
+
   }
 
   presentAlert(title, subTitle) {
@@ -40,7 +40,7 @@ export class Login {
   login() {
     // Lokale Überprüfung der Eingaben bevor POST 
     if (this.loginVars.username == '' || this.loginVars.password == '') {
-      this.presentAlert('Login fehlgeschlagen', 'Nicht alle Felder ausgefüllt');
+      this.presentAlert('Login failed', 'Type in your username and password');
     } else {
 
       // POST ab hier
@@ -70,11 +70,11 @@ export class Login {
 
             this.navCtrl.setRoot(TabsPage);
           } else if (response.message === 'User Not found') {
-            this.presentAlert('Login fehlgeschlagen', 'Ungültiger Username oder Passwort');
+            this.presentAlert('Login failed', 'Username or Password is wrong');
           } else if (response.message === 'Invalid Password') {
-            this.presentAlert('Login fehlgeschlagen', 'Falsches Passwort');
+            this.presentAlert('Login failed', 'Password is wrong');
           } else {
-            this.presentAlert('Oh noes...', 'Unerwarteter Fehler aufgetreten... Keine Internetverbindung?');
+            this.presentAlert('Oh noes...', 'An unexpected error happened...');
           }
         }, error => {
           console.log("Oooops!");

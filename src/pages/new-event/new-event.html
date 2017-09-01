@@ -1,25 +1,25 @@
 <ion-header>
   <ion-navbar>
-    <ion-title class="center">Neuer Move!</ion-title>
+    <ion-title class="center">Create new event</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-item>
-    <ion-label floating>Titel: </ion-label>
+    <ion-label floating>Title: </ion-label>
     <ion-input type="text" [(ngModel)]="event.$title" clearInput="true"></ion-input>
   </ion-item>
 
-  <button ion-button (click)="selectStartOnMap()">Standort auswählen</button>
-  <button ion-button (click)="takePhotoLocation()">Snap Location</button>
+  <button ion-button (click)="selectStartOnMap()">Select location</button>
+  <button ion-button (click)="takePhotoLocation()">Snap</button>
 
   <ion-item>
-    <ion-label floating>Startet in (minuten): </ion-label>
+    <ion-label floating>Starts in (minutes): </ion-label>
     <ion-input type="number" [(ngModel)]="event.$starttimepoint" clearInput="true"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label floating>Keyword:</ion-label>
+    <ion-label floating>Keywords:</ion-label>
     <ion-input type="text" [(ngModel)]="newKeyword"></ion-input>
     <button ion-button clear item-right (click)=addToKeywordList()>Add</button>
   </ion-item>
@@ -30,11 +30,11 @@
     </ion-item>
   </ion-list>
 
-  <button ion-button (click)="createMove()" color="secondary">Erstellen!</button>
+  <button ion-button (click)="createMove()" color="secondary">Create event!</button>
   <hr>
 
   <br /><br />
-  <p class="header">Dein nächster Move:</p>
+  <p class="header">Your next event</p>
   <ion-item>
     <ion-label>Move: </ion-label>
     <ion-input [(ngModel)]="nextMove.$title" readonly="true"></ion-input>
@@ -46,7 +46,7 @@
   <hr>
 
   <br /><br />
-  <p class="header">Dein letzter Move:</p>
+  <p class="header">Your last created event</p>
 
   <ion-item>
     <ion-label>Move: </ion-label>
