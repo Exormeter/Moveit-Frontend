@@ -1,36 +1,38 @@
-<ion-header>
+<!-- 
+    <ion-header>
     <ion-navbar>
-        <ion-title class="center">Event Liste</ion-title>
+        <ion-title class="center">Event list</ion-title>
     </ion-navbar>
 </ion-header>
+-->
 
 <ion-content padding>
     <ion-note class="center">
-        <p class="center">Deine Position: {{myAddress}}</p>
+        <p class="center">Your position: {{myAddress}}</p>
     </ion-note>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
         <ion-list-header>
-            Meine Events
+            My events
         </ion-list-header>
         <!--<ion-label >- Keine Events gefunden -</ion-label>-->
         <ion-item *ngFor="let item of myEventsSearch" (click)="itemSelected(item)">
             <h2>{{item.$title}}</h2>
-            <p>{{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstellt</p>
+            <p>{{item.$starttimepoint}} by <b>{{item.$creator}}</b></p>
             <h3>{{mySplit(item.$keywords)}}</h3>
             <ion-note item-right>{{getSubscriberCount(item.$subscriber)}}</ion-note>
         </ion-item>
     </ion-list>
     <ion-list>
         <ion-list-header>
-            Alle Events
+            All events
         </ion-list-header>
-        <!--<ion-label >- Keine Events gefunden -</ion-label>-->
+        <!--<ion-label >- No events found -</ion-label>-->
         <ion-item *ngFor="let item of allEventsSearch" (click)="itemSelected(item)">
             <h2>{{item.$title}} </h2>
-            <p>{{item.$starttimepoint}} Uhr von <b>{{item.$creator}}</b> erstellt</p>
+            <p>{{item.$starttimepoint}} by <b>{{item.$creator}}</b></p>
             <h3>{{mySplit(item.$keywords)}}</h3>
-            <ion-note item-right>{{item.$distA}} KM</ion-note>
+            <ion-note item-right>{{item.$distA}} km</ion-note>
         </ion-item>
     </ion-list>
 </ion-content>

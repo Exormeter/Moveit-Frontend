@@ -55,7 +55,9 @@
     <ion-input type="password" [(ngModel)]="user.$passwordCheck" clearInput="true"></ion-input>
   </ion-item>
 
-  <button ion-button (click)="createAccount()">Register</button>
+  <div>
+    <button ion-button (click)="createAccount()">Register</button>
+  </div>
 
   <ion-item>
     <ion-label (click)="resetInputs()">Reset inputs</ion-label>

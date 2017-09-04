@@ -28,7 +28,6 @@ export class ListView {
     private alertCtrl: AlertController) {
   }
 
-
   itemSelected(event: MyEvent) {
     let eventViewer = this.modalCtrl.create(EventView, { event: event })
     eventViewer.present();
@@ -75,7 +74,7 @@ export class ListView {
           if (r.results && r.results.length > 0 && r.results[0].formatted_address) {
             this.myAddress = r.results[0].formatted_address;
           } else {
-            this.myAddress = 'keine Adresse';
+            this.myAddress = 'no address';
           }
         });
     }
@@ -96,6 +95,7 @@ export class ListView {
             element.latitude, this.dateToString(new Date(element.starttimepoint)), element.__v, element.picture, element.subscriber, element.keywords));
         }, error => {
           console.log("Oooops!");
+          this.presentAlert('Oh noes...', 'An unexpected error happened. Maybe no internet connection?');
         });
       });
 
@@ -108,6 +108,7 @@ export class ListView {
           console.log(element.starttimepoint);
         }, error => {
           console.log("Oooops!");
+          this.presentAlert('Oh noes...', 'An unexpected error happened. Maybe no internet connection?');
         });
       });
 

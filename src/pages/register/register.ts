@@ -49,6 +49,7 @@ export class Register {
           }
         }, error => {
           console.log("Oooops!");
+          this.presentAlert('Oh noes...', 'An unexpected error happened. Maybe no internet connection?');
         });
     }
   }

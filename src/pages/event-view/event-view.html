@@ -1,71 +1,70 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title class="center">{{event.$title}}</ion-title>
-    <ion-buttons end>
-    <button *ngIf=modalCreatorisNotMapView color="danger" (click)="viewOnMap()">Karte</button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title class="center">{{event.$title}}</ion-title>
+        <ion-buttons end>
+            <button *ngIf=modalCreatorisNotMapView color="danger" (click)="viewOnMap()">Map</button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
-<ion-content >
-        <ion-card>
-            <ion-card-header>
-                Ersteller
-            </ion-card-header>
-            <ion-card-content>
-                <ion-item>
-                   <ion-avatar item-left>
-                        <img [src]="_DomSanitizer.bypassSecurityTrustUrl(creatorAvatar)"/>
-                   </ion-avatar>
-                    <h2 item-left>{{event.$creator}}</h2>        
-                 </ion-item>        
-            </ion-card-content>
-        </ion-card>
-        <ion-card>
-            <ion-card-header>
-                Startzeit
-            </ion-card-header>
-            <ion-card-content>
-                {{event.$starttimepoint}}
-            </ion-card-content>
-        </ion-card>
-         <ion-card>
-            <ion-card-header>
-                Teilnehmer
-            </ion-card-header>
-            <ion-card-content>
-                <ion-list>
-                    <ion-item *ngFor="let item of subscriberList">
-                        <ion-avatar item-left>
-                            <img [src]="_DomSanitizer.bypassSecurityTrustUrl(item.$picture)">
-                        </ion-avatar>
-                        <h2 item-left>{{item.$username}}</h2>
-                    </ion-item>
-                </ion-list>
-               
-            </ion-card-content>
-        </ion-card>
-         <ion-card>
-             <ion-card-header>
-                Location
-            </ion-card-header>            
-            <ion-card-content>
-                 <img [src]="_DomSanitizer.bypassSecurityTrustUrl(event.$picture)"/>
-            </ion-card-content>
-        </ion-card>
-         <ion-card>
-             <ion-card-header>
-                Keys
-            </ion-card-header>            
-            <ion-card-content>
-                 <ion-list>
-                    <p *ngFor="let item of event.$keywords">#{{item}}</p>
-                </ion-list>
-            </ion-card-content>
-        </ion-card>
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            Creator
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item>
+                <ion-avatar item-left>
+                    <img [src]="_DomSanitizer.bypassSecurityTrustUrl(creatorAvatar)" />
+                </ion-avatar>
+                <h2 item-left>{{event.$creator}}</h2>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            Start time
+        </ion-card-header>
+        <ion-card-content>
+            {{event.$starttimepoint}}
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            Participants
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item *ngFor="let item of subscriberList">
+                    <ion-avatar item-left>
+                        <img [src]="_DomSanitizer.bypassSecurityTrustUrl(item.$picture)">
+                    </ion-avatar>
+                    <h2 item-left>{{item.$username}}</h2>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            Location
+        </ion-card-header>
+        <ion-card-content>
+            <img [src]="_DomSanitizer.bypassSecurityTrustUrl(event.$picture)" />
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            Keywords
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <p *ngFor="let item of event.$keywords">#{{item}}</p>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
 
 <ion-footer>
-        <button *ngIf=isNotSubscriberOrCreator ion-button full color="secondary"(click)="enter()">Teilnehmen</button>
-        <button ion-button full color="danger" (click)="cancel()">Zurück</button>
+    <button *ngIf=isNotSubscriberOrCreator ion-button full color="secondary" (click)="enter()">Teilnehmen</button>
+    <button ion-button full color="danger" (click)="cancel()">Zurück</button>
 </ion-footer>

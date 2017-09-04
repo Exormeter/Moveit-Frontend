@@ -12,10 +12,10 @@ import { Register } from '../pages/register/register';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  //public rootPage: any = TabsPage;
+
   //public rootPage: any = Login;
-  //public rootPage: any = TabsPage;
-  public rootPage: any = Login;
+
+  public rootPage: any = TabsPage;
   //public rootPage: any = Register;
   //public rootPage: any = Profile;
 

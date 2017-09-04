@@ -40,7 +40,7 @@ export class Login {
   login() {
     // Lokale Überprüfung der Eingaben bevor POST 
     if (this.loginVars.username == '' || this.loginVars.password == '') {
-      this.presentAlert('Login failed', 'Type in your username and password');
+      this.presentAlert('Login failed', 'Missing credentials');
     } else {
 
       // POST ab hier
@@ -78,6 +78,7 @@ export class Login {
           }
         }, error => {
           console.log("Oooops!");
+          this.presentAlert('Oh noes...', 'An unexpected error happened. Maybe no internet connection?');
         });
     }
   }
