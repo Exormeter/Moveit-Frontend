@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Http } from '@angular/http';
-import { Page } from 'ionic/ionic';
 import { RestService } from '../../services/restService';
 import { TabsPage } from '../tabs/tabs';
 import { Register } from '../register/register';
 import { User } from '../../models/user';
 import { Push, PushToken } from '@ionic/cloud-angular';
-import { EventService } from "../../services/eventService";
+
 
 @IonicPage()
 @Component({

@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { RestService } from '../../services/restService';
 import { Login } from '../login/login';
-import { Http } from '@angular/http';
-import { Page } from 'ionic/ionic';
 import { User } from "../../models/user";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { DomSanitizer } from '@angular/platform-browser';
@@ -29,7 +27,7 @@ export class Profile {
   nextMove: MyEvent = new MyEvent();
 
   cameraOptions: CameraOptions = {
-    quality: 100,
+    quality: 20,
     destinationType: this.camera.DestinationType.DATA_URL,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     encodingType: this.camera.EncodingType.JPEG,

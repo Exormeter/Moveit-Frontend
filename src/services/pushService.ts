@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Response, Http, Headers} from '@angular/http';
+import { Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import { User } from "../models/user";
 
 @Injectable()
 export class PushService{

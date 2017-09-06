@@ -5,7 +5,6 @@ import { RestService } from "../../services/restService";
 import { MyEvent } from "../../models/event";
 import { User } from "../../models/user";
 import { Geolocation } from '@ionic-native/geolocation';
-import { LatLng } from '@ionic-native/google-maps';
 import { EventService } from "../../services/eventService";
 
 @IonicPage()

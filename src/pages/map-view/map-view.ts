@@ -3,7 +3,6 @@ import { IonicPage, NavController, Platform, NavParams, ViewController, ModalCon
 import { GoogleMap, GoogleMapsEvent, LatLng, MarkerOptions, Marker, CameraPosition, GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { MyEvent } from '../../models/event';
-import { RestService } from '../../services/restService';
 import { EventView } from "../event-view/event-view";
 import { EventService } from "../../services/eventService";
 
@@ -75,7 +74,6 @@ export class MapView {
           };
           mapView.map.addMarker(markerOptions).then(function (marker: Marker) {
             marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-              console.log(marker.getSnippet());
               let eventViewer = mapView.navCtrl.push(EventView, { event: mapView.findEvent(marker.getSnippet(), mapView.eventList), pre: MapView })
             });
           })

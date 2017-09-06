@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { Page } from 'ionic/ionic';
 import { EventCreateMap } from '../event-map-create/event-map-create';
-import { MapView } from '../map-view/map-view';
 import { RestService } from "../../services/restService";
 import { Push } from "@ionic/cloud-angular";
 import { MyEvent } from '../../models/event';
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { EventService } from "../../services/eventService";
-import { Observable } from "rxjs/Rx";
 
 @IonicPage()
 @Component({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController, ViewController, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, ViewController, NavController, NavParams, Platform } from 'ionic-angular';
 import { GoogleMap, GoogleMaps, GoogleMapsEvent, LatLng, MarkerOptions, Marker, CameraPosition } from '@ionic-native/google-maps';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 

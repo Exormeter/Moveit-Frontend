@@ -21,7 +21,6 @@ import { RestService } from "../services/restService";
 import { EventView } from "../pages/event-view/event-view";
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { User } from "../models/user";
-import { MyEvent } from "../models/event";
 import { PushService } from "../services/pushService";
 import { Camera } from "@ionic-native/camera";
 import { EventService } from "../services/eventService";
