@@ -13,9 +13,9 @@ import { Register } from '../pages/register/register';
 })
 export class MyApp {
 
-  //public rootPage: any = Login;
+  public rootPage: any = Login;
 
-  public rootPage: any = TabsPage;
+  //public rootPage: any = TabsPage;
   //public rootPage: any = Register;
   //public rootPage: any = Profile;
 
